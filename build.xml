@@ -14,19 +14,17 @@
 		<mkdir dir="${build}"/>
 	</target>
 
-	<target name="compile" depends="init"
-				description="compile the source " >
+	<target name="compile" depends="init" description="compile the source " >
 		<!-- Compile the java code from ${src} into ${build} -->
 		<javac srcdir="${src}" destdir="${build}"/>
 	</target>
 
-	<target name="dist" depends="compile"
-				description="generate the distribution" >
+	<target name="dist" depends="compile" description="generate the distribution" >
 		<!-- Create the distribution directory -->
 		<mkdir dir="${dist}/lib"/>
 
 		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-		<jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}"/>
+		<jar jarfile="${dist}/lib/QuickStarter-${DSTAMP}.jar" basedir="${build}"/>
 	</target>
 
 	<target name="clean"
