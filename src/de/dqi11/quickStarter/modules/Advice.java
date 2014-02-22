@@ -1,5 +1,8 @@
 package de.dqi11.quickStarter.modules;
 
+/**
+ * Represents an Advice (a possible action for a specific Module-search-string-combination).
+ */
 public class Advice {
 	private String text;
 	
