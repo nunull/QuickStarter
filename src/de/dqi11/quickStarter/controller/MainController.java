@@ -7,6 +7,7 @@ import java.util.Observer;
 import de.dqi11.quickStarter.gui.MainWindow;
 import de.dqi11.quickStarter.modules.Advice;
 import de.dqi11.quickStarter.modules.Module;
+import de.dqi11.quickStarter.modules.TestModule;
 import de.dqi11.quickStarter.os.MacOS;
 import de.dqi11.quickStarter.os.OS;
 import de.dqi11.quickStarter.os.WinOS;
@@ -41,6 +42,7 @@ public class MainController implements Observer {
 	 */
 	public void initModules() {
 		// TODO this.modules.push(new Module())
+		modules.push(new TestModule());
 	}
 	
 	/**

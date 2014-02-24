@@ -6,6 +6,22 @@ package de.dqi11.quickStarter.modules;
 public class Advice {
 	private String text;
 	
+	/**
+	 * Default constructor.
+	 */
+	public Advice() {
+		
+	}
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param text The text.
+	 */
+	public Advice(String text) {
+		this.text = text;
+	}
+	
 	// TODO return type
 	public void getTooltip() {
 		
@@ -27,5 +43,10 @@ public class Advice {
 	 */
 	public void setText(String text) {
 		this.text = text;
+	}
+	
+	@Override
+	public String toString() {
+		return text;
 	}
 }

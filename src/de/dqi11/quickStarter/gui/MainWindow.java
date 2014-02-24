@@ -6,7 +6,9 @@ import java.awt.event.KeyListener;
 import java.util.LinkedList;
 import java.util.Observable;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -19,12 +21,14 @@ import de.dqi11.quickStarter.modules.Advice;
  * shows the search-field and Advices.
  */
 public class MainWindow extends Observable {
-	private final int TEXTFIELD_WIDTH = 300;
+	private final int WIDTH = 300;
 	private final int TEXTFIELD_HEIGHT = 50;
+	private final int ADVICESLIST_MAXHEIGHT = 200;
 	private boolean visible;
 	private JFrame mainFrame;
 	private JPanel mainPanel;
 	private JTextField textField;
+	private DefaultListModel<Advice> advicesListModel;
 	private KeyListener keyListener;
 	private DocumentListener documentListener;
 	private LinkedList<Advice> advices;
@@ -40,6 +44,7 @@ public class MainWindow extends Observable {
 		initMainFrame();
 		initMainPanel();
 		initTextField();
+		initAdvicesPanel();
 	}
 	
 	/**
@@ -91,7 +96,7 @@ public class MainWindow extends Observable {
 	public void initMainFrame() {
 		mainFrame = new JFrame();
 		mainFrame.setUndecorated(true);
-		mainFrame.setSize(TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		mainFrame.setSize(WIDTH, TEXTFIELD_HEIGHT + ADVICESLIST_MAXHEIGHT);
 		mainFrame.setLocationRelativeTo(null);
 	}
 	
@@ -108,11 +113,35 @@ public class MainWindow extends Observable {
 	 */
 	public void initTextField() {
 		textField = new JTextField();
-		textField.setPreferredSize(new Dimension(TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT));
+		textField.setPreferredSize(new Dimension(WIDTH, TEXTFIELD_HEIGHT));
 		textField.addKeyListener(keyListener);
 		textField.getDocument().addDocumentListener(documentListener);
 		
 		mainPanel.add(textField);
+	}
+	
+	/**
+	 * Initializes the advicesPanel;
+	 */
+	public void initAdvicesPanel() {
+		advicesListModel = new DefaultListModel<>();
+		
+		
+		JList<Advice> advicesList = new JList<>(advicesListModel);
+		advicesList.setPreferredSize(new Dimension(WIDTH, ADVICESLIST_MAXHEIGHT));
+		
+		mainPanel.add(advicesList);
+	}
+	
+	/**
+	 * Updates the shown advices.
+	 */
+	public void updateAdvices() {
+		advicesListModel.clear();
+		
+		for(Advice advice : advices) {
+			advicesListModel.addElement(advice);
+		}
 	}
 	
 	/**
@@ -134,5 +163,6 @@ public class MainWindow extends Observable {
 	
 	public void setAdvices(LinkedList<Advice> advices) {
 		this.advices = advices;
+		updateAdvices();
 	}
 }
