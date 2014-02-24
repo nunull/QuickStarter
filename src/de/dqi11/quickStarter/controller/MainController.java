@@ -5,7 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import de.dqi11.quickStarter.gui.MainWindow;
-import de.dqi11.quickStarter.modules.Advice;
+import de.dqi11.quickStarter.modules.ModuleAction;
 import de.dqi11.quickStarter.modules.Module;
 import de.dqi11.quickStarter.modules.TestModule;
 import de.dqi11.quickStarter.os.MacOS;
@@ -69,16 +69,15 @@ public class MainController implements Observer {
 	 * @param search The specific search-term.
 	 * @return a list of Advices (possible actions).
 	 */
-	public LinkedList<Advice> invoke(String search) {
-		LinkedList<Advice> advices = new LinkedList<>();
+	public LinkedList<ModuleAction> invoke(String search) {
+		LinkedList<ModuleAction> moduleActions = new LinkedList<>();
 		
 		for(Module m : modules) {
-			Advice advice = m.getAdvice(search);
-			if(advice != null) {
-				advices.push(advice);
-			}
+			ModuleAction moduleAction = m.getModuleAction(search);
+			if(moduleAction != null) moduleActions.push(moduleAction);
 		}
-		return advices;
+		
+		return moduleActions;
 	}
 	
 	/**
@@ -97,7 +96,7 @@ public class MainController implements Observer {
 		if(o instanceof OS) {
 			mainWindow.toggleApplication();
 		} else if(o instanceof MainWindow) {
-			mainWindow.setAdvices(invoke(mainWindow.getSearchString()));;
+			mainWindow.setModuleActions(invoke(mainWindow.getSearchString()));;
 		}
 	}
 }

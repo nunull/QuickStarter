@@ -3,13 +3,13 @@ package de.dqi11.quickStarter.modules;
 /**
  * Represents an Advice (a possible action for a specific Module-search-string-combination).
  */
-public class Advice {
+public class ModuleAction {
 	private String text;
 	
 	/**
 	 * Default constructor.
 	 */
-	public Advice() {
+	public ModuleAction() {
 		
 	}
 	
@@ -18,7 +18,7 @@ public class Advice {
 	 * 
 	 * @param text The text.
 	 */
-	public Advice(String text) {
+	public ModuleAction(String text) {
 		this.text = text;
 	}
 	

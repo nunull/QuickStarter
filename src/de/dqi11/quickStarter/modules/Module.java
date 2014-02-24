@@ -10,5 +10,5 @@ public interface Module {
 	 * @param search The specific search-term.
 	 * @return The Advice.
 	 */
-	public Advice getAdvice(String search);
+	public ModuleAction getModuleAction(String search);
 }

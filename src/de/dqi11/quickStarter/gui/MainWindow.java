@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import de.dqi11.quickStarter.modules.Advice;
+import de.dqi11.quickStarter.modules.ModuleAction;
 
 /**
  * Represents the main-application window, which 
@@ -28,10 +28,10 @@ public class MainWindow extends Observable {
 	private JFrame mainFrame;
 	private JPanel mainPanel;
 	private JTextField textField;
-	private DefaultListModel<Advice> advicesListModel;
+	private DefaultListModel<ModuleAction> moduleActionsListModel;
 	private KeyListener keyListener;
 	private DocumentListener documentListener;
-	private LinkedList<Advice> advices;
+	private LinkedList<ModuleAction> moduleActions;
 	
 	
 	/**
@@ -124,10 +124,10 @@ public class MainWindow extends Observable {
 	 * Initializes the advicesPanel;
 	 */
 	public void initAdvicesPanel() {
-		advicesListModel = new DefaultListModel<>();
+		moduleActionsListModel = new DefaultListModel<>();
 		
 		
-		JList<Advice> advicesList = new JList<>(advicesListModel);
+		JList<ModuleAction> advicesList = new JList<>(moduleActionsListModel);
 		advicesList.setPreferredSize(new Dimension(WIDTH, ADVICESLIST_MAXHEIGHT));
 		
 		mainPanel.add(advicesList);
@@ -136,11 +136,11 @@ public class MainWindow extends Observable {
 	/**
 	 * Updates the shown advices.
 	 */
-	public void updateAdvices() {
-		advicesListModel.clear();
+	public void updateModuleActions() {
+		moduleActionsListModel.clear();
 		
-		for(Advice advice : advices) {
-			advicesListModel.addElement(advice);
+		for(ModuleAction moduleAction : moduleActions) {
+			moduleActionsListModel.addElement(moduleAction);
 		}
 	}
 	
@@ -161,8 +161,13 @@ public class MainWindow extends Observable {
 		return textField.getText();
 	}
 	
-	public void setAdvices(LinkedList<Advice> advices) {
-		this.advices = advices;
-		updateAdvices();
+	/**
+	 * Sets the Advices and updates the GUI.
+	 * 
+	 * @param advices The List of Advices.
+	 */
+	public void setModuleActions(LinkedList<ModuleAction> moduleActions) {
+		this.moduleActions = moduleActions;
+		updateModuleActions();
 	}
 }
