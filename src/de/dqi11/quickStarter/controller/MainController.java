@@ -96,7 +96,7 @@ public class MainController implements Observer {
 		if(o instanceof OS) {
 			mainWindow.toggleApplication();
 		} else if(o instanceof MainWindow) {
-			mainWindow.setAdvices(invoke(mainWindow.getSearchString()));
+			mainWindow.setAdvices(invoke(mainWindow.getSearchString()));;
 		}
 	}
 }

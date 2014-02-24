@@ -9,6 +9,8 @@ import java.util.Observable;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import de.dqi11.quickStarter.modules.Advice;
 
@@ -24,7 +26,9 @@ public class MainWindow extends Observable {
 	private JPanel mainPanel;
 	private JTextField textField;
 	private KeyListener keyListener;
+	private DocumentListener documentListener;
 	private LinkedList<Advice> advices;
+	
 	
 	/**
 	 * Constructor.
@@ -46,26 +50,37 @@ public class MainWindow extends Observable {
 			
 			@Override
 			public void keyTyped(KeyEvent e) {
-				// escape-key
-				if(e.getKeyCode() == 27) {
-					toggleApplication();
-				} else {
-					// TODO
-					setChanged();
-					notifyObservers();
-				}
+				// TODO Auto-generated method stub
 			}
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
+				// escape-key
+				if(e.getKeyCode() == 27) toggleApplication();
+			}
+		};
+		
+		documentListener = new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				setChanged();
+				notifyObservers();
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				setChanged();
+				notifyObservers();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
 			}
 		};
 	}
@@ -95,6 +110,8 @@ public class MainWindow extends Observable {
 		textField = new JTextField();
 		textField.setPreferredSize(new Dimension(TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT));
 		textField.addKeyListener(keyListener);
+		textField.getDocument().addDocumentListener(documentListener);
+		
 		mainPanel.add(textField);
 	}
 	
