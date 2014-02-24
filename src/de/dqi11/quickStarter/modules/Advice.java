@@ -11,10 +11,20 @@ public class Advice {
 		
 	}
 
+	/**
+	 * Returns a text describing the represented action.
+	 *  
+	 * @return The describing text.
+	 */
 	public String getText() {
 		return text;
 	}
 
+	/**
+	 * Set the describing text.
+	 * 
+	 * @param text The describing text.
+	 */
 	public void setText(String text) {
 		this.text = text;
 	}

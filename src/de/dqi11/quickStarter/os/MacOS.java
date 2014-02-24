@@ -1,5 +1,7 @@
 package de.dqi11.quickStarter.os;
 
-public class MacOS implements OS {
-
+/**
+ * Wrapper for Mac OSX.
+ */
+public class MacOS extends OS {
 }
