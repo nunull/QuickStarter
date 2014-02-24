@@ -17,8 +17,7 @@ import de.dqi11.quickStarter.os.WinOS;
  */
 public class MainController implements Observer {
 	private LinkedList<Module> modules;
-	private OS winOS;
-	private OS macOS;
+	private OS os;
 	private MainWindow mainWindow;
 	
 	/**
@@ -49,10 +48,9 @@ public class MainController implements Observer {
 	 * Initializes the wrappers for operating-systems.
 	 */
 	public void initOS() {
-		winOS = new WinOS();
-		macOS = new MacOS();
-		winOS.addObserver(this);
-		macOS.addObserver(this);
+		if( System.getProperty("os.name").contains("Windows") ) os = new WinOS();
+		else os = new MacOS();
+		os.addObserver(this);
 	}
 	
 	/**
@@ -84,8 +82,7 @@ public class MainController implements Observer {
 	 * Shuts global (OS-wide) shortcut-handlers down. 
 	 */
 	public void shutdown() {
-		winOS.shutdown();
-		macOS.shutdown();
+		os.shutdown();
 	}
 
 	/**
