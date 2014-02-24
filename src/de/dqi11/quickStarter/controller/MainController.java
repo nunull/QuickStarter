@@ -34,7 +34,7 @@ public class MainController implements Observer {
 		/*
 		 * Just a small test.
 		 */
-		mainWindow.toggleApplication();
+//		mainWindow.toggleApplication();
 	}
 	
 	/**
@@ -51,7 +51,6 @@ public class MainController implements Observer {
 	public void initOS() {
 		winOS = new WinOS();
 		macOS = new MacOS();
-		
 		winOS.addObserver(this);
 		macOS.addObserver(this);
 	}
