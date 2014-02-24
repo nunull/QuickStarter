@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 
+import de.dqi11.quickStarter.gui.MainWindow;
 import de.dqi11.quickStarter.modules.Advice;
 import de.dqi11.quickStarter.modules.Module;
 import de.dqi11.quickStarter.os.MacOS;
@@ -17,6 +18,7 @@ public class MainController implements Observer {
 	private LinkedList<Module> modules;
 	private OS winOS;
 	private OS macOS;
+	private MainWindow mainWindow;
 	
 	/**
 	 * Constructor.
@@ -26,6 +28,12 @@ public class MainController implements Observer {
 		
 		initModules();
 		initOS();
+		initGUI();
+		
+		/*
+		 * Just a small test.
+		 */
+		mainWindow.toggleApplication();
 	}
 	
 	/**
@@ -47,6 +55,14 @@ public class MainController implements Observer {
 	}
 	
 	/**
+	 * Initializes the GUI.
+	 */
+	public void initGUI() {
+		mainWindow = new MainWindow();
+		mainWindow.addObserver(this);
+	}
+	
+	/**
 	 * Gets possible actions for the given search-term.
 	 * 
 	 * @param search The specific search-term.
@@ -65,10 +81,11 @@ public class MainController implements Observer {
 	}
 	
 	/**
-	 * Wrapper for future use, i.e. shutting global (os-wide) shurtcut-handlers down. 
+	 * Shuts global (OS-wide) shortcut-handlers down. 
 	 */
 	public void shutdown() {
-		
+		winOS.shutdown();
+		macOS.shutdown();
 	}
 
 	/**
@@ -76,6 +93,10 @@ public class MainController implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		
+		if(o instanceof OS) {
+			mainWindow.toggleApplication();
+		} else if(o instanceof MainWindow) {
+			mainWindow.setAdvices(invoke(mainWindow.getSearchString()));
+		}
 	}
 }

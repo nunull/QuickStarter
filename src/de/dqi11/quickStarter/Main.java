@@ -6,6 +6,9 @@ import java.util.Scanner;
 import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.modules.Advice;
 
+/**
+ * The main-class.
+ */
 public class Main {
 
 	/**
