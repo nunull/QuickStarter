@@ -14,7 +14,7 @@
 	</target>
 
 	<target name="compile" depends="init">
-		<javac srcdir="${src}" destdir="${build}"/>
+		<javac srcdir="${src}" destdir="${build}" classpathref="classpath"/>
 	</target>
 
 	<target name="dist" depends="compile">
