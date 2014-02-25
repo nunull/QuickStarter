@@ -124,9 +124,9 @@ public class MainWindow extends Observable {
 	 * Initializes the advicesPanel;
 	 */
 	public void initAdvicesPanel() {
-		moduleActionsListModel = new DefaultListModel<>();
+		moduleActionsListModel = new DefaultListModel<ModuleAction>();
 		
-		JList<ModuleAction> advicesList = new JList<>(moduleActionsListModel);
+		JList<ModuleAction> advicesList = new JList<ModuleAction>(moduleActionsListModel);
 		advicesList.setPreferredSize(new Dimension(WIDTH, ADVICESLIST_MAXHEIGHT));
 		
 		mainPanel.add(advicesList);
