@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.SwingUtilities;
+
 import de.dqi11.quickStarter.gui.MainWindow;
 import de.dqi11.quickStarter.modules.ModuleAction;
 import de.dqi11.quickStarter.modules.Module;
@@ -40,7 +42,6 @@ public class MainController implements Observer {
 	 * Initializes the modules.
 	 */
 	public void initModules() {
-		// TODO this.modules.push(new Module())
 		modules.push(new TestModule());
 	}
 	
@@ -59,6 +60,16 @@ public class MainController implements Observer {
 	public void initGUI() {
 		mainWindow = new MainWindow();
 		mainWindow.addObserver(this);
+		
+		// TODO
+//		SwingUtilities.invokeLater(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				
+//				
+//			}
+//		});
 	}
 	
 	/**
