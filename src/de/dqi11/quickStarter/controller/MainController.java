@@ -33,7 +33,7 @@ public class MainController implements Observer {
 		/*
 		 * Just a small test.
 		 */
-//		mainWindow.toggleApplication();
+		mainWindow.toggleApplication();
 	}
 	
 	/**
