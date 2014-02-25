@@ -10,7 +10,7 @@ import de.dqi11.quickStarter.gui.MainWindow;
 import de.dqi11.quickStarter.modules.ModuleAction;
 import de.dqi11.quickStarter.modules.Module;
 import de.dqi11.quickStarter.modules.TestModule;
-//import de.dqi11.quickStarter.os.MacOS;
+import de.dqi11.quickStarter.os.MacOS;
 import de.dqi11.quickStarter.os.OS;
 import de.dqi11.quickStarter.os.WinOS;
 
@@ -50,7 +50,7 @@ public class MainController implements Observer {
 	 */
 	public void initOS() {
 		if( System.getProperty("os.name").contains("Windows") ) os = new WinOS();
-//		else os = new MacOS();
+		else os = new MacOS();
 		os.addObserver(this);
 	}
 	

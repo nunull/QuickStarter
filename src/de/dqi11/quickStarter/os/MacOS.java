@@ -1,4 +1,4 @@
-/*package de.dqi11.quickStarter.os;
+package de.dqi11.quickStarter.os;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -7,7 +7,7 @@ import org.jnativehook.keyboard.NativeKeyListener;
 
 /**
  * Wrapper for Mac OSX.
- *//*
+ */
 public class MacOS extends OS implements NativeKeyListener {
 	
 	private boolean altKeyPressed = false;
@@ -42,4 +42,3 @@ public class MacOS extends OS implements NativeKeyListener {
 	public void nativeKeyTyped(NativeKeyEvent e) {
 	}
 }
-*/
