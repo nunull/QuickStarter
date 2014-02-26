@@ -28,7 +28,7 @@ public class MainWindow extends Observable {
 	private JFrame mainFrame;
 	private JPanel mainPanel;
 	private JTextField textField;
-	private DefaultListModel<ModuleAction> moduleActionsListModel;
+	private DefaultListModel moduleActionsListModel;
 	private KeyListener keyListener;
 	private DocumentListener documentListener;
 	private LinkedList<ModuleAction> moduleActions;
@@ -124,9 +124,9 @@ public class MainWindow extends Observable {
 	 * Initializes the advicesPanel;
 	 */
 	public void initAdvicesPanel() {
-		moduleActionsListModel = new DefaultListModel<>();
+		moduleActionsListModel = new DefaultListModel();
 		
-		JList<ModuleAction> advicesList = new JList<>(moduleActionsListModel);
+		JList advicesList = new JList(moduleActionsListModel);
 		advicesList.setPreferredSize(new Dimension(WIDTH, ADVICESLIST_MAXHEIGHT));
 		
 		mainPanel.add(advicesList);

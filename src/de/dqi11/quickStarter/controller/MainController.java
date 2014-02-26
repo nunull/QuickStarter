@@ -4,8 +4,6 @@ import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.SwingUtilities;
-
 import de.dqi11.quickStarter.gui.MainWindow;
 import de.dqi11.quickStarter.modules.ModuleAction;
 import de.dqi11.quickStarter.modules.Module;
@@ -26,7 +24,7 @@ public class MainController implements Observer {
 	 * Constructor.
 	 */
 	public MainController() {
-		this.modules = new LinkedList<>();
+		this.modules = new LinkedList<Module>();
 		
 		initModules();
 		initOS();
@@ -79,7 +77,7 @@ public class MainController implements Observer {
 	 * @return a list of Advices (possible actions).
 	 */
 	public LinkedList<ModuleAction> invoke(String search) {
-		LinkedList<ModuleAction> moduleActions = new LinkedList<>();
+		LinkedList<ModuleAction> moduleActions = new LinkedList<ModuleAction>();
 		
 		for(Module m : modules) {
 			ModuleAction moduleAction = m.getModuleAction(search);
