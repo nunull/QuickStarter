@@ -7,11 +7,11 @@ public class TestModule implements Module {
 	@Override
 	public ModuleAction getModuleAction(Search search) {
 		// Just some test here.
-		if(search.equals("test")) {
+		if(search.isCommand("test")) {
 			return new ModuleAction("Yeah, some test...") {
 				@Override
-				public void invoke() {
-					System.out.println("Do something, TestModule!");
+				public void invoke(Search search) {
+					System.out.println(search.getParam(0));
 				}
 			};
 		}

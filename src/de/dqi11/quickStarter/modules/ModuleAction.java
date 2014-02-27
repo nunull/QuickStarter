@@ -1,5 +1,6 @@
 package de.dqi11.quickStarter.modules;
 
+import de.dqi11.quickStarter.controller.Search;
 import de.dqi11.quickStarter.gui.ModuleWindow;
 
 /**
@@ -27,7 +28,7 @@ public class ModuleAction {
 	/**
 	 * Invoke the ModuleAction.
 	 */
-	public void invoke() {
+	public void invoke(Search search) {
 		
 	}
 	
@@ -36,7 +37,7 @@ public class ModuleAction {
 	 * 
 	 * @return A ModuleWindow or null if this is a non-GUI-action.
 	 */
-	public ModuleWindow getModuleWindow() {
+	public ModuleWindow getModuleWindow(Search search) {
 		return null;
 	}
 

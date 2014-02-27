@@ -48,6 +48,28 @@ public class Search {
 		}
 	}
 	
+	/**
+	 * Returns the parameter at the given index.
+	 * 
+	 * @param index The index.
+	 * @return The parameter or null if the index is out of bounds.
+	 */
+	public String getParam(int index) {
+		String[] params = searchString.split(" ");
+		
+		try {
+			return params[index+1];
+		} catch(IndexOutOfBoundsException e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Checks whether the search-string equals the given string.
+	 * 
+	 * @param s The String to check.
+	 * @return true if the strings are equal, false otherwise.
+	 */
 	public boolean equals(String s) {
 		return searchString.equals(s);
 	}

@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import de.dqi11.quickStarter.controller.Search;
 import de.dqi11.quickStarter.modules.ModuleAction;
 
 /**
@@ -209,11 +210,15 @@ public class MainWindow extends Observable {
 	}
 	
 	public void invokeSelectedModuleAction() {
+		Search search = new Search(getSearchString());
 		ModuleAction moduleAction = getSelectedModuleAction();
-		ModuleWindow moduleWindow = moduleAction.getModuleWindow();
 		
-		if(moduleWindow == null) getSelectedModuleAction().invoke();
-		else System.out.println("Show ModuleWindow.");
+		if(moduleAction != null) {
+			ModuleWindow moduleWindow = moduleAction.getModuleWindow(search);
+			
+			if(moduleWindow == null) getSelectedModuleAction().invoke(search);
+			else System.out.println("Show ModuleWindow.");
+		}
 	}
 	
 	/**
