@@ -39,7 +39,9 @@ public class MainWindow extends Observable {
 	 */
 	public MainWindow() {
 		visible = false;
-		
+	}
+	
+	public void init() {
 		initListeners();
 		initMainFrame();
 		initMainPanel();
@@ -50,17 +52,17 @@ public class MainWindow extends Observable {
 	/**
 	 * Initializes the actions.
 	 */
-	public void initListeners() {
+	private void initListeners() {
 		keyListener = new KeyListener() {
 			
 			@Override
 			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
+				// Nothing to do here.
 			}
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
+				// Nothing to do here.
 			}
 			
 			@Override
@@ -86,6 +88,7 @@ public class MainWindow extends Observable {
 			
 			@Override
 			public void changedUpdate(DocumentEvent e) {
+				// Nothing to do here.
 			}
 		};
 	}
@@ -93,8 +96,9 @@ public class MainWindow extends Observable {
 	/**
 	 * Initializes the mainFrame.
 	 */
-	public void initMainFrame() {
+	private void initMainFrame() {
 		mainFrame = new JFrame();
+		
 		mainFrame.setUndecorated(true);
 		mainFrame.setSize(WIDTH, TEXTFIELD_HEIGHT + ADVICESLIST_MAXHEIGHT);
 		mainFrame.setLocationRelativeTo(null);
@@ -103,7 +107,7 @@ public class MainWindow extends Observable {
 	/**
 	 * Initializes the mainPanel.
 	 */
-	public void initMainPanel() {
+	private void initMainPanel() {
 		mainPanel = new JPanel();
 		mainFrame.setContentPane(mainPanel);
 	}
@@ -111,7 +115,7 @@ public class MainWindow extends Observable {
 	/**
 	 * Initializes the textField.
 	 */
-	public void initTextField() {
+	private void initTextField() {
 		textField = new JTextField();
 		textField.setPreferredSize(new Dimension(WIDTH, TEXTFIELD_HEIGHT));
 		textField.addKeyListener(keyListener);
@@ -124,7 +128,7 @@ public class MainWindow extends Observable {
 	 * Initializes the advicesPanel;
 	 */
 	@SuppressWarnings("rawtypes")
-	public void initAdvicesPanel() {
+	private void initAdvicesPanel() {
 		moduleActionsListModel = new DefaultListModel();
 		
 		@SuppressWarnings("unchecked" )

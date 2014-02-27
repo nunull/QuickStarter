@@ -58,14 +58,14 @@ public class MainController implements Observer {
 	public void initGUI() {
 		mainWindow = new MainWindow();
 		mainWindow.addObserver(this);
+		mainWindow.init();
 		
 		// TODO
 //		SwingUtilities.invokeLater(new Runnable() {
 //			
 //			@Override
 //			public void run() {
-//				
-//				
+//				mainWindow.init();
 //			}
 //		});
 	}
