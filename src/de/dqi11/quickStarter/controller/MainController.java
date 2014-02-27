@@ -41,6 +41,7 @@ public class MainController implements Observer {
 	 */
 	public void initModules() {
 		modules.push(new TestModule());
+		modules.push(new TestModule());
 	}
 	
 	/**
@@ -95,7 +96,9 @@ public class MainController implements Observer {
 	}
 
 	/**
-	 * Will be called from OS-classes, when the visibility of the application should be toggled.
+	 * Will be called from 
+	 * 1. OS-classes, when the visibility of the application should be toggled,
+	 * 2. MainWindow, when ModuleActions should be updated.
 	 */
 	@Override
 	public void update(Observable o, Object arg) {

@@ -29,6 +29,8 @@ public class MainWindow extends Observable {
 	private JPanel mainPanel;
 	private JTextField textField;
 	@SuppressWarnings("rawtypes")
+	private JList advicesList;
+	@SuppressWarnings("rawtypes")
 	private DefaultListModel moduleActionsListModel;
 	private KeyListener keyListener;
 	private DocumentListener documentListener;
@@ -46,7 +48,7 @@ public class MainWindow extends Observable {
 		initMainFrame();
 		initMainPanel();
 		initTextField();
-		initAdvicesPanel();
+		initModuleActionsPanel();
 	}
 	
 	/**
@@ -69,6 +71,10 @@ public class MainWindow extends Observable {
 			public void keyPressed(KeyEvent e) {
 				// escape-key
 				if(e.getKeyCode() == 27) toggleApplication();
+				// down-arrow-key
+				else if(e.getKeyCode() == 40) selectNext();
+				// up-arrow-key
+				else if(e.getKeyCode() == 38) selectPrevious();
 			}
 		};
 		
@@ -127,13 +133,12 @@ public class MainWindow extends Observable {
 	/**
 	 * Initializes the advicesPanel;
 	 */
-	@SuppressWarnings("rawtypes")
-	private void initAdvicesPanel() {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void initModuleActionsPanel() {
 		moduleActionsListModel = new DefaultListModel();
 		
-		@SuppressWarnings("unchecked" )
-		JList advicesList = new JList(moduleActionsListModel);
-
+		advicesList = new JList(moduleActionsListModel);
+		
 		advicesList.setPreferredSize(new Dimension(WIDTH, ADVICESLIST_MAXHEIGHT));
 		
 		mainPanel.add(advicesList);
@@ -169,9 +174,29 @@ public class MainWindow extends Observable {
 	}
 	
 	/**
-	 * Sets the Advices and updates the GUI.
+	 * Selects the next ModuleAction.
+	 */
+	public void selectNext() {
+		int index = advicesList.getSelectedIndex()+1;
+		advicesList.setSelectedIndex(index > advicesList.getLastVisibleIndex() ? advicesList.getLastVisibleIndex() : index);
+	}
+	
+	/**
+	 * Selects the previous ModuleAction.
+	 */
+	public void selectPrevious() {
+		int index = advicesList.getSelectedIndex()-1;
+		advicesList.setSelectedIndex(index < 0 ? 0 : index);
+	}
+	
+	public int getSelectedIndex() {
+		return advicesList.getSelectedIndex();
+	}
+	
+	/**
+	 * Sets the ModuleActions and updates the GUI.
 	 * 
-	 * @param advices The List of Advices.
+	 * @param moduleActions The List of ModuleActions.
 	 */
 	public void setModuleActions(LinkedList<ModuleAction> moduleActions) {
 		this.moduleActions = moduleActions;
