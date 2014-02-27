@@ -77,7 +77,7 @@ public class MainController implements Observer {
 	 * @param search The specific search-term.
 	 * @return a list of Advices (possible actions).
 	 */
-	public LinkedList<ModuleAction> invoke(String search) {
+	public LinkedList<ModuleAction> invoke(Search search) {
 		LinkedList<ModuleAction> moduleActions = new LinkedList<ModuleAction>();
 		
 		for(Module m : modules) {
@@ -105,7 +105,10 @@ public class MainController implements Observer {
 		if(o instanceof OS) {
 			mainWindow.toggleApplication();
 		} else if(o instanceof MainWindow) {
-			mainWindow.setModuleActions(invoke(mainWindow.getSearchString()));;
+			mainWindow.setModuleActions(
+					invoke(
+							new Search(
+									mainWindow.getSearchString())));;
 		}
 	}
 }

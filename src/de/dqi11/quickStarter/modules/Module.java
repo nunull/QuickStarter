@@ -1,5 +1,7 @@
 package de.dqi11.quickStarter.modules;
 
+import de.dqi11.quickStarter.controller.Search;
+
 /**
  * Represents a module.
  */
@@ -10,5 +12,5 @@ public interface Module {
 	 * @param search The specific search-term.
 	 * @return The Advice.
 	 */
-	public ModuleAction getModuleAction(String search);
+	public ModuleAction getModuleAction(Search search);
 }
