@@ -1,5 +1,7 @@
 package de.dqi11.quickStarter.modules;
 
+import de.dqi11.quickStarter.gui.ModuleWindow;
+
 /**
  * Represents an Advice (a possible action for a specific Module-search-string-combination).
  */
@@ -22,9 +24,20 @@ public class ModuleAction {
 		this.text = text;
 	}
 	
-	// TODO return type
-	public void getTooltip() {
+	/**
+	 * Invoke the ModuleAction.
+	 */
+	public void invoke() {
 		
+	}
+	
+	/**
+	 * Returns the ModuleWindow of this ModuleAction or null if this is a non-GUI-action.
+	 * 
+	 * @return A ModuleWindow or null if this is a non-GUI-action.
+	 */
+	public ModuleWindow getModuleWindow() {
+		return null;
 	}
 
 	/**

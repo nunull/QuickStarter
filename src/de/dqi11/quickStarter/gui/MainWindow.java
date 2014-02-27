@@ -71,6 +71,8 @@ public class MainWindow extends Observable {
 			public void keyPressed(KeyEvent e) {
 				// escape-key
 				if(e.getKeyCode() == 27) toggleApplication();
+				// enter-key
+				else if(e.getKeyCode() == 10) invokeSelectedModuleAction();
 				// down-arrow-key
 				else if(e.getKeyCode() == 40) selectNext();
 				// up-arrow-key
@@ -154,6 +156,8 @@ public class MainWindow extends Observable {
 		for(ModuleAction moduleAction : moduleActions) {
 			moduleActionsListModel.addElement(moduleAction);
 		}
+		
+		selectFirst();
 	}
 	
 	/**
@@ -174,6 +178,13 @@ public class MainWindow extends Observable {
 	}
 	
 	/**
+	 * Selects the first ModuleAction.
+	 */
+	public void selectFirst() {
+		advicesList.setSelectedIndex(0);
+	}
+	
+	/**
 	 * Selects the next ModuleAction.
 	 */
 	public void selectNext() {
@@ -191,6 +202,18 @@ public class MainWindow extends Observable {
 	
 	public int getSelectedIndex() {
 		return advicesList.getSelectedIndex();
+	}
+	
+	public ModuleAction getSelectedModuleAction() {
+		return (ModuleAction)advicesList.getSelectedValue();
+	}
+	
+	public void invokeSelectedModuleAction() {
+		ModuleAction moduleAction = getSelectedModuleAction();
+		ModuleWindow moduleWindow = moduleAction.getModuleWindow();
+		
+		if(moduleWindow == null) getSelectedModuleAction().invoke();
+		else System.out.println("Show ModuleWindow.");
 	}
 	
 	/**

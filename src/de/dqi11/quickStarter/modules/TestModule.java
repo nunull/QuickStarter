@@ -4,8 +4,17 @@ public class TestModule implements Module {
 
 	@Override
 	public ModuleAction getModuleAction(String search) {
-		// TODO Just some test here.
-		return new ModuleAction("Yeah, some test...");
+		// Just some test here.
+		if(search.equals("test")) {
+			return new ModuleAction("Yeah, some test...") {
+				@Override
+				public void invoke() {
+					System.out.println("Do something, TestModule!");
+				}
+			};
+		}
+		
+		return null;
 	}
 
 }
