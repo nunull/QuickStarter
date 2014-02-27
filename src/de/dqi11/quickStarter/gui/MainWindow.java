@@ -28,11 +28,11 @@ public class MainWindow extends Observable {
 	private JFrame mainFrame;
 	private JPanel mainPanel;
 	private JTextField textField;
+	@SuppressWarnings("rawtypes")
 	private DefaultListModel moduleActionsListModel;
 	private KeyListener keyListener;
 	private DocumentListener documentListener;
 	private LinkedList<ModuleAction> moduleActions;
-	
 	
 	/**
 	 * Constructor.
@@ -123,9 +123,11 @@ public class MainWindow extends Observable {
 	/**
 	 * Initializes the advicesPanel;
 	 */
+	@SuppressWarnings("rawtypes")
 	public void initAdvicesPanel() {
 		moduleActionsListModel = new DefaultListModel();
 		
+		@SuppressWarnings("unchecked" )
 		JList advicesList = new JList(moduleActionsListModel);
 
 		advicesList.setPreferredSize(new Dimension(WIDTH, ADVICESLIST_MAXHEIGHT));
@@ -136,6 +138,7 @@ public class MainWindow extends Observable {
 	/**
 	 * Updates the shown advices.
 	 */
+	@SuppressWarnings("unchecked")
 	public void updateModuleActions() {
 		moduleActionsListModel.clear();
 		
