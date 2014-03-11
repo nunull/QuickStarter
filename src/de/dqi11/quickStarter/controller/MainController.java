@@ -41,8 +41,9 @@ public class MainController implements Observer {
 	 * Initializes the modules.
 	 */
 	public void initModules() {
-		modules.push(new TestModule());
-		modules.push(new GoogleSearchModule());
+
+		modules.add(new TestModule());
+		modules.add(new GoogleSearchModule());
 	}
 	
 	/**
@@ -83,7 +84,7 @@ public class MainController implements Observer {
 		
 		for(Module m : modules) {
 			ModuleAction moduleAction = m.getModuleAction(search);
-			if(moduleAction != null) moduleActions.push(moduleAction);
+			if(moduleAction != null) moduleActions.add(moduleAction);
 		}
 		
 		return moduleActions;

@@ -29,10 +29,8 @@ public class MainWindow extends Observable {
 	private JFrame mainFrame;
 	private JPanel mainPanel;
 	private JTextField textField;
-	@SuppressWarnings("rawtypes")
-	private JList advicesList;
-	@SuppressWarnings("rawtypes")
-	private DefaultListModel moduleActionsListModel;
+	private JList<ModuleAction> advicesList;
+	private DefaultListModel<ModuleAction> moduleActionsListModel;
 	private KeyListener keyListener;
 	private DocumentListener documentListener;
 	private LinkedList<ModuleAction> moduleActions;
@@ -71,13 +69,13 @@ public class MainWindow extends Observable {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// escape-key
-				if(e.getKeyCode() == 27) toggleApplication();
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) toggleApplication();
 				// enter-key
-				else if(e.getKeyCode() == 10) invokeSelectedModuleAction();
+				else if(e.getKeyCode() == KeyEvent.VK_ENTER) invokeSelectedModuleAction();
 				// down-arrow-key
-				else if(e.getKeyCode() == 40) selectNext();
+				else if(e.getKeyCode() == KeyEvent.VK_DOWN) selectNext();
 				// up-arrow-key
-				else if(e.getKeyCode() == 38) selectPrevious();
+				else if(e.getKeyCode() == KeyEvent.VK_UP) selectPrevious();
 			}
 		};
 		
@@ -136,11 +134,10 @@ public class MainWindow extends Observable {
 	/**
 	 * Initializes the advicesPanel;
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initModuleActionsPanel() {
-		moduleActionsListModel = new DefaultListModel();
+		moduleActionsListModel = new DefaultListModel<ModuleAction>();
 		
-		advicesList = new JList(moduleActionsListModel);
+		advicesList = new JList<ModuleAction>(moduleActionsListModel);
 		advicesList.setCellRenderer(new ModuleActionListCellRenderer());
 		advicesList.setPreferredSize(new Dimension(WIDTH, ADVICESLIST_MAXHEIGHT));
 		
@@ -150,7 +147,6 @@ public class MainWindow extends Observable {
 	/**
 	 * Updates the shown advices.
 	 */
-	@SuppressWarnings("unchecked")
 	public void updateModuleActions() {
 		moduleActionsListModel.clear();
 		
@@ -206,7 +202,7 @@ public class MainWindow extends Observable {
 	}
 	
 	public ModuleAction getSelectedModuleAction() {
-		return (ModuleAction)advicesList.getSelectedValue();
+		return advicesList.getSelectedValue();
 	}
 	
 	public void invokeSelectedModuleAction() {
