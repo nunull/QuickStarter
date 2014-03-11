@@ -186,8 +186,8 @@ public class MainWindow extends Observable {
 	 */
 	private void initModuleActionsPanel() {
 		moduleActionsListModel = new DefaultListModel<ModuleAction>();
-		
-		advicesList = new JList(moduleActionsListModel);
+
+		advicesList = new JList<ModuleAction>(moduleActionsListModel);
 		advicesList.setCellRenderer(new ModuleActionListCellRenderer(defaultFont));
 
 		advicesList.setPreferredSize(new Dimension(WIDTH, ADVICESLIST_MAXHEIGHT));

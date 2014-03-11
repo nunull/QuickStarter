@@ -40,7 +40,6 @@ public class MainController implements Observer {
 	 * Initializes the modules.
 	 */
 	public void initModules() {
-
 		modules.add(new GoogleSearchModule());
 	}
 	
