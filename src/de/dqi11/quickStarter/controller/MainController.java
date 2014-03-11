@@ -8,7 +8,6 @@ import de.dqi11.quickStarter.gui.MainWindow;
 import de.dqi11.quickStarter.modules.GoogleSearchModule;
 import de.dqi11.quickStarter.modules.ModuleAction;
 import de.dqi11.quickStarter.modules.Module;
-import de.dqi11.quickStarter.modules.TestModule;
 import de.dqi11.quickStarter.os.MacOS;
 import de.dqi11.quickStarter.os.OS;
 import de.dqi11.quickStarter.os.WinOS;
@@ -41,8 +40,8 @@ public class MainController implements Observer {
 	 * Initializes the modules.
 	 */
 	public void initModules() {
-		modules.push(new TestModule());
-		modules.push(new GoogleSearchModule());
+
+		modules.add(new GoogleSearchModule());
 	}
 	
 	/**
@@ -83,7 +82,7 @@ public class MainController implements Observer {
 		
 		for(Module m : modules) {
 			ModuleAction moduleAction = m.getModuleAction(search);
-			if(moduleAction != null) moduleActions.push(moduleAction);
+			if(moduleAction != null) moduleActions.add(moduleAction);
 		}
 		
 		return moduleActions;
