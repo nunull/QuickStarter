@@ -19,6 +19,7 @@ import de.dqi11.quickStarter.modules.ModuleAction;
 
 public class ModuleActionListCellRenderer extends DefaultListCellRenderer {
 
+	private static final long serialVersionUID = 6641728081199830661L;
 	private final int ICON_SIZE = 50;
 	private Font font;
 	
@@ -26,6 +27,7 @@ public class ModuleActionListCellRenderer extends DefaultListCellRenderer {
 		this.font = font;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean selected, boolean expanded) {
 		ModuleAction moduleAction = (ModuleAction) value;
