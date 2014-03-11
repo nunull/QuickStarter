@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import de.dqi11.quickStarter.gui.MainWindow;
+import de.dqi11.quickStarter.modules.GoogleSearchModule;
 import de.dqi11.quickStarter.modules.ModuleAction;
 import de.dqi11.quickStarter.modules.Module;
 import de.dqi11.quickStarter.modules.TestModule;
@@ -41,7 +42,7 @@ public class MainController implements Observer {
 	 */
 	public void initModules() {
 		modules.push(new TestModule());
-		modules.push(new TestModule());
+		modules.push(new GoogleSearchModule());
 	}
 	
 	/**

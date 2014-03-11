@@ -73,4 +73,13 @@ public class Search {
 	public boolean equals(String s) {
 		return searchString.equals(s);
 	}
+	
+	/**
+	 * Returns the specific search string.
+	 * 
+	 * @return The search string.
+	 */
+	public String getSearchString() {
+		return searchString;
+	}
 }

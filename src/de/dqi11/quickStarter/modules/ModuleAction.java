@@ -1,5 +1,8 @@
 package de.dqi11.quickStarter.modules;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 import de.dqi11.quickStarter.controller.Search;
 import de.dqi11.quickStarter.gui.ModuleWindow;
 
@@ -8,6 +11,7 @@ import de.dqi11.quickStarter.gui.ModuleWindow;
  */
 public class ModuleAction {
 	private String text;
+	private Icon icon;
 	
 	/**
 	 * Default constructor.
@@ -22,14 +26,27 @@ public class ModuleAction {
 	 * @param text The text.
 	 */
 	public ModuleAction(String text) {
+		super();
 		this.text = text;
+	}
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param text The text.
+	 * @param label An icon to be shown.
+	 */
+	public ModuleAction(String text, Icon icon) {
+		super();
+		this.text = text;
+		this.icon = icon;
 	}
 	
 	/**
 	 * Invoke the ModuleAction.
 	 */
 	public void invoke(Search search) {
-		
+		// Implement in overrided method.
 	}
 	
 	/**
@@ -57,6 +74,15 @@ public class ModuleAction {
 	 */
 	public void setText(String text) {
 		this.text = text;
+	}
+	
+	/**
+	 * Returns a label representing the action.
+	 * 
+	 * @return The label.
+	 */
+	public Icon getIcon() {
+		return icon;
 	}
 	
 	@Override
