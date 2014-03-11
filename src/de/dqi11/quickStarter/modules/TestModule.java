@@ -1,5 +1,7 @@
 package de.dqi11.quickStarter.modules;
 
+import javax.swing.ImageIcon;
+
 import de.dqi11.quickStarter.controller.Search;
 
 public class TestModule implements Module {

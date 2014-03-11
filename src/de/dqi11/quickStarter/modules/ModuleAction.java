@@ -28,6 +28,7 @@ public class ModuleAction {
 	public ModuleAction(String text) {
 		super();
 		this.text = text;
+		this.icon = new ImageIcon("res/empty-icon.png");
 	}
 	
 	/**

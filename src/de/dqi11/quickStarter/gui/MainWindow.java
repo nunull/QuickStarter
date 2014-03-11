@@ -1,16 +1,28 @@
 package de.dqi11.quickStarter.gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.RoundRectangle2D;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Observable;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -22,9 +34,9 @@ import de.dqi11.quickStarter.modules.ModuleAction;
  * shows the search-field and Advices.
  */
 public class MainWindow extends Observable {
-	private final int WIDTH = 300;
+	private final int WIDTH = 500;
 	private final int TEXTFIELD_HEIGHT = 50;
-	private final int ADVICESLIST_MAXHEIGHT = 200;
+	private final int ADVICESLIST_MAXHEIGHT = 450;
 	private boolean visible;
 	private JFrame mainFrame;
 	private JPanel mainPanel;
@@ -36,6 +48,8 @@ public class MainWindow extends Observable {
 	private KeyListener keyListener;
 	private DocumentListener documentListener;
 	private LinkedList<ModuleAction> moduleActions;
+	private Font defaultFont;
+	private Font boldFont;
 	
 	/**
 	 * Constructor.
@@ -46,6 +60,7 @@ public class MainWindow extends Observable {
 	
 	public void init() {
 		initListeners();
+		initFonts();
 		initMainFrame();
 		initMainPanel();
 		initTextField();
@@ -103,6 +118,27 @@ public class MainWindow extends Observable {
 	}
 	
 	/**
+	 * Initializes all fonts.
+	 */
+	private void initFonts() {
+		// Initialize default font.
+		try {
+			defaultFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("res/fonts/ubuntu/Ubuntu-Light.ttf"));
+			defaultFont =  defaultFont.deriveFont(20f);
+		} catch (Exception e) {
+			defaultFont = new Font("Arial", Font.PLAIN, 20);
+		}
+		
+		// Initialize bold font.
+		try {
+			boldFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("res/fonts/ubuntu/Ubuntu-Bold.ttf"));
+			boldFont =  boldFont.deriveFont(20f);
+		} catch (Exception e) {
+			boldFont = new Font("Arial", Font.BOLD, 20);
+		}
+	}
+	
+	/**
 	 * Initializes the mainFrame.
 	 */
 	private void initMainFrame() {
@@ -110,7 +146,10 @@ public class MainWindow extends Observable {
 		
 		mainFrame.setUndecorated(true);
 		mainFrame.setSize(WIDTH, TEXTFIELD_HEIGHT + ADVICESLIST_MAXHEIGHT);
+//		mainFrame.setShape(new RoundRectangle2D.Double(10, 10, 100, 100, 50, 50));
 		mainFrame.setLocationRelativeTo(null);
+		mainFrame.setOpacity(0.8f);
+		mainFrame.setBackground(Color.BLACK);
 	}
 	
 	/**
@@ -118,6 +157,7 @@ public class MainWindow extends Observable {
 	 */
 	private void initMainPanel() {
 		mainPanel = new JPanel();
+		mainPanel.setOpaque(false);
 		mainFrame.setContentPane(mainPanel);
 	}
 	
@@ -126,7 +166,17 @@ public class MainWindow extends Observable {
 	 */
 	private void initTextField() {
 		textField = new JTextField();
+		
+		Border line = BorderFactory.createLineBorder(Color.BLACK);
+		Border empty = new EmptyBorder(0, 10, 0, 0);
+		CompoundBorder border = new CompoundBorder(line, empty);
+		textField.setBorder(border);
 		textField.setPreferredSize(new Dimension(WIDTH, TEXTFIELD_HEIGHT));
+		textField.setFont(boldFont);
+		textField.setBackground(Color.BLACK);
+		textField.setForeground(Color.WHITE);
+		textField.setCaretColor(Color.WHITE);
+		
 		textField.addKeyListener(keyListener);
 		textField.getDocument().addDocumentListener(documentListener);
 		
@@ -141,8 +191,9 @@ public class MainWindow extends Observable {
 		moduleActionsListModel = new DefaultListModel();
 		
 		advicesList = new JList(moduleActionsListModel);
-		advicesList.setCellRenderer(new ModuleActionListCellRenderer());
+		advicesList.setCellRenderer(new ModuleActionListCellRenderer(defaultFont));
 		advicesList.setPreferredSize(new Dimension(WIDTH, ADVICESLIST_MAXHEIGHT));
+		advicesList.setOpaque(false);
 		
 		mainPanel.add(advicesList);
 	}
@@ -166,6 +217,7 @@ public class MainWindow extends Observable {
 	 */
 	public void toggleApplication() {
 		visible = !visible;
+		textField.setText("");
 		mainFrame.setVisible(visible);
 	}
 	

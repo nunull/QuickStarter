@@ -16,9 +16,17 @@ public class GoogleSearchModule implements Module {
 	@Override
 	public ModuleAction getModuleAction(Search search) {
 		// TODO Auto-generated method stub
-		return new ModuleAction("Google for " + search.getSearchString(), new ImageIcon("res/google-logo.jpg")) {
-			
-		};
+		if(!search.getSearchString().equals("")) {
+			return new ModuleAction("Google for \"" + search.getSearchString() + "\"", new ImageIcon("res/google-logo.png")) {
+				
+				@Override
+				public void invoke(Search search) {
+					
+				}
+			};
+		} else {
+			return null;
+		}
 	}
 
 }
