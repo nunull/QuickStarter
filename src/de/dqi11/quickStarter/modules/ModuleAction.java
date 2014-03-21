@@ -7,7 +7,7 @@ import de.dqi11.quickStarter.controller.Search;
 import de.dqi11.quickStarter.gui.ModuleWindow;
 
 /**
- * Represents an Advice (a possible action for a specific Module-search-string-combination).
+ * Represents a ModuleAction (a possible action for a specific Module-search-string-combination).
  */
 public class ModuleAction {
 	private String text;

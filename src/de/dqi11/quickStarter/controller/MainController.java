@@ -1,10 +1,12 @@
 package de.dqi11.quickStarter.controller;
 
+import java.net.ConnectException;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 
 import de.dqi11.quickStarter.gui.MainWindow;
+import de.dqi11.quickStarter.modules.ErrorCoreModule;
 import de.dqi11.quickStarter.modules.GoogleSearchModule;
 import de.dqi11.quickStarter.modules.ModuleAction;
 import de.dqi11.quickStarter.modules.Module;
@@ -17,6 +19,7 @@ import de.dqi11.quickStarter.os.WinOS;
  * The main-controller. Brings everything together.
  */
 public class MainController implements Observer {
+	private boolean networkError = false;
 	private LinkedList<Module> modules;
 	private OS os;
 	private MainWindow mainWindow;
@@ -43,6 +46,10 @@ public class MainController implements Observer {
 	public void initModules() {
 		modules.add(new GoogleSearchModule());
 		modules.add(new OpenWeatherMapModule());
+		
+		// CoreModules have to be added last, since otherwise they won't receive 
+		// errors, which were produced by other Modules.
+		modules.add(new ErrorCoreModule(this));
 	}
 	
 	/**
@@ -81,9 +88,15 @@ public class MainController implements Observer {
 	public LinkedList<ModuleAction> invoke(Search search) {
 		LinkedList<ModuleAction> moduleActions = new LinkedList<ModuleAction>();
 		
+		networkError = false;
+		
 		for(Module m : modules) {
-			ModuleAction moduleAction = m.getModuleAction(search);
-			if(moduleAction != null) moduleActions.add(moduleAction);
+			try {
+				ModuleAction moduleAction = m.getModuleAction(search);
+				if(moduleAction != null) moduleActions.add(moduleAction);
+			} catch(ConnectException e) {
+				networkError = true;
+			}
 		}
 		
 		return moduleActions;
@@ -111,5 +124,14 @@ public class MainController implements Observer {
 							new Search(
 									mainWindow.getSearchString())));;
 		}
+	}
+
+	/**
+	 * Getter.
+	 * 
+	 * @return true, if an networkError occured.
+	 */
+	public boolean isNetworkError() {
+		return networkError;
 	}
 }

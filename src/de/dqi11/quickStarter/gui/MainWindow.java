@@ -12,6 +12,7 @@ import java.util.Observable;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -36,6 +37,7 @@ public class MainWindow extends Observable {
 	private JFrame mainFrame;
 	private JPanel mainPanel;
 	private JTextField textField;
+	private JLabel errorLabel;
 	private JList<ModuleAction> advicesList;
 	private DefaultListModel<ModuleAction> moduleActionsListModel;
 	private KeyListener keyListener;
@@ -57,6 +59,7 @@ public class MainWindow extends Observable {
 		initMainFrame();
 		initMainPanel();
 		initTextField();
+		initErrorLabel();
 		initModuleActionsPanel();
 	}
 	
@@ -176,6 +179,12 @@ public class MainWindow extends Observable {
 		mainPanel.add(textField);
 	}
 	
+	private void initErrorLabel() {
+		errorLabel = new JLabel();
+		
+		mainPanel.add(errorLabel);
+	}
+	
 	/**
 	 * Initializes the advicesPanel;
 	 */
@@ -192,7 +201,7 @@ public class MainWindow extends Observable {
 	}
 	
 	/**
-	 * Updates the shown advices.
+	 * Updates the shown module actions.
 	 */
 	public void updateModuleActions() {
 		moduleActionsListModel.clear();

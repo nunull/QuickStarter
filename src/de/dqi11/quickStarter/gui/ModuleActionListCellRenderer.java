@@ -31,6 +31,14 @@ public class ModuleActionListCellRenderer extends DefaultListCellRenderer {
 	@Override
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean selected, boolean expanded) {
 		ModuleAction moduleAction = (ModuleAction) value;
+		Class[] interfaces = moduleAction.getClass().getInterfaces();
+		boolean warning = false;
+		for(int i = 0; i < interfaces.length; i++) {
+			if(interfaces[i].getName().equals("de.dqi11.quickStarter.gui.Warning")) {
+				warning = true;
+			}
+		}
+		
 		ImageIcon icon = (ImageIcon) moduleAction.getIcon();
 		JLabel label = new JLabel();
 		if(icon != null) {
@@ -47,7 +55,9 @@ public class ModuleActionListCellRenderer extends DefaultListCellRenderer {
 		CompoundBorder border = new CompoundBorder(line, empty);
 		label.setBorder(border);
 		
-		if(!selected) {
+		if(warning) {
+			label.setForeground(Color.RED);
+		} else if(!selected) {
 			label.setForeground(Color.WHITE);
 		} else {
 			label.setForeground(Color.YELLOW);
