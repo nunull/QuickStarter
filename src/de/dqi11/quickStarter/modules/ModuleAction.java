@@ -106,8 +106,12 @@ public class ModuleAction {
 	public String toString() {
 		return text;
 	}
-
+//TODO javadoc
 	public String getKey() {
 		return key;
+	}
+//TODO javadoc
+	public void setIcon(Icon icon) {
+		this.icon = icon;
 	}
 }

@@ -18,8 +18,10 @@ public class OpenWeatherMapModule extends Module {
 	public ModuleAction getModuleAction(Search search) throws ConnectException {
 		
 		if (search.partEquals(0, "weather")){
+			
 			jsonTxt = OpenWeatherMapBridge.getJSON("Bremen,de", 2000);
 			System.out.println(jsonTxt);
+			
 			
 			//TODO evtl ne grafik oder so beim ausloesen der acion darstellen
 			return new ModuleAction(this.toString(), "hier wird die temperatur etc stehen-TODO");
