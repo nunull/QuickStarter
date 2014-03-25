@@ -21,7 +21,7 @@ public class OpenWeatherMapModule extends Module {
 			jsonTxt = OpenWeatherMapBridge.getJSON("Bremen,de", 2000);
 			System.out.println(jsonTxt);
 			
-			//TODO evtl ne grafik oder so beim auslösen der acion darstellen
+			//TODO evtl ne grafik oder so beim ausloesen der acion darstellen
 			return new ModuleAction(this.toString(), "hier wird die temperatur etc stehen-TODO");
 		}
 		return null;
