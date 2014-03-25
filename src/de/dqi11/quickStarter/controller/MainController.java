@@ -21,6 +21,7 @@ import de.dqi11.quickStarter.os.WinOS;
 public class MainController implements Observer {
 	private boolean networkError = false;
 	private LinkedList<Module> modules;
+	private LinkedList<ModuleAction> moduleActions;
 	private OS os;
 	private MainWindow mainWindow;
 	
@@ -29,6 +30,7 @@ public class MainController implements Observer {
 	 */
 	public MainController() {
 		this.modules = new LinkedList<Module>();
+		this.moduleActions = new LinkedList<ModuleAction>();
 		
 		initModules();
 		initOS();
@@ -44,8 +46,8 @@ public class MainController implements Observer {
 	 * Initializes the modules.
 	 */
 	public void initModules() {
-		modules.add(new GoogleSearchModule());
-		modules.add(new OpenWeatherMapModule());
+		modules.add(new GoogleSearchModule(this));
+		modules.add(new OpenWeatherMapModule(this));
 		
 		// CoreModules have to be added last, since otherwise they won't receive 
 		// errors, which were produced by other Modules.
@@ -86,12 +88,13 @@ public class MainController implements Observer {
 	 * @return a list of Advices (possible actions).
 	 */
 	public LinkedList<ModuleAction> invoke(Search search) {
-		LinkedList<ModuleAction> moduleActions = new LinkedList<ModuleAction>();
+		moduleActions = new LinkedList<ModuleAction>();
 		
 		networkError = false;
 		
 		for(Module m : modules) {
 			try {
+				//TODO auslagern eigener thread
 				ModuleAction moduleAction = m.getModuleAction(search);
 				if(moduleAction != null) moduleActions.add(moduleAction);
 			} catch(ConnectException e) {
@@ -100,6 +103,23 @@ public class MainController implements Observer {
 		}
 		
 		return moduleActions;
+	}
+	
+	/**
+	 * Updates the ModuleAction from the specific module.
+	 *  
+	 * @param modulAction The new ModuleAction.
+	 * @return true if replacement was successful, false otherwise.
+	 */
+	public boolean updateModule(ModuleAction modulAction) {
+		try{
+			int index = moduleActions.lastIndexOf(modulAction);
+			moduleActions.add(index, modulAction);
+			moduleActions.remove(index+1);
+			return true;
+		}catch(IndexOutOfBoundsException e){
+			return false;
+		}
 	}
 	
 	/**

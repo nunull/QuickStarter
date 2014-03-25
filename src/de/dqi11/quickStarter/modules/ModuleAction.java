@@ -10,23 +10,28 @@ import de.dqi11.quickStarter.gui.ModuleWindow;
  * Represents a ModuleAction (a possible action for a specific Module-search-string-combination).
  */
 public class ModuleAction {
+	private String key;
 	private String text;
 	private Icon icon;
 	
 	/**
 	 * Default constructor.
+	 * 
+	 * @param key identifying the specific module belonging to this ModuleAction.
 	 */
-	public ModuleAction() {
-		
+	public ModuleAction(String key) {
+		this.key = key;
 	}
 	
 	/**
 	 * Constructor.
 	 * 
+	 * @param key identifying the specific module belonging to this ModuleAction.
 	 * @param text The text.
 	 */
-	public ModuleAction(String text) {
+	public ModuleAction(String key, String text) {
 		super();
+		this.key = key;
 		this.text = text;
 		this.icon = new ImageIcon("res/empty-icon.png");
 	}
@@ -34,11 +39,13 @@ public class ModuleAction {
 	/**
 	 * Constructor.
 	 * 
+	 * @param key identifying the specific module belonging to this ModuleAction.
 	 * @param text The text.
 	 * @param label An icon to be shown.
 	 */
-	public ModuleAction(String text, Icon icon) {
+	public ModuleAction(String key, String text, Icon icon) {
 		super();
+		this.key = key;
 		this.text = text;
 		this.icon = icon;
 	}
@@ -48,6 +55,15 @@ public class ModuleAction {
 	 */
 	public void invoke(Search search) {
 		// Implement in overrided method.
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		try {
+			return this.getKey().equals( ((ModuleAction)obj).getKey() );
+		} catch(Exception e) {
+			return false;
+		}
 	}
 	
 	/**
@@ -89,5 +105,9 @@ public class ModuleAction {
 	@Override
 	public String toString() {
 		return text;
+	}
+
+	public String getKey() {
+		return key;
 	}
 }

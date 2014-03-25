@@ -13,7 +13,7 @@ public class ErrorCoreModule extends CoreModule {
 
 	@Override
 	public ModuleAction getModuleAction(Search search) throws ConnectException {
-		if(getController().isNetworkError() && !search.getSearchString().equals("")) {
+		if(getMainController().isNetworkError() && !search.getSearchString().equals("")) {
 			return new WarningModuleAction("A network error occured and some modules can not be displayed. Please check your network connection and retry.");
 		} else {
 			return null;
