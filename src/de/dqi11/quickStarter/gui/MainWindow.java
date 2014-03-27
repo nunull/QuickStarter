@@ -27,7 +27,7 @@ import de.dqi11.quickStarter.modules.ModuleAction;
 
 /**
  * Represents the main-application window, which 
- * shows the search-field and Advices.
+ * shows the search-field and ModuleActions.
  */
 public class MainWindow extends Observable {
 	private final int WIDTH = 500;
@@ -154,7 +154,7 @@ public class MainWindow extends Observable {
 		mainFrame = new JFrame();
 		
 		mainFrame.setUndecorated(true);
-		mainFrame.setSize(WIDTH, TEXTFIELD_HEIGHT + ADVICESLIST_MAXHEIGHT);
+		mainFrame.setSize(WIDTH-20, TEXTFIELD_HEIGHT + ADVICESLIST_MAXHEIGHT);
 //		mainFrame.setShape(new RoundRectangle2D.Double(10, 10, 100, 100, 50, 50));
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setOpacity(0.8f);

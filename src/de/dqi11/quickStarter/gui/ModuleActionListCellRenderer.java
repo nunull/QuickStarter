@@ -48,7 +48,8 @@ public class ModuleActionListCellRenderer extends DefaultListCellRenderer {
 		
 		label.setText(moduleAction.getText());
 		label.setFont(font);
-		label.setPreferredSize(new Dimension(300, 50));
+		label.setOpaque(true);
+		label.setPreferredSize(new Dimension(280, 50));
 		
 		Border line = BorderFactory.createLineBorder(Color.BLACK);
 		Border empty = new EmptyBorder(0, 10, 0, 0);
@@ -57,10 +58,14 @@ public class ModuleActionListCellRenderer extends DefaultListCellRenderer {
 		
 		if(warning) {
 			label.setForeground(Color.RED);
-		} else if(!selected) {
-			label.setForeground(Color.WHITE);
 		} else {
-			label.setForeground(Color.YELLOW);
+			label.setForeground(Color.WHITE);
+		}
+		
+		if(selected) {
+			label.setBackground(new Color(1f, 1f, 1f, 0.1f));
+		} else {
+			label.setBackground(new Color(1f, 1f, 1f, 0f));
 		}
 		
 		return label;
