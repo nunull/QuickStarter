@@ -112,12 +112,14 @@ public class MainController implements Observer {
 	 * @return true if replacement was successful, false otherwise.
 	 */
 	public boolean updateModule(ModuleAction modulAction) {
-		try{
+		try {
 			int index = moduleActions.lastIndexOf(modulAction);
 			moduleActions.add(index, modulAction);
 			moduleActions.remove(index+1);
+			
+			mainWindow.updateModuleActions();
 			return true;
-		}catch(IndexOutOfBoundsException e){
+		} catch(IndexOutOfBoundsException e) {
 			return false;
 		}
 	}

@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
@@ -37,12 +38,14 @@ public class OpenWeatherMapBridge implements Bridge {
 				br.close();
 				return sb.toString();
 			}
+		} catch(SocketTimeoutException e) {
+			throw new ConnectException();
 		} catch(UnknownHostException e) {
 			throw new ConnectException();
 		} catch(MalformedURLException ex) {
-			ex.printStackTrace();
+			throw new ConnectException();
 	    } catch (IOException ex) {
-	    	ex.printStackTrace();
+	    	throw new ConnectException();
 	    }
 		
 	    return null;
