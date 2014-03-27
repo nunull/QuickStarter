@@ -10,10 +10,10 @@ import de.dqi11.quickStarter.controller.Search;
 import de.dqi11.quickStarter.helpers.JSONParser;
 import de.dqi11.quickStarter.modules.bridges.OpenWeatherMapBridge;
 
-public class OpenWeatherMapModule extends Module {
+public class WeatherModule extends Module {
 	private final String KEY = this.toString();
 	
-	public OpenWeatherMapModule(MainController mainController) {
+	public WeatherModule(MainController mainController) {
 		super(mainController);
 	}
 	

@@ -10,7 +10,7 @@ import de.dqi11.quickStarter.modules.ErrorCoreModule;
 import de.dqi11.quickStarter.modules.GoogleSearchModule;
 import de.dqi11.quickStarter.modules.ModuleAction;
 import de.dqi11.quickStarter.modules.Module;
-import de.dqi11.quickStarter.modules.OpenWeatherMapModule;
+import de.dqi11.quickStarter.modules.WeatherModule;
 import de.dqi11.quickStarter.os.MacOS;
 import de.dqi11.quickStarter.os.OS;
 import de.dqi11.quickStarter.os.WinOS;
@@ -47,7 +47,7 @@ public class MainController implements Observer {
 	 */
 	public void initModules() {
 		modules.add(new GoogleSearchModule(this));
-		modules.add(new OpenWeatherMapModule(this));
+		modules.add(new WeatherModule(this));
 		
 		// CoreModules have to be added last, since otherwise they won't receive 
 		// errors, which were produced by other Modules.
