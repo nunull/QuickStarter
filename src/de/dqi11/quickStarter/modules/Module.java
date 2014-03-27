@@ -26,7 +26,7 @@ public abstract class Module {
 	 * @throws An ConnectException, if the module necessarily needs to connect to the Internet and an error occurs.
 	 * @return The Advice.
 	 */
-	public abstract ModuleAction getModuleAction(Search search) throws ConnectException;
+	public abstract ModuleAction getModuleAction(final Search search) throws ConnectException;
 	
 	/**
 	 * Getter.
