@@ -53,6 +53,9 @@ public class MainWindow extends Observable {
 		visible = false;
 	}
 	
+	/**
+	 * Initializes the whole GUI.
+	 */
 	public void init() {
 		initListeners();
 		initFonts();
@@ -82,13 +85,23 @@ public class MainWindow extends Observable {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// escape-key
-				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) toggleApplication();
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					toggleApplication();
+					
 				// enter-key
-				else if(e.getKeyCode() == KeyEvent.VK_ENTER) invokeSelectedModuleAction();
+				} else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					invokeSelectedModuleAction();
+					
 				// down-arrow-key
-				else if(e.getKeyCode() == KeyEvent.VK_DOWN) selectNext();
+				} else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+					e.consume();
+					selectNext();
+					
 				// up-arrow-key
-				else if(e.getKeyCode() == KeyEvent.VK_UP) selectPrevious();
+				} else if(e.getKeyCode() == KeyEvent.VK_UP) {
+					e.consume();
+					selectPrevious();
+				}
 			}
 		};
 		
@@ -254,14 +267,27 @@ public class MainWindow extends Observable {
 		advicesList.setSelectedIndex(index < 0 ? 0 : index);
 	}
 	
+	/**
+	 * Returns the index of the selected ModuleAction.
+	 * 
+	 * @return the index
+	 */
 	public int getSelectedIndex() {
 		return advicesList.getSelectedIndex();
 	}
 	
+	/**
+	 * Returns the selected ModuleAction.
+	 * 
+	 * @return the selected ModuleAction.
+	 */
 	public ModuleAction getSelectedModuleAction() {
 		return advicesList.getSelectedValue();
 	}
 	
+	/**
+	 * Invokes the currently selected ModuleAction.
+	 */
 	public void invokeSelectedModuleAction() {
 		Search search = new Search(getSearchString());
 		ModuleAction moduleAction = getSelectedModuleAction();

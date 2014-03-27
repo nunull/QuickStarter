@@ -25,10 +25,8 @@ public class WeatherModule extends Module {
 				@Override
 				protected ModuleAction doInBackground() throws Exception {
 					String location = search.getParam(0);
-					if(location == null) location = "Bremen,de";
+					if(location == null) location = "Bremen";
 					if(location.split(",").length == 1) location += ",de";
-					
-					System.out.println(location);
 					
 					String json = OpenWeatherMapBridge.getJSON(location, 2000);
 					String text = "";
