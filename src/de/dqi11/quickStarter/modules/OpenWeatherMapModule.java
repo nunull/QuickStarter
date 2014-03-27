@@ -1,16 +1,13 @@
 package de.dqi11.quickStarter.modules;
 
 import java.net.ConnectException;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.SwingWorker;
 
-import com.json.parsers.JSONParser;
-import com.json.parsers.JsonParserFactory;
-
 import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.controller.Search;
+import de.dqi11.quickStarter.helpers.JSONParser;
 import de.dqi11.quickStarter.modules.bridges.OpenWeatherMapBridge;
 
 public class OpenWeatherMapModule extends Module {
@@ -30,11 +27,8 @@ public class OpenWeatherMapModule extends Module {
 				protected ModuleAction doInBackground() throws Exception {
 					String json = OpenWeatherMapBridge.getJSON("Bremen,de", 2000);
 					String text = "";
-					JSONParser jsonParser = JsonParserFactory.getInstance().newJsonParser();
-					Map jsonMap = jsonParser.parseJson(json);
-					
-					text = (String) jsonMap.get("name") + ": ";
-					text += (String) ((Map) jsonMap.get("main")).get("temp") + "¡C";
+					JSONParser jsonParser = new JSONParser(json);
+					text = jsonParser.get("name") + ": " + jsonParser.get("main.temp") + "¡C";
 					
 					return new ModuleAction(KEY, text);
 				}
