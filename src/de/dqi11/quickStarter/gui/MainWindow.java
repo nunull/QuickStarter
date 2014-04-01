@@ -295,8 +295,12 @@ public class MainWindow extends Observable {
 		if(moduleAction != null) {
 			ModuleWindow moduleWindow = moduleAction.getModuleWindow(search);
 			
-			if(moduleWindow == null) getSelectedModuleAction().invoke(search);
-			else System.out.println("Show ModuleWindow.");
+			if(moduleWindow == null) {
+				moduleAction.invoke(search);
+			} else {
+				toggleApplication();
+				moduleWindow.show();
+			}
 		}
 	}
 	
