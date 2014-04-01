@@ -1,6 +1,7 @@
 package de.dqi11.quickStarter.gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.io.FileInputStream;
 
@@ -66,6 +67,16 @@ public class ModuleWindow {
 		mainPanel = new JPanel();
 		mainPanel.setOpaque(false);
 		mainFrame.setContentPane(mainPanel);
+	}
+	
+	/**
+	 * Appends the specific component to the end of this container.
+	 * 
+	 * @param component The Component.
+	 * @see JPanel
+	 */
+	public void add(Component component) {
+		mainPanel.add(component);
 	}
 	
 	/**
