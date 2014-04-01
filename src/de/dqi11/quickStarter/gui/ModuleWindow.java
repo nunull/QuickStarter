@@ -81,6 +81,7 @@ public class ModuleWindow {
 	
 	/**
 	 * Shows the window.
+	 * Called from within the MainController.
 	 */
 	public void show() {
 		mainFrame.setVisible(true);

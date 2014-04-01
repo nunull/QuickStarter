@@ -17,11 +17,11 @@ public class TestModule extends Module {
 
 	@Override
 	public ModuleAction getModuleAction(Search search) throws ConnectException {
-		// TODO Auto-generated method stub
 		return new ModuleAction(KEY, "Test") {
+			@Override
 			public ModuleWindow getModuleWindow(Search search) {
 				ModuleWindow moduleWindow = new ModuleWindow();
-				moduleWindow.add(new JButton("Test"));
+				moduleWindow.add(new JButton("Test: " + search.getSearchString()));
 				
 				return moduleWindow;
 			}
