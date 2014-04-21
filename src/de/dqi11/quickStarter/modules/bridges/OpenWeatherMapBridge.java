@@ -14,7 +14,7 @@ public class OpenWeatherMapBridge implements Bridge {
 	private static final String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
 	
 	public static String getJSON(String url, int timeout) throws ConnectException {
-		try{
+		try {
 			URL u = new URL(BASE_URL + url + "&units=metric");
 			HttpURLConnection c = (HttpURLConnection) u.openConnection();
 			c.setRequestMethod("GET");
