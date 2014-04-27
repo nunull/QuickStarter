@@ -11,7 +11,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 
 public class OpenWeatherMapBridge implements Bridge {
-	private static final String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
+	private static final String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?APPID=b1e761a9aea5ddf17d383c0d3f3f1c56&q=";
 	
 	public static String getJSON(String url, int timeout) throws ConnectException {
 		try {
