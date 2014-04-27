@@ -8,6 +8,7 @@ import java.util.Observer;
 import de.dqi11.quickStarter.gui.MainWindow;
 import de.dqi11.quickStarter.modules.ErrorCoreModule;
 import de.dqi11.quickStarter.modules.GoogleSearchModule;
+import de.dqi11.quickStarter.modules.GoogleTranslateModule;
 import de.dqi11.quickStarter.modules.ModuleAction;
 import de.dqi11.quickStarter.modules.Module;
 import de.dqi11.quickStarter.modules.TestModule;
@@ -50,6 +51,7 @@ public class MainController implements Observer {
 		modules.add(new GoogleSearchModule(this));
 		modules.add(new WeatherModule(this));
 		modules.add(new TestModule(this));
+		modules.add(new GoogleTranslateModule(this));
 		
 		// CoreModules have to be added last, since otherwise they won't receive 
 		// errors, which were produced by other Modules.
