@@ -4,6 +4,9 @@
         <class>GoogleSearchModule</class>
     </module>
     <module>
+        <class>GoogleTranslateModule</class>
+    </module>
+    <module>
         <class>WeatherModule</class>
     </module>
     <module>

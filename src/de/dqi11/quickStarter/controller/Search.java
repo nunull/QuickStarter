@@ -32,6 +32,21 @@ public class Search {
 	}
 	
 	/**
+	 * Returns the command or null, if there is not any.
+	 * 
+	 * @return the command.
+	 */
+	public String getCommand() {
+		String[] parts = searchString.split(" ");
+		
+		try {
+			return parts[0];
+		} catch(IndexOutOfBoundsException e) {
+			return null;
+		}
+	}
+	
+	/**
 	 * Checks if the part equals the specific String.
 	 * 
 	 * @param index The index of the part.
@@ -46,6 +61,15 @@ public class Search {
 		} catch(IndexOutOfBoundsException e) {
 			return false;
 		}
+	}
+	
+	/**
+	 * Returns the parameters of the search.
+	 * 
+	 * @return The parameters (separated by spaces).
+	 */
+	public String getParams() {
+		return searchString.replaceFirst(getCommand() + " ", "");
 	}
 	
 	/**
