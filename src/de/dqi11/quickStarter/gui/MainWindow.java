@@ -295,10 +295,10 @@ public class MainWindow extends Observable {
 		if(moduleAction != null) {
 			ModuleWindow moduleWindow = moduleAction.getModuleWindow(search);
 			
+			toggleApplication();
 			if(moduleWindow == null) {
 				moduleAction.invoke(search);
 			} else {
-				toggleApplication();
 				moduleWindow.show();
 			}
 		}
