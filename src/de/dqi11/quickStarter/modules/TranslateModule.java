@@ -8,10 +8,10 @@ import javax.swing.SwingWorker;
 import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.controller.Search;
 
-public class GoogleTranslateModule extends Module {
+public class TranslateModule extends Module {
 	private final String KEY = this.toString();
 
-	public GoogleTranslateModule(MainController mainController) {
+	public TranslateModule(MainController mainController) {
 		super(mainController);
 	}
 

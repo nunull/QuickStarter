@@ -45,10 +45,10 @@ public class WeatherModule extends Module {
 						else location += ",de";
 					}
 
-					String json = OpenWeatherMapBridge.getJSON(location, 2000);
+					String json = OpenWeatherMapBridge.getJSON(location);
 					String text = "";
 					JSONParser jsonParser = new JSONParser(json);
-					text = jsonParser.get("name") + ": " + jsonParser.get("main.temp") + "¡C";
+					text = jsonParser.get("name") + ": " + jsonParser.get("main.temp") + "°C";
 					
 					return new ModuleAction(KEY, text);
 				}
