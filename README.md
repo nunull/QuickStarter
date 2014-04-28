@@ -8,6 +8,8 @@ Build
 
 Build using Oracle JDK7, JDK8 and OpenJDK7.
 
+See: [travis-ci.org/nunull/QuickStarter](https://travis-ci.org/nunull/QuickStarter)
+
 External librarys
 -----------------
 
