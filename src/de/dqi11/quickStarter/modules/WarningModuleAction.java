@@ -1,7 +1,6 @@
 package de.dqi11.quickStarter.modules;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 import de.dqi11.quickStarter.gui.Warning;
 

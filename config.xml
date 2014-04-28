@@ -12,4 +12,7 @@
     <module>
         <class>TranslateModule</class>
     </module>
+    <module>
+    	<class>FileSearchModule</class>
+    </module>
 </modules>

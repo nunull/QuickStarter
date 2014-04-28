@@ -11,7 +11,7 @@ public class JSONParser {
 	/**
 	 * Constructor.
 	 * 
-	 * @param json The json string to be parsed.
+	 * @param json The JSON string to be parsed.
 	 */
 	@SuppressWarnings("unchecked")
 	public JSONParser(String json) {
@@ -70,6 +70,7 @@ public class JSONParser {
 	 * @param path The path. (Example: "attribute1.attribute2")
 	 * @return The value or null.
 	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<JSONParser> getArrayList(String path) {
 		ArrayList<Object> raw = (ArrayList<Object>) getRaw(path);
 		ArrayList<JSONParser> parsed = new ArrayList<JSONParser>();

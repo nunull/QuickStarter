@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 public class ModuleWindow {
 	private final int WIDTH = 800;
 	private final int HEIGHT = 500;
+	@SuppressWarnings("unused")
 	private KeyListener keyListener;
 	private JFrame mainFrame;
 	private JPanel mainPanel;

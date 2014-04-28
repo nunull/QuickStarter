@@ -16,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -233,7 +232,6 @@ public class MainWindow extends Observable {
 	public void toggleApplication() {
 		visible = !visible;
 		
-		textField.setText("");
 		mainFrame.setVisible(visible);
 		if(visible) {
 			mainFrame.setAlwaysOnTop(true);
@@ -241,6 +239,8 @@ public class MainWindow extends Observable {
 			mainFrame.requestFocus();
 			mainFrame.setAlwaysOnTop(false);
 		}
+		textField.setText("");
+		textField.requestFocus();
 	}
 	
 	/**

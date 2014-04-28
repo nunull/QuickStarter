@@ -10,7 +10,7 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
-public class HttpBridge {
+public class HTTPBridge {
 	private static final int TIMEOUT = 30000;
 	
 	public static String getContent(String url) throws ConnectException {
