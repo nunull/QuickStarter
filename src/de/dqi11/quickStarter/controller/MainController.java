@@ -54,7 +54,6 @@ public class MainController implements Observer {
 		LinkedList<String> moduleClassNames = persitencyController.getModuleClassNames();
 		
 		for(String moduleClassName : moduleClassNames) {
-//			System.out.println(moduleClassName);
 			try {
 				modules.add(
 						(Module) Class.
@@ -84,11 +83,6 @@ public class MainController implements Observer {
 				e.printStackTrace();
 			}
 		}
-		
-//		modules.add(new GoogleSearchModule(this));
-//		modules.add(new WeatherModule(this));
-//		modules.add(new TestModule(this));
-//		modules.add(new GoogleTranslateModule(this));
 		
 		// CoreModules have to be added last, since otherwise they won't receive 
 		// errors, which were produced by other Modules.
