@@ -56,7 +56,6 @@ public class WeatherModule extends Module {
 				@Override
 				protected void done() {
 					try {
-						System.out.println(search.getSearchString());
 						getMainController().updateModule(get());
 					} catch (InterruptedException | ExecutionException e) {
 						getMainController().updateModule(new WarningModuleAction(KEY, "An error occured."));
