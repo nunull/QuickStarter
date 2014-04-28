@@ -8,12 +8,8 @@ import java.util.Observer;
 
 import de.dqi11.quickStarter.gui.MainWindow;
 import de.dqi11.quickStarter.modules.ErrorCoreModule;
-import de.dqi11.quickStarter.modules.GoogleSearchModule;
-import de.dqi11.quickStarter.modules.GoogleTranslateModule;
 import de.dqi11.quickStarter.modules.ModuleAction;
 import de.dqi11.quickStarter.modules.Module;
-import de.dqi11.quickStarter.modules.TestModule;
-import de.dqi11.quickStarter.modules.WeatherModule;
 import de.dqi11.quickStarter.os.MacOS;
 import de.dqi11.quickStarter.os.OS;
 import de.dqi11.quickStarter.os.WinOS;

@@ -4,19 +4,9 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingWorker;
 
 import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.controller.Search;
-import de.dqi11.quickStarter.gui.ModuleWindow;
-import de.dqi11.quickStarter.helpers.JSONParser;
 
 public class GoogleSearchModule extends Module {
 	private final String KEY = this.toString();

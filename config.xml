@@ -9,7 +9,4 @@
     <module>
         <class>GoogleTranslateModule</class>
     </module>
-    <module>
-        <class>TestModule</class>
-    </module>
 </modules>

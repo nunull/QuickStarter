@@ -3,6 +3,8 @@ package de.dqi11.quickStarter.gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.FileInputStream;
 
 import javax.swing.JFrame;
@@ -15,15 +17,41 @@ import javax.swing.JPanel;
 public class ModuleWindow {
 	private final int WIDTH = 800;
 	private final int HEIGHT = 500;
+	private KeyListener keyListener;
 	private JFrame mainFrame;
 	private JPanel mainPanel;
 	private Font defaultFont;
 	private Font boldFont;
 	
 	public ModuleWindow() {
+		initListeners();
 		initFonts();
 		initMainFrame();
 		initMainPanel();
+	}
+	
+	/**
+	 * Initializes all listeners.
+	 */
+	private void initListeners() {
+		keyListener = new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// escape-key
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					mainFrame.setVisible(false);
+				}
+			}
+		};
 	}
 	
 	/**
