@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modules>
+    <module>
+        <class>GoogleSearchModule</class>
+    </module>
+    <module>
+        <class>WeatherModule</class>
+    </module>
+    <module>
+        <class>GoogleTranslateModule</class>
+    </module>
+    <module>
+        <class>TestModule</class>
+    </module>
+</modules>

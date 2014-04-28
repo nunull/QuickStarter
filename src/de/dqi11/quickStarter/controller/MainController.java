@@ -1,5 +1,6 @@
 package de.dqi11.quickStarter.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.ConnectException;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -26,6 +27,7 @@ public class MainController implements Observer {
 	private LinkedList<ModuleAction> moduleActions;
 	private OS os;
 	private MainWindow mainWindow;
+	private PersitencyController persitencyController;
 	
 	/**
 	 * Constructor.
@@ -33,6 +35,7 @@ public class MainController implements Observer {
 	public MainController() {
 		this.modules = new LinkedList<Module>();
 		this.moduleActions = new LinkedList<ModuleAction>();
+		this.persitencyController = new PersitencyController();
 		
 		initModules();
 		initOS();
@@ -48,10 +51,44 @@ public class MainController implements Observer {
 	 * Initializes the modules.
 	 */
 	public void initModules() {
-		modules.add(new GoogleSearchModule(this));
-		modules.add(new WeatherModule(this));
-		modules.add(new TestModule(this));
-		modules.add(new GoogleTranslateModule(this));
+		LinkedList<String> moduleClassNames = persitencyController.getModuleClassNames();
+		
+		for(String moduleClassName : moduleClassNames) {
+//			System.out.println(moduleClassName);
+			try {
+				modules.add(
+						(Module) Class.
+						forName("de.dqi11.quickStarter.modules." + moduleClassName).
+						getDeclaredConstructor(MainController.class).
+						newInstance(this));
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+//		modules.add(new GoogleSearchModule(this));
+//		modules.add(new WeatherModule(this));
+//		modules.add(new TestModule(this));
+//		modules.add(new GoogleTranslateModule(this));
 		
 		// CoreModules have to be added last, since otherwise they won't receive 
 		// errors, which were produced by other Modules.
@@ -98,7 +135,6 @@ public class MainController implements Observer {
 		
 		for(Module m : modules) {
 			try {
-				//TODO auslagern eigener thread
 				ModuleAction moduleAction = m.getModuleAction(search);
 				if(moduleAction != null) moduleActions.add(moduleAction);
 			} catch(ConnectException e) {
