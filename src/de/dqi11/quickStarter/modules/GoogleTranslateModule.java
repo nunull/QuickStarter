@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Locale;
+import java.util.Properties;
 
 import javax.swing.ImageIcon;
 
@@ -16,9 +18,11 @@ import de.dqi11.quickStarter.controller.Search;
  */
 public class GoogleTranslateModule extends Module {
 	private final String KEY = this.toString();
+	private String systemLanguage;
 	
 	public GoogleTranslateModule(MainController mainController) {
 		super(mainController);
+		systemLanguage = Locale.getDefault().getCountry();
 	}
 
 	@Override
@@ -29,7 +33,10 @@ public class GoogleTranslateModule extends Module {
 				public void invoke(Search search) {
 					if(Desktop.isDesktopSupported()) {
 						try {
-							Desktop.getDesktop().browse(new URI("https://translate.google.com/#auto/en/" + search.getParams().replaceAll(" ", "+")));
+							if(systemLanguage != null)
+								Desktop.getDesktop().browse(new URI("https://translate.google.com/#auto/" + systemLanguage + "/" + search.getParams().replaceAll(" ", "+")));
+							else
+								Desktop.getDesktop().browse(new URI("https://translate.google.com/#auto/en/" + search.getParams().replaceAll(" ", "+")));
 						} catch (IOException | URISyntaxException e) {
 							getMainController().updateModule(new WarningModuleAction(KEY, "An error occured."));
 						}
