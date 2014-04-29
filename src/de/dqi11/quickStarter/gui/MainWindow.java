@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.FileInputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.Observable;
 
@@ -16,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -45,6 +47,7 @@ public class MainWindow extends Observable {
 	private LinkedList<ModuleAction> moduleActions;
 	private Font defaultFont;
 	private Font boldFont;
+	private Thread updateHeightThread;
 	
 	/**
 	 * Constructor.
@@ -64,6 +67,7 @@ public class MainWindow extends Observable {
 		initTextField();
 		initErrorLabel();
 		initModuleActionsPanel();
+		updateHeight();
 	}
 	
 	/**
@@ -224,6 +228,69 @@ public class MainWindow extends Observable {
 		}
 		
 		selectFirst();
+		updateHeight();
+	}
+	
+	/**
+	 * Updates the window-height.
+	 */
+	public void updateHeight() {
+		final int startHeight = mainFrame.getHeight();
+		final int endHeight = moduleActionsListModel.getSize() * TEXTFIELD_HEIGHT + TEXTFIELD_HEIGHT + 10;
+		
+		if(updateHeightThread != null) {
+			updateHeightThread.stop();
+		}
+		
+		if(startHeight != endHeight) {
+			updateHeightThread = new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					int direction = 1;
+					if(startHeight > endHeight) direction = -1;
+					int speed = 25;
+					
+					for(int i = startHeight; i < endHeight && direction > 0 || i > endHeight && direction < 0; i += direction * speed) {
+						final int currentHeight = i;
+						
+						try {
+							SwingUtilities.invokeAndWait(new Runnable() {
+								
+								@Override
+								public void run() {
+									mainFrame.setSize(mainFrame.getWidth(), currentHeight);
+									mainFrame.repaint();
+									
+								}
+							});
+						} catch (InvocationTargetException e1) {
+						} catch (InterruptedException e1) {
+						}
+						
+						try {
+							Thread.sleep(25);
+						} catch (InterruptedException e) {
+						}
+					}
+					
+					try {
+						SwingUtilities.invokeAndWait(new Runnable() {
+							
+							@Override
+							public void run() {
+								mainFrame.setSize(mainFrame.getWidth(), endHeight);
+								mainFrame.repaint();
+								
+							}
+						});
+					} catch (InvocationTargetException e) {
+					} catch (InterruptedException e) {
+					}
+				}
+			});
+			updateHeightThread.start();
+		}
 	}
 	
 	/**
