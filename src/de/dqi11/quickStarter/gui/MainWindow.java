@@ -12,6 +12,7 @@ import java.util.Observable;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -36,7 +37,7 @@ public class MainWindow extends Observable {
 	private final int TEXTFIELD_HEIGHT = 50;
 	private final int ADVICESLIST_MAXHEIGHT = 450;
 	private boolean visible;
-	private JFrame mainFrame;
+	private JDialog mainDialog;
 	private JPanel mainPanel;
 	private JTextField textField;
 	private JLabel errorLabel;
@@ -62,7 +63,7 @@ public class MainWindow extends Observable {
 	public void init() {
 		initListeners();
 		initFonts();
-		initMainFrame();
+		initMainDialog();
 		initMainPanel();
 		initTextField();
 		initErrorLabel();
@@ -154,16 +155,16 @@ public class MainWindow extends Observable {
 	/**
 	 * Initializes the mainFrame.
 	 */
-	private void initMainFrame() {
-		mainFrame = new JFrame();
+	private void initMainDialog() {
+		mainDialog = new JDialog();
 		
-		mainFrame.setUndecorated(true);
-		mainFrame.setSize(WIDTH-20, TEXTFIELD_HEIGHT);
+		mainDialog.setUndecorated(true);
+		mainDialog.setSize(WIDTH-20, TEXTFIELD_HEIGHT);
 //		mainFrame.setShape(new RoundRectangle2D.Double(10, 10, 100, 100, 50, 50));
-		mainFrame.setLocationRelativeTo(null);
-		mainFrame.setLocation(mainFrame.getLocation().x, 100);
-		mainFrame.setOpacity(0.8f);
-		mainFrame.setBackground(Color.BLACK);
+		mainDialog.setLocationRelativeTo(null);
+		mainDialog.setLocation(mainDialog.getLocation().x, 100);
+		mainDialog.setOpacity(0.8f);
+		mainDialog.setBackground(Color.BLACK);
 	}
 	
 	/**
@@ -172,7 +173,7 @@ public class MainWindow extends Observable {
 	private void initMainPanel() {
 		mainPanel = new JPanel();
 		mainPanel.setOpaque(false);
-		mainFrame.setContentPane(mainPanel);
+		mainDialog.setContentPane(mainPanel);
 	}
 	
 	/**
@@ -236,7 +237,7 @@ public class MainWindow extends Observable {
 	 * Updates the window-height.
 	 */
 	public void updateHeight() {
-		final int startHeight = mainFrame.getHeight();
+		final int startHeight = mainDialog.getHeight();
 		final int endHeight = moduleActionsListModel.getSize() * TEXTFIELD_HEIGHT + TEXTFIELD_HEIGHT + 10;
 		
 		if(updateHeightThread != null) {
@@ -260,8 +261,8 @@ public class MainWindow extends Observable {
 								
 								@Override
 								public void run() {
-									mainFrame.setSize(mainFrame.getWidth(), currentHeight);
-									mainFrame.repaint();
+									mainDialog.setSize(mainDialog.getWidth(), currentHeight);
+									mainDialog.repaint();
 								}
 							});
 						} catch (InvocationTargetException e1) {
@@ -279,8 +280,8 @@ public class MainWindow extends Observable {
 							
 							@Override
 							public void run() {
-								mainFrame.setSize(mainFrame.getWidth(), endHeight);
-								mainFrame.repaint();
+								mainDialog.setSize(mainDialog.getWidth(), endHeight);
+								mainDialog.repaint();
 								
 							}
 						});
@@ -299,12 +300,12 @@ public class MainWindow extends Observable {
 	public void toggleApplication() {
 		visible = !visible;
 		
-		mainFrame.setVisible(visible);
+		mainDialog.setVisible(visible);
 		if(visible) {
-			mainFrame.setAlwaysOnTop(true);
-			mainFrame.toFront();
-			mainFrame.requestFocus();
-			mainFrame.setAlwaysOnTop(false);
+			mainDialog.setAlwaysOnTop(true);
+			mainDialog.toFront();
+			mainDialog.requestFocus();
+			mainDialog.setAlwaysOnTop(false);
 		}
 		textField.setText("");
 		textField.requestFocus();
