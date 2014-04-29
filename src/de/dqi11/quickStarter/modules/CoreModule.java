@@ -1,5 +1,7 @@
 package de.dqi11.quickStarter.modules;
 
+import java.util.LinkedList;
+
 import de.dqi11.quickStarter.controller.MainController;
 
 /**

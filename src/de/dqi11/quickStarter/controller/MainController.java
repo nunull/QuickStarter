@@ -1,6 +1,5 @@
 package de.dqi11.quickStarter.controller;
 
-import java.lang.reflect.InvocationTargetException;
 import java.net.ConnectException;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -31,7 +30,7 @@ public class MainController implements Observer {
 	public MainController() {
 		this.modules = new LinkedList<Module>();
 		this.moduleActions = new LinkedList<ModuleAction>();
-		this.persitencyController = new PersitencyController();
+		this.persitencyController = new PersitencyController(this);
 		
 		initModules();
 		initOS();
@@ -47,38 +46,7 @@ public class MainController implements Observer {
 	 * Initializes the modules.
 	 */
 	public void initModules() {
-		LinkedList<String> moduleClassNames = persitencyController.getModuleClassNames();
-		
-		for(String moduleClassName : moduleClassNames) {
-			try {
-				modules.add(
-						(Module) Class.
-						forName("de.dqi11.quickStarter.modules." + moduleClassName).
-						getDeclaredConstructor(MainController.class).
-						newInstance(this));
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		modules = persitencyController.getModules();
 		
 		// CoreModules have to be added last, since otherwise they won't receive 
 		// errors, which were produced by other Modules.
@@ -119,16 +87,34 @@ public class MainController implements Observer {
 	 * @return a list of Advices (possible actions).
 	 */
 	public LinkedList<ModuleAction> invoke(Search search) {
+		LinkedList<Module> activeModules = new LinkedList<>();
 		moduleActions = new LinkedList<ModuleAction>();
-		
 		networkError = false;
 		
 		for(Module m : modules) {
 			try {
 				ModuleAction moduleAction = m.getModuleAction(search);
-				if(moduleAction != null) moduleActions.add(moduleAction);
+				if(moduleAction != null) {
+					activeModules.add(m);
+					moduleActions.add(moduleAction);
+				}
 			} catch(ConnectException e) {
 				networkError = true;
+			}
+		}
+		
+		for(Module m : activeModules) {
+			LinkedList<Module> exceptions = m.getExceptions();
+			
+			for(Module exception : exceptions) {
+				if(activeModules.contains(exception)) {
+					for(ModuleAction moduleAction : moduleActions) {
+						if(moduleAction.getKey().equals(m.getKey())) {
+							moduleActions.remove(moduleAction);
+							break;
+						}
+					}
+				}
 			}
 		}
 		

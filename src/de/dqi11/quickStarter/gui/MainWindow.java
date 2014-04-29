@@ -235,7 +235,7 @@ public class MainWindow extends Observable {
 	/**
 	 * Updates the window-height.
 	 */
-	public void updateHeight() {
+	private void updateHeight() {
 		final int startHeight = mainDialog.getHeight();
 		final int endHeight = moduleActionsListModel.getSize() * TEXTFIELD_HEIGHT + TEXTFIELD_HEIGHT + 10;
 		
@@ -250,7 +250,7 @@ public class MainWindow extends Observable {
 				public void run() {
 					int direction = 1;
 					if(startHeight > endHeight) direction = -1;
-					int speed = 25;
+					int speed = 45;
 					
 					for(int i = startHeight; i < endHeight && direction > 0 || i > endHeight && direction < 0; i += direction * speed) {
 						final int currentHeight = i;
@@ -269,7 +269,7 @@ public class MainWindow extends Observable {
 						}
 						
 						try {
-							Thread.sleep(10);
+							Thread.sleep(20);
 						} catch (InterruptedException e) {
 						}
 					}

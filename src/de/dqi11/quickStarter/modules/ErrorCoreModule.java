@@ -1,6 +1,7 @@
 package de.dqi11.quickStarter.modules;
 
 import java.net.ConnectException;
+import java.util.LinkedList;
 
 import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.controller.Search;
