@@ -158,9 +158,10 @@ public class MainWindow extends Observable {
 		mainFrame = new JFrame();
 		
 		mainFrame.setUndecorated(true);
-		mainFrame.setSize(WIDTH-20, TEXTFIELD_HEIGHT + ADVICESLIST_MAXHEIGHT);
+		mainFrame.setSize(WIDTH-20, TEXTFIELD_HEIGHT);
 //		mainFrame.setShape(new RoundRectangle2D.Double(10, 10, 100, 100, 50, 50));
 		mainFrame.setLocationRelativeTo(null);
+		mainFrame.setLocation(mainFrame.getLocation().x, 100);
 		mainFrame.setOpacity(0.8f);
 		mainFrame.setBackground(Color.BLACK);
 	}
@@ -181,7 +182,7 @@ public class MainWindow extends Observable {
 		textField = new JTextField();
 		
 		Border line = BorderFactory.createLineBorder(Color.BLACK);
-		Border empty = new EmptyBorder(0, 10, 0, 0);
+		Border empty = new EmptyBorder(0, 70, 0, 0);
 		CompoundBorder border = new CompoundBorder(line, empty);
 		textField.setBorder(border);
 		textField.setPreferredSize(new Dimension(WIDTH, TEXTFIELD_HEIGHT));
@@ -261,7 +262,6 @@ public class MainWindow extends Observable {
 								public void run() {
 									mainFrame.setSize(mainFrame.getWidth(), currentHeight);
 									mainFrame.repaint();
-									
 								}
 							});
 						} catch (InvocationTargetException e1) {
@@ -269,7 +269,7 @@ public class MainWindow extends Observable {
 						}
 						
 						try {
-							Thread.sleep(25);
+							Thread.sleep(10);
 						} catch (InterruptedException e) {
 						}
 					}
