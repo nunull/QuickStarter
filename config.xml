@@ -15,4 +15,7 @@
     <module>
     	<class>FileSearchModule</class>
     </module>
+    <module>
+    	<class>CalculatorModule</class>
+    </module>
 </modules>
