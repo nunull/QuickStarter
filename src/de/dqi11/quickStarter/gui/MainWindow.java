@@ -13,7 +13,6 @@ import java.util.Observable;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -34,7 +33,7 @@ import de.dqi11.quickStarter.modules.ModuleAction;
  */
 public class MainWindow extends Observable {
 	private final int WIDTH = 500;
-	private final int TEXTFIELD_HEIGHT = 50;
+	private final int TEXTFIELD_HEIGHT = 60;
 	private final int ADVICESLIST_MAXHEIGHT = 450;
 	private boolean visible;
 	private JDialog mainDialog;
@@ -183,7 +182,7 @@ public class MainWindow extends Observable {
 		textField = new JTextField();
 		
 		Border line = BorderFactory.createLineBorder(Color.BLACK);
-		Border empty = new EmptyBorder(0, 70, 0, 0);
+		Border empty = new EmptyBorder(0, 80, 0, 0);
 		CompoundBorder border = new CompoundBorder(line, empty);
 		textField.setBorder(border);
 		textField.setPreferredSize(new Dimension(WIDTH, TEXTFIELD_HEIGHT));

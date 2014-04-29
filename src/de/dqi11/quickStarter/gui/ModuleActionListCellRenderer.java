@@ -49,10 +49,10 @@ public class ModuleActionListCellRenderer extends DefaultListCellRenderer {
 		label.setText(moduleAction.getText());
 		label.setFont(font);
 		label.setOpaque(true);
-		label.setPreferredSize(new Dimension(280, 50));
+		label.setPreferredSize(new Dimension(280, 60));
 		
 		Border line = BorderFactory.createLineBorder(Color.BLACK);
-		Border empty = new EmptyBorder(0, 10, 0, 0);
+		Border empty = new EmptyBorder(5, 20, 5, 0);
 		CompoundBorder border = new CompoundBorder(line, empty);
 		label.setBorder(border);
 		
