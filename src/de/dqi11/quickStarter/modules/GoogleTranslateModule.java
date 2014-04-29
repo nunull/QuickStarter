@@ -6,7 +6,6 @@ import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Locale;
-import java.util.Properties;
 
 import javax.swing.ImageIcon;
 

@@ -5,7 +5,6 @@ import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.SwingWorker;
-import javax.xml.bind.JAXBElement.GlobalScope;
 
 import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.controller.Search;

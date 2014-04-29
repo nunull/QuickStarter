@@ -1,7 +1,6 @@
 package de.dqi11.quickStarter.modules;
 
 import java.net.ConnectException;
-import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.JPanel;

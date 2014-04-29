@@ -1,7 +1,5 @@
 package de.dqi11.quickStarter.modules;
 
-import java.util.LinkedList;
-
 import de.dqi11.quickStarter.controller.MainController;
 
 /**
@@ -12,5 +10,4 @@ public abstract class CoreModule extends Module {
 	public CoreModule(MainController mainController) {
 		super(mainController);
 	}
-
 }

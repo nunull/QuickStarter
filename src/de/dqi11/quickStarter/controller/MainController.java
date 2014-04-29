@@ -167,7 +167,7 @@ public class MainController implements Observer {
 	/**
 	 * Getter.
 	 * 
-	 * @return true, if an networkError occured.
+	 * @return true, if an networkError occurred.
 	 */
 	public boolean isNetworkError() {
 		return networkError;
