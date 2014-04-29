@@ -3,11 +3,12 @@ package de.dqi11.quickStarter.modules;
 import java.net.ConnectException;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
-
+import javax.swing.JButton;
 import javax.swing.SwingWorker;
 
 import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.controller.Search;
+import de.dqi11.quickStarter.gui.ModuleWindow;
 import de.dqi11.quickStarter.helpers.JSONParser;
 import de.dqi11.quickStarter.modules.bridges.OpenWeatherMapBridge;
 
@@ -50,7 +51,14 @@ public class WeatherModule extends Module {
 					JSONParser jsonParser = new JSONParser(json);
 					text = jsonParser.get("name") + ": " + jsonParser.get("main.temp") + "°C";
 					
-					return new ModuleAction(KEY, text);
+					return new ModuleAction(KEY, text) {
+						@Override
+						public ModuleWindow getModuleWindow(Search search) {
+							ModuleWindow window = new ModuleWindow();
+							window.add(new JButton("test"));
+							return window;
+						}
+					};
 				}
 
 				@Override
