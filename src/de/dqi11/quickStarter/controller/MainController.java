@@ -6,6 +6,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import de.dqi11.quickStarter.gui.MainWindow;
+import de.dqi11.quickStarter.gui.Taskbar;
 import de.dqi11.quickStarter.modules.ErrorCoreModule;
 import de.dqi11.quickStarter.modules.ModuleAction;
 import de.dqi11.quickStarter.modules.Module;
@@ -22,6 +23,8 @@ public class MainController implements Observer {
 	private LinkedList<ModuleAction> moduleActions;
 	private OS os;
 	private MainWindow mainWindow;
+	@SuppressWarnings("unused")
+	private Taskbar taskbar;
 	private PersitencyController persitencyController;
 	
 	/**
@@ -57,8 +60,12 @@ public class MainController implements Observer {
 	 * Initializes the wrappers for operating-systems.
 	 */
 	public void initOS() {
-		if( System.getProperty("os.name").contains("Windows") ) os = new WinOS();
-		else os = new MacOS();
+		String osName = System.getProperty("os.name");
+		
+		if( osName.contains("Windows") ) os = new WinOS();
+		else if( osName.contains("Mac") ) os = new MacOS();
+		else System.exit(1);
+		
 		os.addObserver(this);
 	}
 	
@@ -78,6 +85,8 @@ public class MainController implements Observer {
 //				mainWindow.init();
 //			}
 //		});
+		
+		taskbar = new Taskbar(this);
 	}
 	
 	/**
@@ -145,6 +154,16 @@ public class MainController implements Observer {
 	 */
 	public void shutdown() {
 		os.shutdown();
+	}
+	
+	/**
+	 * Quits the application.
+	 */
+	public void quit() {
+		shutdown();
+		
+		// TODO bad style
+		System.exit(0);
 	}
 
 	/**

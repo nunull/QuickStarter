@@ -6,11 +6,9 @@ public class LoadingModuleAction extends ModuleAction {
 	
 	public LoadingModuleAction(String key) {
 		super(key, "Loading...", new ImageIcon("res/loading.gif"));
-		//TODO setIcon
 	}
 	
 	public LoadingModuleAction(String key, String text) {
 		super(key, text, new ImageIcon("res/loading.gif"));
-		//TODO setIcon
 	}
 }

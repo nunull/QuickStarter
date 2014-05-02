@@ -43,10 +43,11 @@ public class ModuleActionListCellRenderer extends DefaultListCellRenderer {
 		JLabel label = new JLabel();
 		if(icon != null) {
 			icon.setImage(icon.getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH));
+			
 			label.setIcon(icon);
 		}
 		
-		label.setText(moduleAction.getText());
+		label.setText("<html>" + moduleAction.getText() + "</html>");
 		label.setFont(font);
 		label.setOpaque(true);
 		label.setPreferredSize(new Dimension(280, 60));

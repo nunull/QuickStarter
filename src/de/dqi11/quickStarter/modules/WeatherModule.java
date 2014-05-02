@@ -3,6 +3,8 @@ package de.dqi11.quickStarter.modules;
 import java.net.ConnectException;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingWorker;
 
@@ -30,28 +32,35 @@ public class WeatherModule extends Module {
 	public ModuleAction getModuleAction(final Search search) throws ConnectException {
 
 		if (search.isCommand("weather")) {
-			try{
+			try {
 				worker.cancel(true);
-			}catch(CancellationException e){
-				//TODO
+			}catch(CancellationException e) {
 			}
+			
 			worker = new SwingWorker<ModuleAction, ModuleAction>() {
 
 				@Override
 				protected ModuleAction doInBackground() throws Exception {
 					String location = search.getParam(0);
 					if(location == null) location = "Bremen";
-					if(location.split(",").length == 1){
-						if (search.getParam(1)!=null) location +=","+search.getParam(1);
+					if(location.split(",").length == 1) {
+						if(search.getParam(1) != null) location += "," + search.getParam(1);
 						else location += ",de";
 					}
 
 					String json = OpenWeatherMapBridge.getJSON(location);
 					String text = "";
 					JSONParser jsonParser = new JSONParser(json);
-					text = jsonParser.get("name") + ": " + jsonParser.get("main.temp") + "\u00B0C";
 					
-					return new ModuleAction(KEY, text) {
+					float temp = Float.valueOf(jsonParser.get("main.temp"));
+					temp = Math.round(temp);
+					
+					String tempFormated = String.format("%s", temp);
+					if(temp == (int) temp) tempFormated = String.format("%s", (int) temp);
+					
+					text = jsonParser.get("name") + ": <b>" + tempFormated + "\u00B0C</b>";
+					
+					return new ModuleAction(KEY, text, new ImageIcon("res/weather-icon-tmp.png")) {
 						@Override
 						public ModuleWindow getModuleWindow(Search search) {
 							ModuleWindow window = new ModuleWindow();
@@ -66,7 +75,7 @@ public class WeatherModule extends Module {
 					try {
 						getMainController().updateModule(get());
 					} catch (InterruptedException | ExecutionException e) {
-						getMainController().updateModule(new WarningModuleAction(KEY, "An error occured."));
+						getMainController().updateModule(new WarningModuleAction(KEY, "An error occured.", new ImageIcon("res/weather-icon-tmp.png")));
 
 						try {
 							getModuleAction(search);
