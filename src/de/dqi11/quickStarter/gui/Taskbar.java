@@ -85,8 +85,8 @@ public class Taskbar implements ActionListener {
 		} else if(actionCommand.equals(quitMenuItem.getActionCommand())) {
 			mainController.quit();
 		} else if (actionCommand.equals(deActivateMenuItem.getActionCommand())){
-			if (mainController.getOs().isActive()) mainController.getOs().setActive(false);
-			else mainController.getOs().setActive(true);
+			if (mainController.getOS().isActive()) mainController.getOS().setActive(false);
+			else mainController.getOS().setActive(true);
 		}
 		
 	}
