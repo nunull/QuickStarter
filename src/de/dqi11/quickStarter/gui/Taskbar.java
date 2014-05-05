@@ -26,6 +26,7 @@ public class Taskbar implements ActionListener {
 	private PopupMenu popup;
 	private MenuItem helpMenuItem;
 	private MenuItem aboutMenuItem;
+	private MenuItem deActivateMenuItem;
 	private MenuItem preferencesMenuItem;
 	private MenuItem quitMenuItem;
 	
@@ -49,12 +50,15 @@ public class Taskbar implements ActionListener {
 			aboutMenuItem.setActionCommand("about");
 			preferencesMenuItem = new MenuItem("Preferences");
 			preferencesMenuItem.setActionCommand("app.pref");
+			deActivateMenuItem = new MenuItem("DeActivate");
+			deActivateMenuItem.setActionCommand("deActivate");
 			quitMenuItem = new MenuItem("Quit");
 			quitMenuItem.setActionCommand("app.quit");
 			
 			popup.add(helpMenuItem);
 			popup.add(aboutMenuItem);
 			popup.add(preferencesMenuItem);
+			popup.add(deActivateMenuItem);
 			popup.add(quitMenuItem);
 			popup.addActionListener(this);
 			trayIcon.setPopupMenu(popup);
@@ -80,6 +84,9 @@ public class Taskbar implements ActionListener {
 			}
 		} else if(actionCommand.equals(quitMenuItem.getActionCommand())) {
 			mainController.quit();
+		} else if (actionCommand.equals(deActivateMenuItem.getActionCommand())){
+			if (mainController.getOs().isActive()) mainController.getOs().setActive(false);
+			else mainController.getOs().setActive(true);
 		}
 		
 	}

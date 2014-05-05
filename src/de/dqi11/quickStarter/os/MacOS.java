@@ -28,8 +28,10 @@ public class MacOS extends OS implements NativeKeyListener {
 
 	@Override
 	public void nativeKeyPressed(NativeKeyEvent e) {
-		if(e.getKeyCode() == 16) altKeyPressed = true;
-		else if(e.getKeyCode() == 32 && altKeyPressed) toggleApp();
+		if (isActive()){
+			if(e.getKeyCode() == 16) altKeyPressed = true;
+			else if(e.getKeyCode() == 32 && altKeyPressed) toggleApp();
+		}
 	}
 
 	@Override
