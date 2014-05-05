@@ -23,7 +23,7 @@ public class FileSearchModule extends Module {
 		if(!search.equals("")) {
 			moduleWindow = new ModuleWindow();
 			
-			return new ModuleAction(KEY, "Locate " + search.getSearchString()) {
+			return new ModuleAction(KEY, "Locate <b>" + search.getSearchString() + "</b>") {
 				
 				@Override
 				public ModuleWindow getModuleWindow(Search search) {

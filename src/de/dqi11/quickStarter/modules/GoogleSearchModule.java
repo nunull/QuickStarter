@@ -20,7 +20,7 @@ public class GoogleSearchModule extends Module {
 	@Override
 	public ModuleAction getModuleAction(final Search search) {
 		if(!search.getSearchString().equals("")) {
-			return new ModuleAction(KEY, "Google for " + search.getSearchString(), new ImageIcon("res/google-logo.png")) {
+			return new ModuleAction(KEY, "Google for <b>" + search.getSearchString() + "</b>", new ImageIcon("res/google-logo.png")) {
 				@Override
 				public void invoke(Search search) {
 					if(Desktop.isDesktopSupported()) {
