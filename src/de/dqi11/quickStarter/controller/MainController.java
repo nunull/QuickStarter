@@ -48,7 +48,7 @@ public class MainController implements Observer {
 	/**
 	 * Initializes the modules.
 	 */
-	public void initModules() {
+	private void initModules() {
 		modules = persitencyController.getModules();
 		
 		// CoreModules have to be added last, since otherwise they won't receive 
@@ -59,7 +59,7 @@ public class MainController implements Observer {
 	/**
 	 * Initializes the wrappers for operating-systems.
 	 */
-	public void initOS() {
+	private void initOS() {
 		String osName = System.getProperty("os.name");
 		
 		if( osName.contains("Windows") ) os = new WinOS();
@@ -72,7 +72,7 @@ public class MainController implements Observer {
 	/**
 	 * Initializes the GUI.
 	 */
-	public void initGUI() {
+	private void initGUI() {
 		mainWindow = new MainWindow();
 		mainWindow.addObserver(this);
 		mainWindow.init();
