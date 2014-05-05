@@ -191,4 +191,8 @@ public class MainController implements Observer {
 	public boolean isNetworkError() {
 		return networkError;
 	}
+
+	public OS getOS() {
+		return os;
+	}
 }
