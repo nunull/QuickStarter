@@ -22,7 +22,9 @@ public class GoogleSearchModule extends Module {
 	public ModuleAction getModuleAction(final Search search) {
 		if(!search.getSearchString().equals("")) {
 			if (search.isCommand("img")) adtCmd = "&tbm=isch";
+			else if (search.isCommand("vid") || search.isCommand("video")) adtCmd = "&tbm=vid";
 			else adtCmd = null;
+			
 			
 			return new ModuleAction(KEY, "Google for <b>" + search.getSearchString() + "</b>", new ImageIcon("res/google-logo.png")) {
 				@Override
