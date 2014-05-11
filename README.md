@@ -4,7 +4,7 @@ QuickStarter
 Build
 -----
 
-[![Travis CI](https://api.travis-ci.org/nunull/QuickStarter.png)](https://travis-ci.org/nunull/QuickStarter)
+[![Build Status](https://travis-ci.org/nunull/QuickStarter.svg?branch=master)](https://travis-ci.org/nunull/QuickStarter)
 
 Build using Oracle JDK7, JDK8 and OpenJDK7.
 
