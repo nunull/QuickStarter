@@ -40,6 +40,7 @@ public class TranslateModule extends Module {
 					
 					return new ModuleAction(KEY, "TODO");
 				}
+				
 				protected void done() {
 					try {
 						getMainController().updateModule(get());

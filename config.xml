@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modules>
-    <module>
+	<module>
     	<id>0</id>
-        <class>GoogleSearchModule</class>
-        <exceptions>
-        	<exception>1</exception>
+    	<class>FileSearchModule</class>
+    	<exceptions>
         	<exception>2</exception>
+        	<exception>3</exception>
         </exceptions>
     </module>
     <module>
     	<id>1</id>
-        <class>WeatherModule</class>
+        <class>GoogleSearchModule</class>
+        <exceptions>
+        	<exception>2</exception>
+        	<exception>3</exception>
+        </exceptions>
     </module>
     <module>
     	<id>2</id>
-        <class>GoogleTranslateModule</class>
+        <class>WeatherModule</class>
     </module>
     <module>
     	<id>3</id>
-        <class>TranslateModule</class>
+        <class>GoogleTranslateModule</class>
     </module>
     <module>
     	<id>4</id>
-    	<class>FileSearchModule</class>
-    	<exceptions>
-        	<exception>1</exception>
-        	<exception>2</exception>
-        </exceptions>
+        <class>TranslateModule</class>
     </module>
 </modules>
