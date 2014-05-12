@@ -2,7 +2,9 @@
 
 * [ ] preferences-dialog
 * [ ] help-dialog
-* [ ] **modules**
+
+## modules
+
 * [x] local file search
 * [ ] calculator
 * [ ] wiki
