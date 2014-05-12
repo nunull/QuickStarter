@@ -1,12 +1,12 @@
 # coding
 
-* preferences-dialog
-* help-dialog
-* modules
-	* local file search
-	* calculator
-	* wiki
-	* weather
+* [ ] preferences-dialog
+* [ ] help-dialog
+* [ ] **modules**
+* [x] local file search
+* [ ] calculator
+* [ ] wiki
+* [ ] weather
 
 ### finished
 
