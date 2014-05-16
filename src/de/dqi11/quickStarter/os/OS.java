@@ -29,7 +29,6 @@ public abstract class OS extends Observable {
 	 * 
 	 * @param active true if the shortcut should be listened, else if not
 	 */
-	
 	public void setActive(boolean active) {
 		this.active = active;
 	}
@@ -40,6 +39,6 @@ public abstract class OS extends Observable {
 	 * @return true if the shortcut is active
 	 */
 	public boolean isActive() {
-		return active;
+		return this.active;
 	}
 }
