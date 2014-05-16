@@ -26,7 +26,7 @@ public class GoogleMapsModule extends Module {
 				public void invoke(Search search) {
 					if(Desktop.isDesktopSupported()) {
 						try {
-							Desktop.getDesktop().browse(new URI("https://www.google.com/maps/search/" + search.getParams().replaceAll(" ", "+").replaceAll("§", "ss")));
+							Desktop.getDesktop().browse(new URI("https://www.google.com/maps/search/" + search.getParams().replaceAll(" ", "+").replaceAll("\u00df", "ss")));
 						} catch (IOException | URISyntaxException e) {
 							getMainController().updateModule(new WarningModuleAction(KEY, "An error occured."));
 						}
