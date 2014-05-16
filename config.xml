@@ -10,6 +10,7 @@
     	<exceptions>
         	<exception>3</exception>
         	<exception>4</exception>
+        	<exception>6</exception>
         </exceptions>
     </module>
     <module>
@@ -18,6 +19,7 @@
         <exceptions>
         	<exception>3</exception>
         	<exception>4</exception>
+        	<exception>6</exception>
         </exceptions>
     </module>
     <module>
@@ -31,5 +33,9 @@
     <module>
     	<id>5</id>
         <class>TranslateModule</class>
+    </module>
+    <module>
+    	<id>6</id>
+        <class>GoogleMapsModule</class>
     </module>
 </modules>

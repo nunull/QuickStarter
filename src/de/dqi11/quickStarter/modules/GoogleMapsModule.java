@@ -2,6 +2,7 @@ package de.dqi11.quickStarter.modules;
 
 import java.awt.Desktop;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -10,27 +11,22 @@ import javax.swing.ImageIcon;
 import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.controller.Search;
 
-public class GoogleSearchModule extends Module {
+public class GoogleMapsModule extends Module {
 	private final String KEY = this.toString();
-	private String adtCmd = null;
-	
-	public GoogleSearchModule(MainController mainController) {
+
+	public GoogleMapsModule(MainController mainController) {
 		super(mainController);
 	}
-	
+
 	@Override
-	public ModuleAction getModuleAction(final Search search) {
-		if(!search.getSearchString().equals("")) {
-			if (search.isCommand("img")) adtCmd = "&tbm=isch";
-			else if (search.isCommand("vid") || search.isCommand("video")) adtCmd = "&tbm=vid";
-			else adtCmd = null;
-			
-			return new ModuleAction(KEY, "Google for <b>" + search.getSearchString() + "</b>", new ImageIcon("res/google-logo.png")) {
+	public ModuleAction getModuleAction(Search search) throws ConnectException {
+		if(search.getSearchString().startsWith("map ")) {
+			return new ModuleAction(KEY, "Show map of <b>" + search.getParams() + "</b>", new ImageIcon("res/google-logo.png")) {
 				@Override
 				public void invoke(Search search) {
 					if(Desktop.isDesktopSupported()) {
 						try {
-							Desktop.getDesktop().browse(new URI("https://www.google.com/#q=" + search.getSearchString().replaceAll(" ", "+") + adtCmd));
+							Desktop.getDesktop().browse(new URI("https://www.google.com/maps/search/" + search.getParams().replaceAll(" ", "+").replaceAll("§", "ss")));
 						} catch (IOException | URISyntaxException e) {
 							getMainController().updateModule(new WarningModuleAction(KEY, "An error occured."));
 						}
@@ -41,5 +37,5 @@ public class GoogleSearchModule extends Module {
 			return null;
 		}
 	}
-
+	
 }
