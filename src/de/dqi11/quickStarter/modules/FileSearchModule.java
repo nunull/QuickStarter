@@ -24,48 +24,52 @@ public class FileSearchModule extends Module {
 
 	@Override
 	public ModuleAction getModuleAction(final Search search) throws ConnectException {
-		SwingWorker<ModuleAction, ModuleAction> worker = new SwingWorker<ModuleAction, ModuleAction>() {
-
-			@Override
-			protected ModuleAction doInBackground() throws Exception {
-				
-				return new ModuleAction(KEY, "Find <b>" + search.getSearchString() + "</b>") {
-					@Override
-					public ModuleWindow getModuleWindow(final Search search) {
-						ModuleWindow moduleWindow = new ModuleWindow();
-						
-						File dir = new File(System.getProperty("user.home"));
-						LinkedList<File> results = findFiles(dir, new FilenameFilter() {
+		if(!search.getSearchString().equals("")) {
+			SwingWorker<ModuleAction, ModuleAction> worker = new SwingWorker<ModuleAction, ModuleAction>() {
+	
+				@Override
+				protected ModuleAction doInBackground() throws Exception {
+					
+					return new ModuleAction(KEY, "Find <b>" + search.getSearchString() + "</b>") {
+						@Override
+						public ModuleWindow getModuleWindow(final Search search) {
+							ModuleWindow moduleWindow = new ModuleWindow();
 							
-							@Override
-							public boolean accept(File dir, String name) {
-								return name.contains(search.getSearchString());
+							File dir = new File(System.getProperty("user.home"));
+							LinkedList<File> results = findFiles(dir, new FilenameFilter() {
+								
+								@Override
+								public boolean accept(File dir, String name) {
+									return name.contains(search.getSearchString());
+								}
+							});
+							
+							for(File file : results) {
+								moduleWindow.add(new ModuleLabel(file.getName().replace("%20", " ")));
 							}
-						});
-						
-						for(File file : results) {
-							moduleWindow.add(new ModuleLabel(file.getName().replace("%20", " ")));
+							
+							return moduleWindow;
 						}
-						
-						return moduleWindow;
-					}
-				};
-			}
-			
-			@Override
-			protected void done() {
-				try {
-					getMainController().updateModule(get());
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					e.printStackTrace();
+					};
 				}
-			}
-		};
-		worker.execute();
-		
-		return new LoadingModuleAction(KEY);
+				
+				@Override
+				protected void done() {
+					try {
+						getMainController().updateModule(get());
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						e.printStackTrace();
+					}
+				}
+			};
+			worker.execute();
+			
+			return new LoadingModuleAction(KEY);
+		} else {
+			return null;
+		}
 	}
 	
 	public LinkedList<File> findFiles(File dir, FilenameFilter filter) {
