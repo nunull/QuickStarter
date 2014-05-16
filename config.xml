@@ -2,30 +2,34 @@
 <modules>
 	<module>
     	<id>0</id>
+    	<class>CalculatorModule</class>
+    </module>
+	<module>
+    	<id>1</id>
     	<class>FileSearchModule</class>
     	<exceptions>
-        	<exception>2</exception>
         	<exception>3</exception>
-        </exceptions>
-    </module>
-    <module>
-    	<id>1</id>
-        <class>GoogleSearchModule</class>
-        <exceptions>
-        	<exception>2</exception>
-        	<exception>3</exception>
+        	<exception>4</exception>
         </exceptions>
     </module>
     <module>
     	<id>2</id>
-        <class>WeatherModule</class>
+        <class>GoogleSearchModule</class>
+        <exceptions>
+        	<exception>3</exception>
+        	<exception>4</exception>
+        </exceptions>
     </module>
     <module>
     	<id>3</id>
-        <class>GoogleTranslateModule</class>
+        <class>WeatherModule</class>
     </module>
     <module>
     	<id>4</id>
+        <class>GoogleTranslateModule</class>
+    </module>
+    <module>
+    	<id>5</id>
         <class>TranslateModule</class>
     </module>
 </modules>
