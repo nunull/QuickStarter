@@ -22,7 +22,7 @@ public class CalculatorModule extends Module {
 			double result = evaluator.evaluate(search.getSearchString());
 			
 			return new ModuleAction(KEY, search.getSearchString() + " = " + result);
-		} catch(SyntaxError e) {
+		} catch(SyntaxError | ArithmeticException e) {
 			return null;
 		}
 	}
