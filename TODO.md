@@ -6,7 +6,7 @@
 ## modules
 
 * [x] local file search
-* [ ] calculator
+* [x] calculator
 * [ ] wiki
 * [ ] weather
 
