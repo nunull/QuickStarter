@@ -43,7 +43,9 @@ public class MainController implements Observer {
 		/*
 		 * Just a small test.
 		 */
-		mainWindow.toggleApplication();
+		if(mainWindow != null) {
+			mainWindow.toggleApplication();
+		}
 	}
 	
 	/**
@@ -94,7 +96,6 @@ public class MainController implements Observer {
 			
 			taskbar = new Taskbar(this);
 		} catch(HeadlessException e) {
-			
 		}
 	}
 	
@@ -154,7 +155,10 @@ public class MainController implements Observer {
 			moduleActions.add(index, modulAction);
 			moduleActions.remove(index+1);
 			
-			mainWindow.updateModuleActions();
+			if(mainWindow != null) {
+				mainWindow.updateModuleActions();
+			}
+			
 			return true;
 		} catch(IndexOutOfBoundsException e) {
 			return false;
@@ -185,13 +189,15 @@ public class MainController implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		if(o instanceof OS) {
-			mainWindow.toggleApplication();
-		} else if(o instanceof MainWindow) {
-			mainWindow.setModuleActions(
-					invoke(
-							new Search(
-									mainWindow.getSearchString())));;
+		if(mainWindow != null) {
+			if(o instanceof OS) {
+				mainWindow.toggleApplication();
+			} else if(o instanceof MainWindow) {
+				mainWindow.setModuleActions(
+						invoke(
+								new Search(
+										mainWindow.getSearchString())));;
+			}
 		}
 	}
 
