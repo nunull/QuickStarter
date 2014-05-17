@@ -4,12 +4,13 @@ package de.dqi11.quickStarter.controller;
  * Represents a specific search.
  */
 public class Search {
-	private String searchString = "";
+	private String searchString;
 	
 	/**
 	 * Default constructor.
 	 */
 	public Search() {
+		searchString = "";
 	}
 	
 	/**
@@ -18,7 +19,10 @@ public class Search {
 	 * @param searchString A specific search-string.
 	 */
 	public Search(String searchString) {
-		this.searchString = searchString;
+		this.searchString = "";
+		if(searchString != null) {
+			this.searchString = searchString.trim();
+		}
 	}
 	
 	/**
@@ -28,6 +32,8 @@ public class Search {
 	 * @return true if the search has the specific command, false otherwise.
 	 */
 	public boolean isCommand(String command) {
+		command = command == null ? "" : command;
+		
 		return partEquals(0, command);
 	}
 	
@@ -95,6 +101,8 @@ public class Search {
 	 * @return true if the strings are equal, false otherwise.
 	 */
 	public boolean equals(String s) {
+		s = s == null ? "" : s;
+		
 		return searchString.equals(s);
 	}
 	
