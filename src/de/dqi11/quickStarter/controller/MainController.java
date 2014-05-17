@@ -62,11 +62,15 @@ public class MainController implements Observer {
 	private void initOS() {
 		String osName = System.getProperty("os.name");
 		
-		if( osName.contains("Windows") ) os = new WinOS();
-		else if( osName.contains("Mac") ) os = new MacOS();
-		else System.exit(1);
+		try {
+			if( osName.contains("Windows") ) os = new WinOS();
+			else if( osName.contains("Mac") ) os = new MacOS();
+		} catch(Exception e) {	
+		}
 		
-		os.addObserver(this);
+		if(os != null) {
+			os.addObserver(this);
+		}
 	}
 	
 	/**
@@ -96,31 +100,34 @@ public class MainController implements Observer {
 	 * @return a list of Advices (possible actions).
 	 */
 	public LinkedList<ModuleAction> invoke(Search search) {
-		LinkedList<Module> activeModules = new LinkedList<>();
 		moduleActions = new LinkedList<ModuleAction>();
-		networkError = false;
 		
-		for(Module m : modules) {
-			try {
-				ModuleAction moduleAction = m.getModuleAction(search);
-				if(moduleAction != null) {
-					activeModules.add(m);
-					moduleActions.add(moduleAction);
-				}
-			} catch(ConnectException e) {
-				networkError = true;
-			}
-		}
-		
-		for(Module m : activeModules) {
-			LinkedList<Module> exceptions = m.getExceptions();
+		if(search != null) {
+			LinkedList<Module> activeModules = new LinkedList<>();
+			networkError = false;
 			
-			for(Module exception : exceptions) {
-				if(activeModules.contains(exception)) {
-					for(ModuleAction moduleAction : moduleActions) {
-						if(moduleAction.getKey().equals(m.getKey())) {
-							moduleActions.remove(moduleAction);
-							break;
+			for(Module m : modules) {
+				try {
+					ModuleAction moduleAction = m.getModuleAction(search);
+					if(moduleAction != null) {
+						activeModules.add(m);
+						moduleActions.add(moduleAction);
+					}
+				} catch(ConnectException e) {
+					networkError = true;
+				}
+			}
+			
+			for(Module m : activeModules) {
+				LinkedList<Module> exceptions = m.getExceptions();
+				
+				for(Module exception : exceptions) {
+					if(activeModules.contains(exception)) {
+						for(ModuleAction moduleAction : moduleActions) {
+							if(moduleAction.getKey().equals(m.getKey())) {
+								moduleActions.remove(moduleAction);
+								break;
+							}
 						}
 					}
 				}

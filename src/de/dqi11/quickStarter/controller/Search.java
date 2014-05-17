@@ -4,7 +4,7 @@ package de.dqi11.quickStarter.controller;
  * Represents a specific search.
  */
 public class Search {
-	private String searchString;
+	private String searchString = "";
 	
 	/**
 	 * Default constructor.

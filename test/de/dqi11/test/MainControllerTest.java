@@ -2,6 +2,9 @@ package de.dqi11.test;
 
 import static org.junit.Assert.*;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,6 +44,18 @@ public class MainControllerTest {
 	public void testIsNetworkError() {
 		assertEquals(false, mainController.isNetworkError());
 		mainController.invoke(new Search());
-		assertEquals(true, mainController.isNetworkError());
+		assertEquals(!isInternetReachable(), mainController.isNetworkError());
 	}
+	
+	public static boolean isInternetReachable() {
+        try {
+            URL url = new URL("http://www.google.com");
+            HttpURLConnection urlConnect = (HttpURLConnection) url.openConnection();
+            urlConnect.getContent();
+        } catch (Exception e) {
+            return false;
+        }
+        
+        return true;
+    }
 }

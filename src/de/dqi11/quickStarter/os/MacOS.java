@@ -17,7 +17,6 @@ public class MacOS extends OS implements NativeKeyListener {
 			GlobalScreen.registerNativeHook();
 			GlobalScreen.getInstance().addNativeKeyListener(this);
 		} catch (NativeHookException e) {
-			e.printStackTrace();
 		}
 	}
 	
