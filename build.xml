@@ -1,4 +1,4 @@
-<project name="QuickStarter" default="dist" basedir=".">
+<project name="QuickStarter" default="test" basedir=".">
 	<property name="src" location="src"/>
 	<property name="src.test" location="test"/>
 	<property name="build" location="build"/>
@@ -36,7 +36,7 @@
 	            <fileset dir="${src.test}" includes="**/*Test*.java" />
 	        </batchtest>
 	    </junit>
-	  </target>
+	</target>
 
 	<target name="clean">
 		<delete dir="${build}"/>
