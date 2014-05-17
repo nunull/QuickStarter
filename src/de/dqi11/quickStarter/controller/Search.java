@@ -32,7 +32,7 @@ public class Search {
 	}
 	
 	/**
-	 * Returns the command or null, if there is not any.
+	 * Returns the command or an empty string, if there is not any.
 	 * 
 	 * @return the command.
 	 */
@@ -42,7 +42,7 @@ public class Search {
 		try {
 			return parts[0];
 		} catch(IndexOutOfBoundsException e) {
-			return null;
+			return "";
 		}
 	}
 	
@@ -76,7 +76,7 @@ public class Search {
 	 * Returns the parameter at the given index.
 	 * 
 	 * @param index The index.
-	 * @return The parameter or null if the index is out of bounds.
+	 * @return The parameter or an empty string if the index is out of bounds.
 	 */
 	public String getParam(int index) {
 		String[] params = searchString.split(" ");
@@ -84,7 +84,7 @@ public class Search {
 		try {
 			return params[index+1];
 		} catch(IndexOutOfBoundsException e) {
-			return null;
+			return "";
 		}
 	}
 	

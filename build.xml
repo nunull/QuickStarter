@@ -1,6 +1,8 @@
 <project name="QuickStarter" default="dist" basedir=".">
 	<property name="src" location="src"/>
+	<property name="src.test" location="test"/>
 	<property name="build" location="build"/>
+	<property name="build.test" location="build/test"/>
 	<property name="dist"  location="dist"/>
 	
 	<property name="lib.dir" value="libs" />
@@ -11,6 +13,7 @@
 	<target name="init">
 		<tstamp/>
 		<mkdir dir="${build}"/>
+		<mkdir dir="${build.test}"/>
 	</target>
 
 	<target name="compile" depends="init">
@@ -21,6 +24,19 @@
 		<mkdir dir="${dist}"/>
 		<jar jarfile="${dist}/QuickStarter-${DSTAMP}.jar" basedir="${build}"/>
 	</target>
+	
+	<target name="run" depends="dist">
+	    <junit printsummary="on" haltonfailure="yes">
+	        <classpath>
+	          <path refid="classpath" />
+	          <pathelement location="${build.test}"/>
+	        </classpath>
+	        <formatter type="brief" usefile="false" />
+	        <batchtest>
+	            <fileset dir="${src.test}" includes="**/*Test*.java" />
+	        </batchtest>
+	    </junit>
+	  </target>
 
 	<target name="clean">
 		<delete dir="${build}"/>
