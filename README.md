@@ -6,7 +6,7 @@ Build
 
 [![Build Status](https://travis-ci.org/nunull/QuickStarter.svg?branch=master)](https://travis-ci.org/nunull/QuickStarter)
 
-Build using Oracle JDK7, JDK8 and OpenJDK7.
+Build using Oracle JDK7, JDK8 and OpenJDK7. Unit tests using JUnit.
 
 See: [travis-ci.org/nunull/QuickStarter](https://travis-ci.org/nunull/QuickStarter)
 
