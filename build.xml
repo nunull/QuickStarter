@@ -7,6 +7,7 @@
 	<property name="lib.dir" value="libs" />
 	
 	<path id="classpath">
+		<pathelement location="${build}"/>
 		<fileset dir="${lib.dir}" includes="**/*.jar"/>
 	</path>
 
@@ -33,12 +34,13 @@
 	<target name="test" depends="buildTest">
 	    <junit printsummary="on" haltonfailure="yes">
 	        <classpath>
-	          <path refid="classpath" />
-	          <pathelement location="${build.test}"/>
+	        	<path refid="classpath" />
+	        	
+	        	<pathelement location="${build.test}"/>
 	        </classpath>
 	        <formatter type="brief" usefile="false" />
 	        <batchtest>
-	            <fileset dir="${build.test}" includes="**/*Test*" />
+	            <fileset dir="${src.test}" includes="**/*Test*" />
 	        </batchtest>
 	    </junit>
 	</target>

@@ -3,24 +3,21 @@ package de.dqi11.test;
 import static org.junit.Assert.*;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.dqi11.quickStarter.controller.MainController;
+import de.dqi11.quickStarter.controller.Search;
+
 public class MainControllerTest {
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
+	MainController mainController;
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		mainController = new MainController();
 	}
 
 	/**
@@ -35,54 +32,15 @@ public class MainControllerTest {
 	 */
 	@Test
 	public void testInvoke() {
-		fail("Not yet implemented");
+		assertEquals(0, mainController.invoke(null).size());
+		assertEquals(0, mainController.invoke(new Search("")).size());
+		assertEquals(2, mainController.invoke(new Search("test")).size());
 	}
 
-	/**
-	 * Test method for {@link de.dqi11.quickStarter.controller.MainController#updateModule(de.dqi11.quickStarter.modules.ModuleAction)}.
-	 */
-	@Test
-	public void testUpdateModule() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link de.dqi11.quickStarter.controller.MainController#shutdown()}.
-	 */
-	@Test
-	public void testShutdown() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link de.dqi11.quickStarter.controller.MainController#quit()}.
-	 */
-	@Test
-	public void testQuit() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link de.dqi11.quickStarter.controller.MainController#update(java.util.Observable, java.lang.Object)}.
-	 */
-	@Test
-	public void testUpdate() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link de.dqi11.quickStarter.controller.MainController#isNetworkError()}.
-	 */
 	@Test
 	public void testIsNetworkError() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link de.dqi11.quickStarter.controller.MainController#getOS()}.
-	 */
-	@Test
-	public void testGetOS() {
-		fail("Not yet implemented");
+		assertEquals(false, mainController.isNetworkError());
+		mainController.invoke(new Search());
+		assertEquals(true, mainController.isNetworkError());
 	}
 }
