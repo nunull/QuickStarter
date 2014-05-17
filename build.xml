@@ -4,8 +4,8 @@
 	<property name="build" location="build"/>
 	<property name="build.test" location="build/test"/>
 	<property name="dist"  location="dist"/>
-	
 	<property name="lib.dir" value="libs" />
+	
 	<path id="classpath">
 		<fileset dir="${lib.dir}" includes="**/*.jar"/>
 	</path>
@@ -25,7 +25,7 @@
 		<jar jarfile="${dist}/QuickStarter-${DSTAMP}.jar" basedir="${build}"/>
 	</target>
 	
-	<target name="run" depends="dist">
+	<target name="test" depends="dist">
 	    <junit printsummary="on" haltonfailure="yes">
 	        <classpath>
 	          <path refid="classpath" />
