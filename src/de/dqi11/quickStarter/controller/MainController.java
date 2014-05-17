@@ -1,5 +1,6 @@
 package de.dqi11.quickStarter.controller;
 
+import java.awt.HeadlessException;
 import java.net.ConnectException;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -77,20 +78,24 @@ public class MainController implements Observer {
 	 * Initializes the GUI.
 	 */
 	private void initGUI() {
-		mainWindow = new MainWindow();
-		mainWindow.addObserver(this);
-		mainWindow.init();
-		
-		// TODO
-//		SwingUtilities.invokeLater(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				mainWindow.init();
-//			}
-//		});
-		
-		taskbar = new Taskbar(this);
+		try {
+			mainWindow = new MainWindow();
+			mainWindow.addObserver(this);
+			mainWindow.init();
+			
+			// TODO
+	//		SwingUtilities.invokeLater(new Runnable() {
+	//			
+	//			@Override
+	//			public void run() {
+	//				mainWindow.init();
+	//			}
+	//		});
+			
+			taskbar = new Taskbar(this);
+		} catch(HeadlessException e) {
+			
+		}
 	}
 	
 	/**
