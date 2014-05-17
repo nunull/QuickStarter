@@ -96,6 +96,7 @@ public class MainController implements Observer {
 			
 			taskbar = new Taskbar(this);
 		} catch(HeadlessException e) {
+			mainWindow = null;
 		}
 	}
 	
