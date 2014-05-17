@@ -1,6 +1,3 @@
-/**
- * 
- */
 package de.dqi11.test;
 
 import static org.junit.Assert.*;
@@ -88,5 +85,4 @@ public class MainControllerTest {
 	public void testGetOS() {
 		fail("Not yet implemented");
 	}
-
 }
