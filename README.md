@@ -43,7 +43,7 @@ ToDo
 
 ### Fr, 13 Jun
 
-* [ ] *DELIVERY*
+* [ ] **DELIVERY**
 
 Build
 -----
