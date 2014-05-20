@@ -13,12 +13,14 @@ ToDo
 * [ ] *DOC:* **third party libs**: quick-json *(TIMM)*
 * [ ] *DOC:* **third party libs**: symja *(YUNUS)*
 * [ ] *DOC:* **third party libs**: jmathplot *(YUNUS)*
+* [ ] *CODING:* **bigsearch (wiki, github, ...)** *(ARNE)*
 
 ### due to Mo, 26 May
 
 * [ ] *DOC:* **implementation**: used software *(ARNE)*
 * [ ] *DOC:* **implementation**: initial decisions *(TIMM)*
 * [ ] *DOC:* **implementation**: problems during implementation *(YUNUS)*
+* [ ] *CODING:* **pref pane** *(YUNUS, TIMM, ARNE)*
 
 ### due to Thu, 29 May
 
@@ -28,6 +30,8 @@ ToDo
 * [ ] *DOC:* **deployment** *(TIMM)*
 * [ ] *DOC:* **zeitlicher ablauf** *(ARNE)*
 * [ ] *DOC:* **user guide** *(ARNE)*
+* [ ] *CODING:* **local file search** *(TIMM)*
+* [ ] *CODING:* **closing button** *(ARNE)*
 
 ### due to Mo, 2 Jun
 
