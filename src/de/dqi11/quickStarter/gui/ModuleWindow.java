@@ -1,5 +1,6 @@
 package de.dqi11.quickStarter.gui;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -83,6 +84,7 @@ public class ModuleWindow {
 		
 		mainFrame.setSize(WIDTH-20, HEIGHT);
 		mainFrame.setLocationRelativeTo(null);
+		mainFrame.setBackground(Color.WHITE);
 	}
 	
 	/**
