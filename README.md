@@ -39,7 +39,7 @@ ToDo
 
 ### due to Mo, 9 Jun
 
-*DOC:* **final texts / format**
+* [ ] *DOC:* **final texts / format**
 
 Build
 -----
