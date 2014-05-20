@@ -4,24 +4,38 @@ QuickStarter
 ToDo
 ----
 
-### needed topics
+### due to Thu, 22 May
 
-* [ ] **preface**
-* [ ] **requirements**: skills *(ARNE)*
-* [ ] **requirements**: technical requi *(ARNE)*
-* [ ] **workflow**: division of work *(ARNE)*
-* [ ] **naming and design**
-* [ ] **impl**: used software
-* [ ] **impl**: init decisions
-* [ ] **impl**: software design *(TIMM)*
-* [ ] **impl**: problems
-* [ ] **third party libs**: quick-json *(TIMM)*
-* [ ] **third party libs**: symja *(YUNUS)*
-* [ ] **third party libs**: jmathplot *(YUNUS)*
-* [ ] **testing**
-* [ ] **deployment**
-* [ ] **zeitlicher ablauf**
-* [ ] **reflection**
+* [ ] *DOC:* **requirements**: skills *(ARNE)*
+* [ ] *DOC:* **requirements**: technical requirement *(ARNE)*
+* [ ] *DOC:* **workflow**: division of work *(ARNE)*
+* [ ] *DOC:* **implementation**: software design *(TIMM)*
+* [ ] *DOC:* **third party libs**: quick-json *(TIMM)*
+* [ ] *DOC:* **third party libs**: symja *(YUNUS)*
+* [ ] *DOC:* **third party libs**: jmathplot *(YUNUS)*
+
+### due to Mo, 26 May
+
+* [ ] *DOC:* **implementation**: used software *(ARNE)*
+* [ ] *DOC:* **implementation**: initial decisions *(TIMM)*
+* [ ] *DOC:* **implementation**: problems during implementation *(YUNUS)*
+
+### due to Thu, 29 May
+
+* [ ] *DOC:* **preface** *(YUNUS)*
+* [ ] *DOC:* **naming and design** *(YUNUS)*
+* [ ] *DOC:* **testing** *(TIMM)*
+* [ ] *DOC:* **deployment** *(TIMM)*
+* [ ] *DOC:* **zeitlicher ablauf** *(ARNE)*
+* [ ] *DOC:* **user guide** *(ARNE)*
+
+### due to Mo, 2 Jun
+
+* [ ] *DOC:* **reflection**
+
+### due to Mo, 9 Jun
+
+*DOC:* **final texts / format**
 
 Build
 -----
