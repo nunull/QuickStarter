@@ -1,6 +1,28 @@
 QuickStarter
 ============
 
+ToDo
+----
+
+### needed topics
+
+* [ ] **preface**
+* [ ] **requirements**: skills *(ARNE)*
+* [ ] **requirements**: technical requi *(ARNE)*
+* [ ] **workflow**: division of work *(ARNE)*
+* [ ] **naming and design**
+* [ ] **impl**: used software
+* [ ] **impl**: init decisions
+* [ ] **impl**: software design *(TIMM)*
+* [ ] **impl**: problems
+* [ ] **third party libs**: quick-json *(TIMM)*
+* [ ] **third party libs**: symja *(YUNUS)*
+* [ ] **third party libs**: jmathplot *(YUNUS)*
+* [ ] **testing**
+* [ ] **deployment**
+* [ ] **zeitlicher ablauf**
+* [ ] **reflection**
+
 Build
 -----
 
