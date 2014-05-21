@@ -40,7 +40,7 @@ public class CalculatorModule extends Module {
 						double[] x = new double[100];
 						double[] y = new double[100];
 						for(int i = 0, j = x.length; i < j; i++) {
-							evaluator.defineVariable("x", new ComplexVariable(i-50));
+							evaluator.defineVariable(variableName, new ComplexVariable(i-50));
 							
 							x[i] = i-50;
 							y[i] = evaluator.evaluate(expression).getReal();

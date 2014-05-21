@@ -36,9 +36,8 @@ public class TranslateModule extends Module {
 					if (to==null) to = Locale.getDefault().getLanguage();
 					
 					JSONParser parser = new JSONParser( GlosbeBridge.getJSON(from, to, phrase) );
-					System.out.println( parser.getArrayList("tuc").get(0).get("phrase.text") );
 					
-					return new ModuleAction(KEY, "TODO");
+					return new ModuleAction(KEY, parser.getArrayList("tuc").get(0).get("phrase.text"));
 				}
 				
 				protected void done() {
