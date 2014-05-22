@@ -2,6 +2,7 @@ package de.dqi11.quickStarter.modules;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.net.ConnectException;
 import java.util.concurrent.CancellationException;
@@ -74,22 +75,29 @@ public class WeatherModule extends Module {
 						public ModuleWindow getModuleWindow(Search search) {
 							ModuleWindow window = new ModuleWindow();
 							
-							JPanel panel = new JPanel();
+							Font defaultFont = window.getDefaultFont();
+							Font bigFont = new Font(defaultFont.getName(), defaultFont.getStyle(), 30);
 							
-							panel.setBackground(Color.BLACK);
+							JPanel container = new JPanel();
+							
+							// Debug
+							container.setBackground(Color.BLACK);
+							
 							String icon = (jsonParser.getArrayList("weather").get(0).get("icon"));
 							icon = icon.substring(0, 2) + ".png";
-							JLabel label = new JLabel(new ImageIcon ("res/weather-icons/" + icon));
-							panel.add(label);
+							JLabel iconLabel = new JLabel(new ImageIcon ("res/weather-icons/" + icon));
+							container.add(iconLabel);
 							
 							JPanel panelTable = new JPanel();
 							panelTable.setLayout(new GridLayout(0,2));
 							panelTable.add(new JLabel(jsonParser.get("name")));
 							panelTable.add(new JLabel(""));
-							JLabel label1 = new JLabel("temperature");
+							JLabel label1 = new JLabel(tempFormated + "\u00B0C");
 							label1.setPreferredSize(new Dimension(80, 20));
+							
+							label1.setFont(bigFont);
 							panelTable.add(label1);
-							panelTable.add(new JLabel(tempFormated));
+							panelTable.add(new JLabel());
 							panelTable.add(new JLabel("humidity in %"));
 							panelTable.add(new JLabel(jsonParser.get("main.humidity")));
 							panelTable.add(new JLabel(("wind speed in mps")));
@@ -98,9 +106,10 @@ public class WeatherModule extends Module {
 							panelTable.add(new JLabel(jsonParser.get("clouds.all")));
 							panelTable.add(new JLabel("rain in 3 hours"));
 							panelTable.add(new JLabel(jsonParser.get(("rain.3h"))));
-							panel.add(panelTable);
+							container.add(panelTable);
 								
-							window.add(panel);
+							window.add(container);
+							
 							return window;
 						}
 					};

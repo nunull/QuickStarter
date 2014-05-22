@@ -113,4 +113,12 @@ public class ModuleWindow {
 	public void show() {
 		mainFrame.setVisible(true);
 	}
+	
+	public Font getBoldFont() {
+		return boldFont;
+	}
+	
+	public Font getDefaultFont() {
+		return defaultFont;
+	}
 }
