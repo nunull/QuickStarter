@@ -6,14 +6,14 @@ ToDo
 
 ### Due to Thu, 22 May
 
-* [ ] *DOC:* **requirements**: skills *(ARNE)*
-* [ ] *DOC:* **requirements**: technical requirement *(ARNE)*
-* [ ] *DOC:* **workflow**: division of work *(ARNE)*
-* [ ] *DOC:* **implementation**: software design *(TIMM)*
-* [ ] *DOC:* **third party libs**: quick-json *(TIMM)*
-* [ ] *DOC:* **third party libs**: symja *(YUNUS)*
-* [ ] *DOC:* **third party libs**: jmathplot *(YUNUS)*
-* [ ] *CODING:* **bigsearch (wiki, github, ...)** *(ARNE)*
+* [X] *DOC:* **requirements**: skills *(ARNE)*
+* [X] *DOC:* **requirements**: technical requirement *(ARNE)*
+* [X] *DOC:* **workflow**: division of work *(ARNE)*
+* [X] *DOC:* **implementation**: software design *(TIMM)*
+* [X] *DOC:* **third party libs**: quick-json *(TIMM)*
+* [X] *DOC:* **third party libs**: symja *(YUNUS)*
+* [X] *DOC:* **third party libs**: jmathplot *(YUNUS)*
+* [X] *CODING:* **bigsearch (wiki, github, ...)** *(ARNE)*
 
 ### Due to Mo, 26 May
 
