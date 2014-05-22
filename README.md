@@ -21,6 +21,8 @@ ToDo
 * [ ] *DOC:* **implementation**: initial decisions *(TIMM)*
 * [ ] *DOC:* **implementation**: problems during implementation *(YUNUS)*
 * [ ] *CODING:* **pref pane** *(YUNUS, TIMM, ARNE)*
+  * [ ] *CODING:* **pref pane**: gui *(YUNUS)*
+  * [x] *CODING:* **pref pane**: persistency *(TIMM)*
 
 ### Due to Thu, 29 May
 
