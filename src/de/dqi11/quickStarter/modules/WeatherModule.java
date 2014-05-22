@@ -91,21 +91,46 @@ public class WeatherModule extends Module {
 							JPanel panelTable = new JPanel();
 							panelTable.setLayout(new GridLayout(0,2));
 							panelTable.add(new JLabel(jsonParser.get("name")));
+							
+							// Creates empty space (needed since there is no real adressing using GridLayout)
 							panelTable.add(new JLabel(""));
+							
 							JLabel label1 = new JLabel(tempFormated + "\u00B0C");
-							label1.setPreferredSize(new Dimension(80, 20));
+							label1.setPreferredSize(new Dimension(100, 40));
 							
 							label1.setFont(bigFont);
 							panelTable.add(label1);
+							
+							JLabel humidityTextLabel = new JLabel("humidity in %");
+							JLabel humidityLabel = new JLabel(jsonParser.get("main.humidity"));
+							JLabel windSpeedTextLabel = new JLabel(("wind speed in mps"));
+							JLabel windSpeedLabel = new JLabel(jsonParser.get("wind.speed"));
+							JLabel cloudsTextLabel = new JLabel("cloudiness");
+							JLabel cloudsLabel = new JLabel(jsonParser.get("clouds.all"));
+							JLabel rainTextLabel = new JLabel("rain in 3 hours");
+							JLabel rainLabel = new JLabel(jsonParser.get(("rain.3h")));
+							
+							humidityTextLabel.setFont(defaultFont);
+							humidityLabel.setFont(defaultFont);
+							windSpeedTextLabel.setFont(defaultFont);
+							windSpeedLabel.setFont(defaultFont);
+							cloudsTextLabel.setFont(defaultFont);
+							cloudsLabel.setFont(defaultFont);
+							rainTextLabel.setFont(defaultFont);
+							rainLabel.setFont(defaultFont);
+							
+							// Creates empty space (needed since there is no real adressing using GridLayout)
 							panelTable.add(new JLabel());
-							panelTable.add(new JLabel("humidity in %"));
-							panelTable.add(new JLabel(jsonParser.get("main.humidity")));
-							panelTable.add(new JLabel(("wind speed in mps")));
-							panelTable.add(new JLabel(jsonParser.get("wind.speed")));
-							panelTable.add(new JLabel("cloudiness"));
-							panelTable.add(new JLabel(jsonParser.get("clouds.all")));
-							panelTable.add(new JLabel("rain in 3 hours"));
-							panelTable.add(new JLabel(jsonParser.get(("rain.3h"))));
+							
+							panelTable.add(humidityTextLabel);
+							panelTable.add(humidityLabel);
+							panelTable.add(windSpeedTextLabel);
+							panelTable.add(windSpeedLabel);
+							panelTable.add(cloudsTextLabel);
+							panelTable.add(cloudsLabel);
+							panelTable.add(rainTextLabel);
+							panelTable.add(rainLabel);
+							
 							container.add(panelTable);
 								
 							window.add(container);
