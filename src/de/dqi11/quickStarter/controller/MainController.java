@@ -201,6 +201,41 @@ public class MainController implements Observer {
 			}
 		}
 	}
+	
+	/**
+	 * Returns the specific key if present or null.
+	 * 
+	 * @param module The module.
+	 * @param key The key.
+	 * @return The value of the key or null if not present.
+	 * @see de.dqi11.quickStarter.controller.PersitencyController#getModuleKey(Module, String)
+	 */
+	public String getModuleKey(Module module, String key) {
+		return persitencyController.getModuleKey(module, key);
+	}
+	
+	/**
+	 * Saves or updates the value of the specific key.
+	 * 
+	 * @param module The module.
+	 * @param key The key.
+	 * @param value The value.
+	 * @see de.dqi11.quickStarter.controller.PersitencyController#saveOrUpdateModuleKey(Module, String, String)
+	 */
+	public void saveOrUpdateModuleKey(Module module, String key, String value) {
+		persitencyController.saveOrUpdateModuleKey(module, key, value);
+	}
+	
+	/**
+	 * Removes the specific key.
+	 * 
+	 * @param module The module.
+	 * @param key The key.
+	 * @see de.dqi11.quickStarter.controller.PersitencyController#removeModuleKey(Module, String)
+	 */
+	public void removeModuleKey(Module module, String key) {
+		persitencyController.removeModuleKey(module, key);
+	}
 
 	/**
 	 * Getter.

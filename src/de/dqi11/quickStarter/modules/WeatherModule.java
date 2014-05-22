@@ -17,15 +17,20 @@ import de.dqi11.quickStarter.modules.bridges.OpenWeatherMapBridge;
 public class WeatherModule extends Module {
 	private final String KEY = this.toString();
 	private SwingWorker<ModuleAction, ModuleAction> worker;
+	private String defaultLocation;
 
 	public WeatherModule(MainController mainController) {
 		super(mainController);
+		
+		// Unnecessary
 		worker = new SwingWorker<ModuleAction, ModuleAction>(){
 			@Override
 			protected ModuleAction doInBackground() throws Exception {
 				return null;
 			}
 		};
+		
+		defaultLocation = mainController.getModuleKey(this, "city");
 	}
 
 	@Override
@@ -42,7 +47,7 @@ public class WeatherModule extends Module {
 				@Override
 				protected ModuleAction doInBackground() throws Exception {
 					String location = search.getParam(0);
-					if(location == null) location = "Bremen";
+					if(location == null) location = defaultLocation;
 					if(location.split(",").length == 1) {
 						if(search.getParam(1) != null) location += "," + search.getParam(1);
 						else location += ",de";
