@@ -13,7 +13,7 @@ ToDo
 * [X] *DOC:* **third party libs**: quick-json *(TIMM)*
 * [X] *DOC:* **third party libs**: symja *(YUNUS)*
 * [X] *DOC:* **third party libs**: jmathplot *(YUNUS)*
-* [X] *CODING:* **bigsearch (wiki, github, ...)** *(ARNE)*
+* [ ] *CODING:* **bigsearch (wiki, github, ...)** *(ARNE)*
 
 ### Due to Mo, 26 May
 
