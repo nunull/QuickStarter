@@ -14,7 +14,7 @@ import javax.swing.JPanel;
  * A wrapper for a Module-window.
  * Can be used by Modules to implement GUI-elements.
  */
-public class ModuleWindow {
+public class ModuleWindow implements KeyListener {
 	private final int WIDTH = 800;
 	private final int HEIGHT = 500;
 	@SuppressWarnings("unused")
@@ -25,6 +25,19 @@ public class ModuleWindow {
 	private Font boldFont;
 	
 	public ModuleWindow() {
+		init();
+	}
+	
+	public ModuleWindow(String title) {
+		init();
+		
+		this.setTitle(title);
+	}
+	
+	/**
+	 * Inititializes the window.
+	 */
+	private void init() {
 		initListeners();
 		initFonts();
 		initMainFrame();
@@ -85,6 +98,7 @@ public class ModuleWindow {
 		mainFrame.setSize(WIDTH-20, HEIGHT);
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setBackground(Color.WHITE);
+		mainFrame.addKeyListener(this);
 	}
 	
 	/**
@@ -107,6 +121,15 @@ public class ModuleWindow {
 	}
 	
 	/**
+	 * Sets the title of the window.
+	 * 
+	 * @param title The title.
+	 */
+	public void setTitle(String title) {
+		mainFrame.setTitle(title);
+	}
+	
+	/**
 	 * Shows the window.
 	 * Called from within the MainController.
 	 */
@@ -120,5 +143,21 @@ public class ModuleWindow {
 	
 	public Font getDefaultFont() {
 		return defaultFont;
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// Escape-key
+		if(e.getKeyCode() == 27) {
+			mainFrame.setVisible(false);
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
 	}
 }

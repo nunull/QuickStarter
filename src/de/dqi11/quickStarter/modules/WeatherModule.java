@@ -9,10 +9,8 @@ import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 
 import de.dqi11.quickStarter.controller.MainController;
@@ -63,30 +61,30 @@ public class WeatherModule extends Module {
 					}
 
 					String json = OpenWeatherMapBridge.getJSON(location);
-					String text = "";
-					System.out.println(json);
 					jsonParser = new JSONParser(json);
 					
+					// Debug
+					System.out.println(json);
+					
+					// Get and format the temperature.
 					float temp = Float.valueOf(jsonParser.get("main.temp"));
 					temp = Math.round(temp);
-					
 					tempFormated = String.format("%s", temp);
 					if(temp == (int) temp) tempFormated = String.format("%s", (int) temp);
 					
-					text = jsonParser.get("name") + ": <b>" + tempFormated + "\u00B0C</b>";
-					
-					return new ModuleAction(KEY, text, new ImageIcon("res/weather-icon-tmp.png")) {
+					String text = jsonParser.get("name") + ": <b>" + tempFormated + "\u00B0C</b>";
+					return new ModuleAction(KEY, text, new ImageIcon("res/weather-icons/weather-icon.png")) {
 						@Override
 						public ModuleWindow getModuleWindow(Search search) {
-							ModuleWindow window = new ModuleWindow();
+							final String city = search.getParam(0).split(",")[0];
+							
+							ModuleWindow window = new ModuleWindow("Weather " + city);
 							
 							Font defaultFont = window.getDefaultFont();
-							Font bigFont = new Font(defaultFont.getName(), defaultFont.getStyle(), 30);
+							Font bigFont = new Font(defaultFont.getName(), defaultFont.getStyle(), 50);
 							
 							JPanel container = new JPanel();
-							
-							// Debug
-							container.setBackground(Color.BLACK);
+							container.setBackground(Color.WHITE);
 							
 							String icon = (jsonParser.getArrayList("weather").get(0).get("icon"));
 							icon = icon.substring(0, 2) + ".png";
@@ -94,26 +92,33 @@ public class WeatherModule extends Module {
 							container.add(iconLabel);
 							
 							JPanel panelTable = new JPanel();
-							panelTable.setLayout(new GridLayout(0,2));
+							GridLayout gridLayout = new GridLayout(0, 2);
+							gridLayout.setHgap(50);
+							gridLayout.setVgap(10);
+							panelTable.setLayout(gridLayout);
+							panelTable.setBackground(Color.WHITE);
+							
 							panelTable.add(new JLabel(jsonParser.get("name")));
 							
 							// Creates empty space (needed since there is no real adressing using GridLayout)
 							panelTable.add(new JLabel(""));
 							
 							JLabel label1 = new JLabel(tempFormated + "\u00B0C");
-							label1.setPreferredSize(new Dimension(100, 40));
+							label1.setPreferredSize(new Dimension(140, 40));
 							
 							label1.setFont(bigFont);
 							panelTable.add(label1);
 							
-							JLabel humidityTextLabel = new JLabel("humidity in %");
-							JLabel humidityLabel = new JLabel(jsonParser.get("main.humidity"));
-							JLabel windSpeedTextLabel = new JLabel(("wind speed in mps"));
-							JLabel windSpeedLabel = new JLabel(jsonParser.get("wind.speed"));
-							JLabel cloudsTextLabel = new JLabel("cloudiness");
+							JLabel humidityTextLabel = new JLabel("Humidity");
+							JLabel humidityLabel = new JLabel(jsonParser.get("main.humidity") + "%");
+							JLabel windSpeedTextLabel = new JLabel(("Windspeed"));
+							JLabel windSpeedLabel = new JLabel(jsonParser.get("wind.speed") + "mps");
+							JLabel cloudsTextLabel = new JLabel("Clouds");
 							JLabel cloudsLabel = new JLabel(jsonParser.get("clouds.all"));
-							JLabel rainTextLabel = new JLabel("rain in 3 hours");
-							JLabel rainLabel = new JLabel(jsonParser.get(("rain.3h")));
+							
+							String rain = jsonParser.get("rain.3h");
+							JLabel rainTextLabel = new JLabel("Rain");
+							JLabel rainLabel = new JLabel(rain + "mm per 3 hours");
 							
 							humidityTextLabel.setFont(defaultFont);
 							humidityLabel.setFont(defaultFont);
@@ -124,7 +129,7 @@ public class WeatherModule extends Module {
 							rainTextLabel.setFont(defaultFont);
 							rainLabel.setFont(defaultFont);
 							
-							// Creates empty space (needed since there is no real adressing using GridLayout)
+							// Creates empty space (needed since there is no real addressing using GridLayout)
 							panelTable.add(new JLabel());
 							
 							panelTable.add(humidityTextLabel);
@@ -133,8 +138,10 @@ public class WeatherModule extends Module {
 							panelTable.add(windSpeedLabel);
 							panelTable.add(cloudsTextLabel);
 							panelTable.add(cloudsLabel);
-							panelTable.add(rainTextLabel);
-							panelTable.add(rainLabel);
+							if(rain != null) {
+								panelTable.add(rainTextLabel);
+								panelTable.add(rainLabel);
+							}
 							
 							container.add(panelTable);
 								
