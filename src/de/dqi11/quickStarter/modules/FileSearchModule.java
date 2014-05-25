@@ -10,7 +10,7 @@ import javax.swing.SwingWorker;
 
 import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.controller.Search;
-import de.dqi11.quickStarter.gui.ModuleLabel;
+import de.dqi11.quickStarter.gui.Label;
 import de.dqi11.quickStarter.gui.ModuleWindow;
 
 public class FileSearchModule extends Module {
@@ -45,7 +45,7 @@ public class FileSearchModule extends Module {
 							});
 							
 							for(File file : results) {
-								moduleWindow.add(new ModuleLabel(file.getName().replace("%20", " ")));
+								moduleWindow.add(new Label(file.getName().replace("%20", " ")));
 							}
 							
 							return moduleWindow;

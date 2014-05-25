@@ -214,6 +214,10 @@ public class MainController implements Observer {
 		return persitencyController.getModuleKey(module, key);
 	}
 	
+	public PersitencyController getPersitencyController() {
+		return persitencyController;
+	}
+
 	/**
 	 * Saves or updates the value of the specific key.
 	 * 

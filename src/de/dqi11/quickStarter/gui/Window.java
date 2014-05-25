@@ -3,6 +3,8 @@ package de.dqi11.quickStarter.gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.FileInputStream;
@@ -19,8 +21,8 @@ public class Window implements KeyListener {
 	private final int HEIGHT = 500;
 	@SuppressWarnings("unused")
 	private KeyListener keyListener;
-	private JFrame mainFrame;
-	private JPanel mainPanel;
+	protected JFrame mainFrame;
+	protected JPanel mainPanel;
 	private Font defaultFont;
 	private Font boldFont;
 	
@@ -151,7 +153,7 @@ public class Window implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// Escape-key
+		// not working?
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			mainFrame.setVisible(false);
 		}
