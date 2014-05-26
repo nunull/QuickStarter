@@ -23,7 +23,7 @@ ToDo
 * [ ] *CODING:* **pref pane** *(YUNUS, TIMM, ARNE)*
   * [ ] *CODING:* **pref pane**: gui *(YUNUS)*
   * [x] *CODING:* **pref pane**: persistency *(TIMM)*
-* [ ] *CODING:* **WeatherModule**: ModuleWindow *(TIMM)*
+* [x] *CODING:* **WeatherModule**: ModuleWindow *(TIMM)*
 * [ ] *CODING:* **COMMENTING** *(EVERYBODY)*
 
 ### Due to Thu, 29 May
