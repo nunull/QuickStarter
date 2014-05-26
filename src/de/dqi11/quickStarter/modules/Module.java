@@ -9,7 +9,7 @@ import de.dqi11.quickStarter.controller.Search;
 /**
  * Represents a module.
  */
-public abstract class Module {
+public abstract class Module implements Comparable<Module> {
 	private MainController mainController;
 	private LinkedList<Module> exceptions;
 	private boolean active;
@@ -87,5 +87,10 @@ public abstract class Module {
 	 */
 	public String getKey() {
 		return key;
+	}
+
+	@Override
+	public int compareTo(Module o) {
+		return this.getClass().getSimpleName().compareTo(o.getClass().getSimpleName());
 	}
 }

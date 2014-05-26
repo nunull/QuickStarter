@@ -3,7 +3,6 @@ package de.dqi11.quickStarter.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.io.FileInputStream;
 
 import javax.swing.JLabel;
 
