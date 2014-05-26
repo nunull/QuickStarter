@@ -56,20 +56,10 @@ public class Label extends JLabel {
 	 */
 	private void initFonts() {
 		// Initialize default font.
-		try {
-			defaultFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("res/fonts/ubuntu/Ubuntu-Light.ttf"));
-			defaultFont =  defaultFont.deriveFont((float) fontSize);
-		} catch (Exception e) {
-			defaultFont = new Font("Arial", Font.PLAIN, fontSize);
-		}
+		defaultFont = DefaultFont.getFont(fontSize);
 		
 		// Initialize bold font.
-		try {
-			boldFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("res/fonts/ubuntu/Ubuntu-Bold.ttf"));
-			boldFont =  boldFont.deriveFont((float) fontSize);
-		} catch (Exception e) {
-			boldFont = new Font("Arial", Font.BOLD, fontSize);
-		}
+		boldFont = BoldFont.getFont(fontSize);
 	}
 	
 	private void initLabel() {

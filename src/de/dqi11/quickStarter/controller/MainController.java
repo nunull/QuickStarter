@@ -8,6 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import de.dqi11.quickStarter.gui.MainWindow;
+import de.dqi11.quickStarter.gui.PreferenceWindow;
 import de.dqi11.quickStarter.gui.Taskbar;
 import de.dqi11.quickStarter.modules.ErrorCoreModule;
 import de.dqi11.quickStarter.modules.ModuleAction;
@@ -28,6 +29,7 @@ public class MainController implements Observer {
 	@SuppressWarnings("unused")
 	private Taskbar taskbar;
 	private PersitencyController persitencyController;
+	private PreferenceWindow prefereceWindow;
 	
 	/**
 	 * Constructor.
@@ -85,6 +87,7 @@ public class MainController implements Observer {
 			mainWindow = new MainWindow();
 			mainWindow.addObserver(this);
 			mainWindow.init();
+			prefereceWindow = new PreferenceWindow("Preferences", this);
 			
 			// TODO
 	//		SwingUtilities.invokeLater(new Runnable() {
@@ -236,8 +239,8 @@ public class MainController implements Observer {
 		return persitencyController.getModuleProperty(module, key);
 	}
 	
-	public PersitencyController getPersitencyController() {
-		return persitencyController;
+	public LinkedList<Module> getModules() {
+		return persitencyController.getModules();
 	}
 
 	/**
@@ -274,5 +277,9 @@ public class MainController implements Observer {
 
 	public OS getOS() {
 		return os;
+	}
+
+	public void showPrefenceWindow() {
+		prefereceWindow.show();
 	}
 }
