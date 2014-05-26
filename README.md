@@ -18,7 +18,7 @@ ToDo
 ### Due to Mo, 26 May
 
 * [ ] *DOC:* **implementation**: used software *(ARNE)*
-* [ ] *DOC:* **implementation**: initial decisions *(TIMM)*
+* [x] *DOC:* **implementation**: initial decisions *(TIMM)*
 * [ ] *DOC:* **implementation**: problems during implementation *(YUNUS)*
 * [ ] *CODING:* **pref pane** *(YUNUS, TIMM, ARNE)*
   * [ ] *CODING:* **pref pane**: gui *(YUNUS)*
