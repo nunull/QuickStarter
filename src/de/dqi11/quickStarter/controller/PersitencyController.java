@@ -34,10 +34,10 @@ public class PersitencyController {
 	private final String CONFIG_FILE_PATH = "config.xml";
 	private MainController mainController;
 	private Document configDocument;
-	
+
 	public PersitencyController(MainController mainController) {
 		this.mainController = mainController;
-		
+
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder;
 		try {
@@ -48,7 +48,7 @@ public class PersitencyController {
 		} catch (IOException e) {
 		}
 	}
-	
+
 	/**
 	 * Returns all currently active Modules.
 	 * 
@@ -57,42 +57,42 @@ public class PersitencyController {
 	public LinkedList<Module> getModules() {
 		NodeList modulesXML = configDocument.getElementsByTagName("module");
 		LinkedList<Module> modules = new LinkedList<>();
-		
+
 		@SuppressWarnings("unchecked")
 		LinkedList<Integer>[] moduleExceptions = new LinkedList[modulesXML.getLength()];
-		
+
 		for(int i = 0, j = modulesXML.getLength(); i < j; i++) {
 			moduleExceptions[i] = new LinkedList<>();
 		}
-		
+
 		for(int i = 0, j = modulesXML.getLength(); i < j; i++) {
 			NodeList childs = modulesXML.item(i).getChildNodes();
 			String currentClassName = "";
-			
+
 			for(int n = 0, m = childs.getLength(); n < m; n++) {
 				Node child = childs.item(n);
-				
+
 				if(child.getNodeName().equals("class")) {
 					currentClassName = child.getTextContent();
 				} else if(child.getNodeName().equals("exceptions")) {
 					NodeList exceptions = child.getChildNodes();
-					
+
 					for(int x = 0, y = exceptions.getLength(); x < y; x++) {
 						Node exception = exceptions.item(x);
-						
+
 						if(exception.getNodeName().equals("exception")) {
 							moduleExceptions[i].add(new Integer(exception.getTextContent()));
 						}
 					}
 				}
 			}
-			
+
 			try {
 				Module module = (Module) Class.
 						forName("de.dqi11.quickStarter.modules." + currentClassName).
 						getDeclaredConstructor(MainController.class).
 						newInstance(mainController);
-				
+
 				modules.add(module);
 			} catch (InstantiationException e) {
 			} catch (IllegalAccessException e) {
@@ -104,18 +104,18 @@ public class PersitencyController {
 			} catch (DOMException e) {
 			}
 		}
-		
+
 		for(int i = 0, j = moduleExceptions.length; i < j; i++) {
 			LinkedList<Integer> currentModuleExceptions = moduleExceptions[i];
-			
+
 			for(Integer id : currentModuleExceptions) {
 				modules.get(i).addException(modules.get(id));
 			}
 		}
-		
+
 		return modules;
 	}
-	
+
 	/**
 	 * Returns all properties of the specific module.
 	 * 
@@ -125,28 +125,37 @@ public class PersitencyController {
 	public Map<String, String> getModuleProperties(Module module) {
 		NodeList modulesXML = configDocument.getElementsByTagName("module");
 		Map<String, String> properties = new TreeMap<String, String>();
-		
+
 		for(int i = 0, j = modulesXML.getLength(); i < j; i++) {
 			NodeList childs = modulesXML.item(i).getChildNodes();
-			
-			for(int n = 0, m = childs.getLength(); n < m; n++) {
-				Node child = childs.item(n);
-				
-				if(child.getNodeName().equals("properties")) {
-					NodeList propertyNodes = child.getChildNodes();
-					
-					for(int x = 0, y = propertyNodes.getLength(); x < y; x++) {
-						Node property = propertyNodes.item(x);
+
+			for(int a = 0, b = childs.getLength(); a < b; a++) {
+				if(childs.item(a).getNodeName().equals("class") && module.getClass().getSimpleName().equals(childs.item(a).getTextContent())) {
+					for(int n = 0, m = childs.getLength(); n < m; n++) {
+						Node child = childs.item(n);
 						
-						properties.put(property.getNodeName(), property.getTextContent());
+						
+
+						if(child.getNodeName().equals("properties")) {
+							NodeList propertyNodes = child.getChildNodes();
+
+							for(int x = 0, y = propertyNodes.getLength(); x < y; x++) {
+								Node property = propertyNodes.item(x);
+
+								properties.put(property.getNodeName(), property.getTextContent());
+							}
+						}
 					}
 				}
 			}
+
+			
+
 		}
-		
+
 		return properties;
 	}
-	
+
 	/**
 	 * Returns all properties of the specific module, that are either user-editable via the preferences or not.
 	 * 
@@ -157,53 +166,59 @@ public class PersitencyController {
 	public Map<String, String> getModuleProperties(Module module, boolean preferences) {
 		NodeList modulesXML = configDocument.getElementsByTagName("module");
 		Map<String, String> properties = new TreeMap<String, String>();
-		
+
 		for(int i = 0, j = modulesXML.getLength(); i < j; i++) {
 			NodeList childs = modulesXML.item(i).getChildNodes();
-			
-			for(int n = 0, m = childs.getLength(); n < m; n++) {
-				Node child = childs.item(n);
-				
-				if(child.getNodeName().equals("properties")) {
-					NodeList propertyNodes = child.getChildNodes();
-					
-					for(int x = 0, y = propertyNodes.getLength(); x < y; x++) {
-						Node property = propertyNodes.item(x);
-						NamedNodeMap attributes = property.getAttributes();
-						boolean hasPrefAttribute = false;
-						boolean valid = false;
-						
-						for(int a = 0, b = attributes.getLength(); a < b; a++) {
-							Node attribute = attributes.item(a);
-							String nodeName = attribute.getNodeName();
-							String textContent = attribute.getTextContent();
-							
-							if(nodeName.equals("pref")) {
-								hasPrefAttribute = true;
-								
-								if(textContent.equals("true") && preferences ||
-										textContent.equals("false") && !preferences) {
-								
+
+			for(int c = 0, d = childs.getLength(); c < d; c++) {
+				if(childs.item(c).getNodeName().equals("class") && module.getClass().getSimpleName().equals(childs.item(c).getTextContent())) {
+					for(int n = 0, m = childs.getLength(); n < m; n++) {
+						Node child = childs.item(n);
+
+						if(child.getNodeName().equals("properties")) {
+							NodeList propertyNodes = child.getChildNodes();
+
+							for(int x = 0, y = propertyNodes.getLength(); x < y; x++) {
+								Node property = propertyNodes.item(x);
+								NamedNodeMap attributes = property.getAttributes();
+								boolean hasPrefAttribute = false;
+								boolean valid = false;
+
+								for(int a = 0, b = attributes.getLength(); a < b; a++) {
+									Node attribute = attributes.item(a);
+									String nodeName = attribute.getNodeName();
+									String textContent = attribute.getTextContent();
+
+									if(nodeName.equals("pref")) {
+										hasPrefAttribute = true;
+
+										if(textContent.equals("true") && preferences ||
+												textContent.equals("false") && !preferences) {
+
+											valid = true;
+										}
+									}
+								}
+
+								if(!hasPrefAttribute && !preferences) {
 									valid = true;
 								}
+
+								if(valid) {
+									properties.put(property.getNodeName(), property.getTextContent());
+								}
 							}
-						}
-						
-						if(!hasPrefAttribute && !preferences) {
-							valid = true;
-						}
-						
-						if(valid) {
-							properties.put(property.getNodeName(), property.getTextContent());
 						}
 					}
 				}
 			}
+			
+			
 		}
-		
+
 		return properties;
 	}
-	
+
 	/**
 	 * Returns the specific key if present or null.
 	 * 
@@ -213,19 +228,19 @@ public class PersitencyController {
 	 */
 	public String getModuleProperty(Module module, String key) {
 		NodeList modulesXML = configDocument.getElementsByTagName("module");
-		
+
 		for(int i = 0, j = modulesXML.getLength(); i < j; i++) {
 			NodeList childs = modulesXML.item(i).getChildNodes();
-			
+
 			for(int n = 0, m = childs.getLength(); n < m; n++) {
 				Node child = childs.item(n);
-				
+
 				if(child.getNodeName().equals("properties")) {
 					NodeList properties = child.getChildNodes();
-					
+
 					for(int x = 0, y = properties.getLength(); x < y; x++) {
 						Node property = properties.item(x);
-						
+
 						if(property.getNodeName().equals(key)) {
 							return property.getTextContent();
 						}
@@ -233,10 +248,10 @@ public class PersitencyController {
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Saves or updates the value of the specific key.
 	 * 
@@ -246,57 +261,57 @@ public class PersitencyController {
 	 */
 	public void saveOrUpdateModuleProperty(Module module, String key, String value) {
 		NodeList modulesXML = configDocument.getElementsByTagName("module");
-		
+
 		for(int i = 0, j = modulesXML.getLength(); i < j; i++) {
 			NodeList childs = modulesXML.item(i).getChildNodes();
 			String currentClassName = "";
 			boolean hasProperties = false;
-			
+
 			for(int n = 0, m = childs.getLength(); n < m; n++) {
 				Node child = childs.item(n);
-				
+
 				if(child.getNodeName().equals("class")) {
 					currentClassName = child.getTextContent();
 				} else if(child.getNodeName().equals("properties")) {
 					hasProperties = true;
 				}
 			}
-			
+
 			if(currentClassName.equals(module.getClass().getSimpleName())) {
 				if(!hasProperties) {
 					modulesXML.item(i).appendChild(configDocument.createElement("properties"));
 				}
-				
+
 				childs = modulesXML.item(i).getChildNodes();
 				for(int n = 0, m = childs.getLength(); n < m; n++) {
 					Node child = childs.item(n);
-					
+
 					if(child.getNodeName().equals("properties")) {
 						NodeList properties = child.getChildNodes();
-						
+
 						boolean hasProperty = false;
-						
+
 						for(int x = 0, y = properties.getLength(); x < y; x++) {
 							Node property = properties.item(x);
-							
+
 							if(property.getNodeName().equals(key)) {
 								hasProperty = true;
-								
+
 								property.setTextContent(value);
 							}
 						}
-						
+
 						if(!hasProperty) {
 							Element newProperty = configDocument.createElement(key);
 							newProperty.setTextContent(value);
-							
+
 							child.appendChild(newProperty);
 						}
 					}
 				}
 			}
 		}
-		
+
 		DOMSource source = new DOMSource(configDocument);
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		try {
@@ -307,7 +322,7 @@ public class PersitencyController {
 		} catch (TransformerException e) {
 		}
 	}
-	
+
 	/**
 	 * Removes the specific key.
 	 * 
@@ -316,29 +331,29 @@ public class PersitencyController {
 	 */
 	public void removeModuleProperty(Module module, String key) {
 		NodeList modulesXML = configDocument.getElementsByTagName("module");
-		
+
 		for(int i = 0, j = modulesXML.getLength(); i < j; i++) {
 			NodeList childs = modulesXML.item(i).getChildNodes();
-			
+
 			for(int n = 0, m = childs.getLength(); n < m; n++) {
 				Node child = childs.item(n);
-				
+
 				if(child.getNodeName().equals("properties")) {
 					NodeList properties = child.getChildNodes();
-					
+
 					for(int x = 0, y = properties.getLength(); x < y; x++) {
 						Node property = properties.item(x);
-						
+
 						if(property.getNodeName().equals(key)) {
 							property.getParentNode().removeChild(property);
-							
+
 							break;
 						}
 					}
 				}
 			}
 		}
-		
+
 		DOMSource source = new DOMSource(configDocument);
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		try {
