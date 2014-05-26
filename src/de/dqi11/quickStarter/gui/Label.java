@@ -5,17 +5,17 @@ import java.awt.Dimension;
 
 import javax.swing.JLabel;
 
-public class ModuleLabel extends JLabel {
+public class Label extends JLabel {
 
 	private static final long serialVersionUID = -9214836264225982745L;
 	
-	public ModuleLabel() {
+	public Label() {
 		super();
 		
 		initLabel();
 	}
 	
-	public ModuleLabel(String text) {
+	public Label(String text) {
 		super(text);
 		
 		initLabel();
