@@ -20,8 +20,8 @@ ToDo
 * [ ] *DOC:* **implementation**: used software *(ARNE)*
 * [x] *DOC:* **implementation**: initial decisions *(TIMM)*
 * [ ] *DOC:* **implementation**: problems during implementation *(YUNUS)*
-* [ ] *CODING:* **pref pane** *(YUNUS, TIMM, ARNE)*
-  * [ ] *CODING:* **pref pane**: gui *(YUNUS)*
+* [x] *CODING:* **pref pane** *(YUNUS, TIMM, ARNE)*
+  * [x] *CODING:* **pref pane**: gui *(YUNUS)*
   * [x] *CODING:* **pref pane**: persistency *(TIMM)*
 * [x] *CODING:* **WeatherModule**: ModuleWindow *(TIMM)*
 * [ ] *CODING:* **COMMENTING** *(EVERYBODY)*
