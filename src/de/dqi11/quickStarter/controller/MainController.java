@@ -3,6 +3,7 @@ package de.dqi11.quickStarter.controller;
 import java.awt.HeadlessException;
 import java.net.ConnectException;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -203,15 +204,36 @@ public class MainController implements Observer {
 	}
 	
 	/**
+	 * Returns all properties of the specific module.
+	 * 
+	 * @param module The module.
+	 * @return All properties as key-value-pairs.
+	 */
+	public Map<String, String> getModuleProperties(Module module) {
+		return persitencyController.getModuleProperties(module);
+	}
+	
+	/**
+	 * Returns all properties of the specific module, that are either user-editable via the preferences or not.
+	 * 
+	 * @param module The module.
+	 * @param preferences Specifies if the properties returned are user-editable (true) or not (false).
+	 * @return All properties as key-value-pairs.
+	 */
+	public Map<String, String> getModuleProperties(Module module, boolean preferences) {
+		return persitencyController.getModuleProperties(module, preferences);
+	}
+	
+	/**
 	 * Returns the specific key if present or null.
 	 * 
 	 * @param module The module.
 	 * @param key The key.
 	 * @return The value of the key or null if not present.
-	 * @see de.dqi11.quickStarter.controller.PersitencyController#getModuleKey(Module, String)
+	 * @see de.dqi11.quickStarter.controller.PersitencyController#getModuleProperty(Module, String)
 	 */
-	public String getModuleKey(Module module, String key) {
-		return persitencyController.getModuleKey(module, key);
+	public String getModuleProperty(Module module, String key) {
+		return persitencyController.getModuleProperty(module, key);
 	}
 	
 	/**
@@ -220,10 +242,10 @@ public class MainController implements Observer {
 	 * @param module The module.
 	 * @param key The key.
 	 * @param value The value.
-	 * @see de.dqi11.quickStarter.controller.PersitencyController#saveOrUpdateModuleKey(Module, String, String)
+	 * @see de.dqi11.quickStarter.controller.PersitencyController#saveOrUpdateModuleProperty(Module, String, String)
 	 */
-	public void saveOrUpdateModuleKey(Module module, String key, String value) {
-		persitencyController.saveOrUpdateModuleKey(module, key, value);
+	public void saveOrUpdateModuleProperty(Module module, String key, String value) {
+		persitencyController.saveOrUpdateModuleProperty(module, key, value);
 	}
 	
 	/**
@@ -231,10 +253,10 @@ public class MainController implements Observer {
 	 * 
 	 * @param module The module.
 	 * @param key The key.
-	 * @see de.dqi11.quickStarter.controller.PersitencyController#removeModuleKey(Module, String)
+	 * @see de.dqi11.quickStarter.controller.PersitencyController#removeModuleProperty(Module, String)
 	 */
-	public void removeModuleKey(Module module, String key) {
-		persitencyController.removeModuleKey(module, key);
+	public void removeModuleProperty(Module module, String key) {
+		persitencyController.removeModuleProperty(module, key);
 	}
 
 	/**

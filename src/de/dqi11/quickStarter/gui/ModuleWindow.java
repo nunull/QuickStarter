@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.FileInputStream;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -14,10 +13,9 @@ import javax.swing.JPanel;
  * A wrapper for a Module-window.
  * Can be used by Modules to implement GUI-elements.
  */
-public class ModuleWindow implements KeyListener {
+public class ModuleWindow {
 	private final int WIDTH = 800;
 	private final int HEIGHT = 500;
-	@SuppressWarnings("unused")
 	private KeyListener keyListener;
 	private JFrame mainFrame;
 	private JPanel mainPanel;
@@ -35,7 +33,7 @@ public class ModuleWindow implements KeyListener {
 	}
 	
 	/**
-	 * Inititializes the window.
+	 * Initializes the window.
 	 */
 	private void init() {
 		initListeners();
@@ -60,7 +58,6 @@ public class ModuleWindow implements KeyListener {
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// escape-key
 				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					mainFrame.setVisible(false);
 				}
@@ -98,7 +95,7 @@ public class ModuleWindow implements KeyListener {
 		mainFrame.setSize(WIDTH-20, HEIGHT);
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setBackground(Color.WHITE);
-		mainFrame.addKeyListener(this);
+		mainFrame.addKeyListener(keyListener);
 	}
 	
 	/**
@@ -137,27 +134,21 @@ public class ModuleWindow implements KeyListener {
 		mainFrame.setVisible(true);
 	}
 	
-	public Font getBoldFont() {
-		return boldFont;
-	}
-	
+	/**
+	 * Returns the default font.
+	 * 
+	 * @return The font.
+	 */
 	public Font getDefaultFont() {
 		return defaultFont;
 	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// Escape-key
-		if(e.getKeyCode() == 27) {
-			mainFrame.setVisible(false);
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
+	
+	/**
+	 * Returns the bold font.
+	 * 
+	 * @return The font.
+	 */
+	public Font getBoldFont() {
+		return boldFont;
 	}
 }

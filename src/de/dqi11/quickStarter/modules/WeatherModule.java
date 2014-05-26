@@ -29,32 +29,25 @@ public class WeatherModule extends Module {
 	public WeatherModule(MainController mainController) {
 		super(mainController);
 		
-		// Unnecessary
-		worker = new SwingWorker<ModuleAction, ModuleAction>(){
-			@Override
-			protected ModuleAction doInBackground() throws Exception {
-				return null;
-			}
-		};
-		
-		defaultLocation = mainController.getModuleKey(this, "city");
+		defaultLocation = mainController.getModuleProperty(this, "city");
 	}
 
 	@Override
 	public ModuleAction getModuleAction(final Search search) throws ConnectException {
-
 		if (search.isCommand("weather")) {
 			try {
 				worker.cancel(true);
-			}catch(CancellationException e) {
+			}catch(NullPointerException | CancellationException e) {
+				// Do nothing. It is OK if the worker is not initialized or executed, yet.
 			}
 			
+			// Set up the worker, that will get the necessary data in the background.
 			worker = new SwingWorker<ModuleAction, ModuleAction>() {
 
 				@Override
 				protected ModuleAction doInBackground() throws Exception {
 					String location = search.getParam(0);
-					if(location == null) location = defaultLocation;
+					if(location.equals("")) location = defaultLocation;
 					if(location.split(",").length == 1) {
 						if(search.getParam(1) != null) location += "," + search.getParam(1);
 						else location += ",de";

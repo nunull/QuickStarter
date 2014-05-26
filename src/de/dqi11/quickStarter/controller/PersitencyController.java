@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,6 +20,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -114,13 +117,101 @@ public class PersitencyController {
 	}
 	
 	/**
+	 * Returns all properties of the specific module.
+	 * 
+	 * @param module The module.
+	 * @return All properties as key-value-pairs.
+	 */
+	public Map<String, String> getModuleProperties(Module module) {
+		NodeList modulesXML = configDocument.getElementsByTagName("module");
+		Map<String, String> properties = new TreeMap<String, String>();
+		
+		for(int i = 0, j = modulesXML.getLength(); i < j; i++) {
+			NodeList childs = modulesXML.item(i).getChildNodes();
+			
+			for(int n = 0, m = childs.getLength(); n < m; n++) {
+				Node child = childs.item(n);
+				
+				if(child.getNodeName().equals("properties")) {
+					NodeList propertyNodes = child.getChildNodes();
+					
+					for(int x = 0, y = propertyNodes.getLength(); x < y; x++) {
+						Node property = propertyNodes.item(x);
+						
+						properties.put(property.getNodeName(), property.getTextContent());
+					}
+				}
+			}
+		}
+		
+		return properties;
+	}
+	
+	/**
+	 * Returns all properties of the specific module, that are either user-editable via the preferences or not.
+	 * 
+	 * @param module The module.
+	 * @param preferences Specifies if the properties returned are user-editable (true) or not (false).
+	 * @return All properties as key-value-pairs.
+	 */
+	public Map<String, String> getModuleProperties(Module module, boolean preferences) {
+		NodeList modulesXML = configDocument.getElementsByTagName("module");
+		Map<String, String> properties = new TreeMap<String, String>();
+		
+		for(int i = 0, j = modulesXML.getLength(); i < j; i++) {
+			NodeList childs = modulesXML.item(i).getChildNodes();
+			
+			for(int n = 0, m = childs.getLength(); n < m; n++) {
+				Node child = childs.item(n);
+				
+				if(child.getNodeName().equals("properties")) {
+					NodeList propertyNodes = child.getChildNodes();
+					
+					for(int x = 0, y = propertyNodes.getLength(); x < y; x++) {
+						Node property = propertyNodes.item(x);
+						NamedNodeMap attributes = property.getAttributes();
+						boolean hasPrefAttribute = false;
+						boolean valid = false;
+						
+						for(int a = 0, b = attributes.getLength(); a < b; a++) {
+							Node attribute = attributes.item(a);
+							String nodeName = attribute.getNodeName();
+							String textContent = attribute.getTextContent();
+							
+							if(nodeName.equals("pref")) {
+								hasPrefAttribute = true;
+								
+								if(textContent.equals("true") && preferences ||
+										textContent.equals("false") && !preferences) {
+								
+									valid = true;
+								}
+							}
+						}
+						
+						if(!hasPrefAttribute && !preferences) {
+							valid = true;
+						}
+						
+						if(valid) {
+							properties.put(property.getNodeName(), property.getTextContent());
+						}
+					}
+				}
+			}
+		}
+		
+		return properties;
+	}
+	
+	/**
 	 * Returns the specific key if present or null.
 	 * 
 	 * @param module The module.
 	 * @param key The key.
 	 * @return The value of the key or null if not present.
 	 */
-	public String getModuleKey(Module module, String key) {
+	public String getModuleProperty(Module module, String key) {
 		NodeList modulesXML = configDocument.getElementsByTagName("module");
 		
 		for(int i = 0, j = modulesXML.getLength(); i < j; i++) {
@@ -153,7 +244,7 @@ public class PersitencyController {
 	 * @param key The key.
 	 * @param value The value.
 	 */
-	public void saveOrUpdateModuleKey(Module module, String key, String value) {
+	public void saveOrUpdateModuleProperty(Module module, String key, String value) {
 		NodeList modulesXML = configDocument.getElementsByTagName("module");
 		
 		for(int i = 0, j = modulesXML.getLength(); i < j; i++) {
@@ -223,7 +314,7 @@ public class PersitencyController {
 	 * @param module The module.
 	 * @param key The key.
 	 */
-	public void removeModuleKey(Module module, String key) {
+	public void removeModuleProperty(Module module, String key) {
 		NodeList modulesXML = configDocument.getElementsByTagName("module");
 		
 		for(int i = 0, j = modulesXML.getLength(); i < j; i++) {

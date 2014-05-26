@@ -24,7 +24,7 @@
     <module>
     	<id>3</id>
         <class>WeatherModule</class>
-    <properties><city>Bremen</city></properties></module>
+    <properties><city pref="true">Bremen</city></properties></module>
     <module>
     	<id>4</id>
         <class>GoogleTranslateModule</class>
