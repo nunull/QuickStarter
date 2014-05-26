@@ -26,6 +26,7 @@ public class GoogleSearchModule extends Module {
 			else adtCmd = null;
 			
 			return new ModuleAction(KEY, "Google for <b>" + search.getSearchString() + "</b>", new ImageIcon("res/google-logo.png")) {
+				
 				@Override
 				public void invoke(Search search) {
 					if(Desktop.isDesktopSupported()) {
