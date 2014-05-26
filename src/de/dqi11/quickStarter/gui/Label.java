@@ -72,4 +72,9 @@ public class Label extends JLabel {
 			setFont(boldFont);
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return getText();
+	}
 }

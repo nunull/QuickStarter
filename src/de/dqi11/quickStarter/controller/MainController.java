@@ -87,7 +87,7 @@ public class MainController implements Observer {
 			mainWindow = new MainWindow();
 			mainWindow.addObserver(this);
 			mainWindow.init();
-			prefereceWindow = new PreferenceWindow("Preferences", this);
+			prefereceWindow = new PreferenceWindow(this);
 			
 			// TODO
 	//		SwingUtilities.invokeLater(new Runnable() {

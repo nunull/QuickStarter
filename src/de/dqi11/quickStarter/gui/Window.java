@@ -1,5 +1,6 @@
 package de.dqi11.quickStarter.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -7,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.FileInputStream;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -107,6 +109,8 @@ public class Window implements KeyListener {
 	private void initMainPanel() {
 		mainPanel = new JPanel();
 		mainPanel.setOpaque(false);
+//		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+		
 		mainFrame.setContentPane(mainPanel);
 	}
 	
