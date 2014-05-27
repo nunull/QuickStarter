@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.image.ImageObserver;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
@@ -29,7 +30,7 @@ public class ModuleActionListCellRenderer extends DefaultListCellRenderer {
 	
 	@SuppressWarnings("rawtypes")
 	@Override
-	public Component getListCellRendererComponent(JList list, Object value, int index, boolean selected, boolean expanded) {
+	public Component getListCellRendererComponent(final JList list, Object value, int index, boolean selected, boolean expanded) {
 		ModuleAction moduleAction = (ModuleAction) value;
 		Class[] interfaces = moduleAction.getClass().getInterfaces();
 		boolean warning = false;
@@ -42,9 +43,25 @@ public class ModuleActionListCellRenderer extends DefaultListCellRenderer {
 		ImageIcon icon = (ImageIcon) moduleAction.getIcon();
 		JLabel label = new JLabel();
 		if(icon != null) {
-			icon.setImage(icon.getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH));
+			if(icon.getIconWidth() != ICON_SIZE || icon.getIconHeight() != ICON_SIZE) {
+				icon.setImage(icon.getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH));
+			} else {
+				icon.setImageObserver(new ImageObserver() {
+					
+					@Override
+					public boolean imageUpdate(Image img, int infoflags, int x, int y,
+							int width, int height) {
+						
+						list.repaint();
+						if(infoflags > 16) img.flush();
+						
+						return true;
+					}
+				});
+			}
 			
 			label.setIcon(icon);
+			setIcon(icon);
 		}
 		
 		label.setText("<html>" + moduleAction.getText() + "</html>");

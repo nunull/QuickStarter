@@ -92,6 +92,8 @@ public class Taskbar implements ActionListener, ItemListener {
 			}
 		} else if(actionCommand.equals(quitMenuItem.getActionCommand())) {
 			mainController.quit();
+		} else if (actionCommand.equals(preferencesMenuItem.getActionCommand())){
+			mainController.showPrefenceWindow();
 		}
 	}
 

@@ -19,5 +19,4 @@ public class ErrorCoreModule extends CoreModule {
 			return null;
 		}
 	}
-	
 }

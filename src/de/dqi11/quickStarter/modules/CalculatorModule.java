@@ -22,6 +22,8 @@ public class CalculatorModule extends Module {
 
 	@Override
 	public ModuleAction getModuleAction(Search search) throws ConnectException {
+		
+		// Check, whether the entered String is a mathematical function.
 		if(search.getSearchString().matches("[a-zA-Z]\\([a-zA-Z]\\).*")) {
 			return new ModuleAction(KEY, "Draw <b>" + search.getSearchString() + "</b>") {
 				@Override
@@ -30,9 +32,8 @@ public class CalculatorModule extends Module {
 						ComplexEvaluator evaluator = new ComplexEvaluator();
 						String variableName = new Character(search.getSearchString().charAt(2)).toString();
 						String expression = search.getSearchString().split("=")[1].trim();
-						System.out.println(variableName);
 						
-						ModuleWindow moduleWindow = new ModuleWindow();
+						ModuleWindow moduleWindow = new ModuleWindow(search.getSearchString());
 						Plot2DPanel plot = new Plot2DPanel();
 						plot.setPreferredSize(new Dimension(770, 490));
 						plot.plotToolBar.setVisible(false);
@@ -40,7 +41,7 @@ public class CalculatorModule extends Module {
 						double[] x = new double[100];
 						double[] y = new double[100];
 						for(int i = 0, j = x.length; i < j; i++) {
-							evaluator.defineVariable("x", new ComplexVariable(i-50));
+							evaluator.defineVariable(variableName, new ComplexVariable(i-50));
 							
 							x[i] = i-50;
 							y[i] = evaluator.evaluate(expression).getReal();
@@ -52,10 +53,14 @@ public class CalculatorModule extends Module {
 						
 						return moduleWindow;
 					} catch(IndexOutOfBoundsException e) {
+						
+						// Return null, if something went wrong. (e.g. the String is not a mathematical function)
 						return null;
 					}
 				}
 			};
+			
+		// Try evaluating the entered String as a mathematical expression.
 		} else {
 			DoubleEvaluator evaluator = new DoubleEvaluator();
 			
@@ -64,9 +69,10 @@ public class CalculatorModule extends Module {
 				
 				return new ModuleAction(KEY, search.getSearchString() + " = <b>" + result + "</b>");
 			} catch(SyntaxError | ArithmeticException e) {
+				
+				// Return null, if something went wrong. (e.g. the String is not a mathematical expression)
 				return null;
 			}
 		}
 	}
-	
 }
