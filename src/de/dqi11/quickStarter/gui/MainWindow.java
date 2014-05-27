@@ -391,13 +391,19 @@ public class MainWindow extends Observable {
 		ModuleAction moduleAction = getSelectedModuleAction();
 		
 		if(moduleAction != null) {
-			ModuleWindow moduleWindow = moduleAction.getModuleWindow(search);
+			final ModuleWindow moduleWindow = moduleAction.getModuleWindow(search);
 			
 			toggleApplication();
 			if(moduleWindow == null) {
 				moduleAction.invoke(search);
 			} else {
-				moduleWindow.show();
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						moduleWindow.show();		
+					}
+				});
 			}
 		}
 	}

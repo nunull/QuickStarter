@@ -137,6 +137,7 @@ public class MainController implements Observer {
 						for(ModuleAction moduleAction : moduleActions) {
 							if(moduleAction.getKey().equals(m.getKey())) {
 								moduleActions.remove(moduleAction);
+								
 								break;
 							}
 						}
@@ -158,7 +159,7 @@ public class MainController implements Observer {
 		try {
 			int index = moduleActions.lastIndexOf(modulAction);
 			moduleActions.add(index, modulAction);
-			moduleActions.remove(index+1);
+			moduleActions.remove(index + 1);
 			
 			if(mainWindow != null) {
 				mainWindow.updateModuleActions();

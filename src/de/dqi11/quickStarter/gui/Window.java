@@ -107,7 +107,6 @@ public class Window implements KeyListener {
 	private void initMainPanel() {
 		mainPanel = new JPanel();
 		mainPanel.setOpaque(false);
-//		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		
 		mainFrame.setContentPane(mainPanel);
 	}
@@ -120,6 +119,7 @@ public class Window implements KeyListener {
 	 */
 	public void add(Component component) {
 		mainPanel.add(component);
+		mainFrame.validate();
 	}
 	
 	/**
@@ -161,5 +161,10 @@ public class Window implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+	}
+	
+	public void repaint() {
+		mainFrame.repaint();
+		mainPanel.repaint();
 	}
 }
