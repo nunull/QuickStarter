@@ -1,16 +1,20 @@
-<project name="QuickStarter" default="dist" basedir=".">
+<project name="QuickStarter" default="test" basedir=".">
 	<property name="src" location="src"/>
+	<property name="src.test" location="test"/>
 	<property name="build" location="build"/>
+	<property name="build.test" location="build/test"/>
 	<property name="dist"  location="dist"/>
-	
 	<property name="lib.dir" value="libs" />
+	
 	<path id="classpath">
+		<pathelement location="${build}"/>
 		<fileset dir="${lib.dir}" includes="**/*.jar"/>
 	</path>
 
 	<target name="init">
 		<tstamp/>
 		<mkdir dir="${build}"/>
+		<mkdir dir="${build.test}"/>
 	</target>
 
 	<target name="compile" depends="init">
@@ -20,6 +24,25 @@
 	<target name="dist" depends="compile">
 		<mkdir dir="${dist}"/>
 		<jar jarfile="${dist}/QuickStarter-${DSTAMP}.jar" basedir="${build}"/>
+	</target>
+	
+	<target name="buildTest" depends="dist">
+	    <mkdir dir="${build.test}"/>
+	    <javac srcdir="${src.test}" destdir="${build.test}" classpathref="classpath" includeantruntime="false"/>
+	</target>
+	
+	<target name="test" depends="buildTest">
+	    <junit printsummary="on" haltonfailure="yes">
+	        <classpath>
+	        	<path refid="classpath" />
+	        	
+	        	<pathelement location="${build.test}"/>
+	        </classpath>
+	        <formatter type="brief" usefile="false" />
+	        <batchtest>
+	            <fileset dir="${src.test}" includes="**/*Test*" />
+	        </batchtest>
+	    </junit>
 	</target>
 
 	<target name="clean">

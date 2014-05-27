@@ -10,6 +10,7 @@ public class Search {
 	 * Default constructor.
 	 */
 	public Search() {
+		searchString = "";
 	}
 	
 	/**
@@ -18,7 +19,10 @@ public class Search {
 	 * @param searchString A specific search-string.
 	 */
 	public Search(String searchString) {
-		this.searchString = searchString;
+		this.searchString = "";
+		if(searchString != null) {
+			this.searchString = searchString.trim();
+		}
 	}
 	
 	/**
@@ -28,11 +32,13 @@ public class Search {
 	 * @return true if the search has the specific command, false otherwise.
 	 */
 	public boolean isCommand(String command) {
+		command = command == null ? "" : command;
+		
 		return partEquals(0, command);
 	}
 	
 	/**
-	 * Returns the command or null, if there is not any.
+	 * Returns the command or an empty string, if there is not any.
 	 * 
 	 * @return the command.
 	 */
@@ -42,7 +48,7 @@ public class Search {
 		try {
 			return parts[0];
 		} catch(IndexOutOfBoundsException e) {
-			return null;
+			return "";
 		}
 	}
 	
@@ -76,7 +82,7 @@ public class Search {
 	 * Returns the parameter at the given index.
 	 * 
 	 * @param index The index.
-	 * @return The parameter or null if the index is out of bounds.
+	 * @return The parameter or an empty string if the index is out of bounds.
 	 */
 	public String getParam(int index) {
 		String[] params = searchString.split(" ");
@@ -84,7 +90,7 @@ public class Search {
 		try {
 			return params[index+1];
 		} catch(IndexOutOfBoundsException e) {
-			return null;
+			return "";
 		}
 	}
 	
@@ -95,6 +101,8 @@ public class Search {
 	 * @return true if the strings are equal, false otherwise.
 	 */
 	public boolean equals(String s) {
+		s = s == null ? "" : s;
+		
 		return searchString.equals(s);
 	}
 	

@@ -31,7 +31,7 @@ public class MainController implements Observer {
 	public MainController() {
 		this.modules = new LinkedList<Module>();
 		this.moduleActions = new LinkedList<ModuleAction>();
-		this.persitencyController = new PersitencyController();
+		this.persitencyController = new PersitencyController(this);
 		
 		initModules();
 		initOS();

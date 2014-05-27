@@ -10,5 +10,4 @@ public abstract class CoreModule extends Module {
 	public CoreModule(MainController mainController) {
 		super(mainController);
 	}
-
 }

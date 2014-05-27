@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
@@ -12,7 +13,9 @@ import java.util.Observable;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -38,6 +41,7 @@ public class MainWindow extends Observable {
 	private boolean visible;
 	private JDialog mainDialog;
 	private JPanel mainPanel;
+	private JPanel headerPanel;
 	private JTextField textField;
 	private JLabel errorLabel;
 	private JList<ModuleAction> advicesList;
@@ -64,7 +68,7 @@ public class MainWindow extends Observable {
 		initFonts();
 		initMainDialog();
 		initMainPanel();
-		initTextField();
+		initHeaderPanel();
 		initErrorLabel();
 		initModuleActionsPanel();
 		updateHeight();
@@ -137,17 +141,17 @@ public class MainWindow extends Observable {
 		// Initialize default font.
 		try {
 			defaultFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("res/fonts/ubuntu/Ubuntu-Light.ttf"));
-			defaultFont =  defaultFont.deriveFont(20f);
+			defaultFont =  defaultFont.deriveFont(16f);
 		} catch (Exception e) {
-			defaultFont = new Font("Arial", Font.PLAIN, 20);
+			defaultFont = new Font("Arial", Font.PLAIN, 16);
 		}
 		
 		// Initialize bold font.
 		try {
 			boldFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("res/fonts/ubuntu/Ubuntu-Bold.ttf"));
-			boldFont =  boldFont.deriveFont(20f);
+			boldFont =  boldFont.deriveFont(16f);
 		} catch (Exception e) {
-			boldFont = new Font("Arial", Font.BOLD, 20);
+			boldFont = new Font("Arial", Font.BOLD, 16);
 		}
 	}
 	
@@ -155,9 +159,12 @@ public class MainWindow extends Observable {
 	 * Initializes the mainFrame.
 	 */
 	private void initMainDialog() {
-		mainDialog = new JDialog();
+		JFrame parent = new JFrame();
+		parent.setIconImage(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB));
+		mainDialog = new JDialog(parent);
 		
 		mainDialog.setUndecorated(true);
+		mainDialog.setResizable(false);
 		mainDialog.setSize(WIDTH-20, TEXTFIELD_HEIGHT);
 //		mainFrame.setShape(new RoundRectangle2D.Double(10, 10, 100, 100, 50, 50));
 		mainDialog.setLocationRelativeTo(null);
@@ -178,11 +185,11 @@ public class MainWindow extends Observable {
 	/**
 	 * Initializes the textField.
 	 */
-	private void initTextField() {
+	private void initHeaderPanel() {
 		textField = new JTextField();
 		
 		Border line = BorderFactory.createLineBorder(Color.BLACK);
-		Border empty = new EmptyBorder(0, 80, 0, 0);
+		Border empty = new EmptyBorder(0, 0, 0, 0);
 		CompoundBorder border = new CompoundBorder(line, empty);
 		textField.setBorder(border);
 		textField.setPreferredSize(new Dimension(WIDTH, TEXTFIELD_HEIGHT));
@@ -194,7 +201,20 @@ public class MainWindow extends Observable {
 		textField.addKeyListener(keyListener);
 		textField.getDocument().addDocumentListener(documentListener);
 		
-		mainPanel.add(textField);
+//		mainPanel.add(new JLabel(new ImageIcon("res/logo.png")));
+//		mainPanel.add(textField);
+		
+		headerPanel = new JPanel();
+		headerPanel.setBackground(Color.BLACK);
+		headerPanel.setForeground(Color.WHITE);
+		empty = new EmptyBorder(0, 100, 0, 0);
+		border = new CompoundBorder(line, empty);
+		headerPanel.setBorder(border);
+		
+		headerPanel.add(new JLabel(new ImageIcon("res/logo.png")));
+		headerPanel.add(textField);
+		
+		mainPanel.add(headerPanel);
 	}
 	
 	private void initErrorLabel() {
@@ -235,9 +255,10 @@ public class MainWindow extends Observable {
 	/**
 	 * Updates the window-height.
 	 */
-	public void updateHeight() {
+	@SuppressWarnings("deprecation")
+	private void updateHeight() {
 		final int startHeight = mainDialog.getHeight();
-		final int endHeight = moduleActionsListModel.getSize() * TEXTFIELD_HEIGHT + TEXTFIELD_HEIGHT + 10;
+		final int endHeight = moduleActionsListModel.getSize() * TEXTFIELD_HEIGHT + TEXTFIELD_HEIGHT + 31;
 		
 		if(updateHeightThread != null) {
 			updateHeightThread.stop();
@@ -250,7 +271,7 @@ public class MainWindow extends Observable {
 				public void run() {
 					int direction = 1;
 					if(startHeight > endHeight) direction = -1;
-					int speed = 25;
+					int speed = 45;
 					
 					for(int i = startHeight; i < endHeight && direction > 0 || i > endHeight && direction < 0; i += direction * speed) {
 						final int currentHeight = i;
@@ -269,7 +290,7 @@ public class MainWindow extends Observable {
 						}
 						
 						try {
-							Thread.sleep(10);
+							Thread.sleep(20);
 						} catch (InterruptedException e) {
 						}
 					}

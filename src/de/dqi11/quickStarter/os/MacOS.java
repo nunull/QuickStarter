@@ -10,15 +10,13 @@ import org.jnativehook.keyboard.NativeKeyListener;
  */
 public class MacOS extends OS implements NativeKeyListener {
 	
-	private boolean altKeyPressed = false;
+	private boolean ctrlKeyPressed = false;
 
 	public MacOS() {
 		try {
 			GlobalScreen.registerNativeHook();
 			GlobalScreen.getInstance().addNativeKeyListener(this);
 		} catch (NativeHookException e) {
-			// TODO
-			e.printStackTrace();
 		}
 	}
 	
@@ -29,13 +27,15 @@ public class MacOS extends OS implements NativeKeyListener {
 
 	@Override
 	public void nativeKeyPressed(NativeKeyEvent e) {
-		if(e.getKeyCode() == 16) altKeyPressed = true;
-		else if(e.getKeyCode() == 32 && altKeyPressed) toggleApp();
+		if(isActive()) {
+			if(e.getKeyCode() == 16 && e.getModifiers() == 2) ctrlKeyPressed = true;
+			else if(e.getKeyCode() == 32 && ctrlKeyPressed) toggleApp();
+		}
 	}
 
 	@Override
 	public void nativeKeyReleased(NativeKeyEvent e) {
-		if(e.getKeyCode() == 16) altKeyPressed = false;
+		if(e.getKeyCode() == 16) ctrlKeyPressed = false;
 	}
 
 	@Override

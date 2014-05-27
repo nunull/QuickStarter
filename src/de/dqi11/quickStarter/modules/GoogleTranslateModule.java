@@ -6,7 +6,6 @@ import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Locale;
-import java.util.Properties;
 
 import javax.swing.ImageIcon;
 
@@ -28,7 +27,7 @@ public class GoogleTranslateModule extends Module {
 	@Override
 	public ModuleAction getModuleAction(Search search) throws ConnectException {
 		if(search.isCommand("translate") && !search.getParams().equals("")) {
-			return new ModuleAction(KEY, "Translate " + search.getParams() + " on Google", new ImageIcon("res/google-logo.png")) {
+			return new ModuleAction(KEY, "Translate <b>" + search.getParams() + "</b> on Google", new ImageIcon("res/google-logo.png")) {
 				@Override
 				public void invoke(Search search) {
 					if(Desktop.isDesktopSupported()) {

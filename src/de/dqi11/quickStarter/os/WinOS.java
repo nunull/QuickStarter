@@ -18,9 +18,19 @@ public class WinOS extends OS implements HotkeyListener{
 	public void shutdown() {
 		// TODO Auto-generated method stub
 	}
+	
 	@Override
 	public void onHotKey(int arg0) {
 		toggleApp();
 	}
+	
+	@Override
+	public void setActive(boolean active) {
+		super.setActive(active);
+		
+		JIntellitype.getInstance().unregisterHotKey(1);
+		if (active) JIntellitype.getInstance().registerHotKey(1, JIntellitype.MOD_CONTROL, (int)' ');
+	}
+	
 	
 }
