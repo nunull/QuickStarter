@@ -6,12 +6,12 @@ ToDo
 
 ### Due to Thu, 22 May
 
-* [X] *DOC:* **requirements**: technical requirement *(ARNE)*
-* [X] *DOC:* **workflow**: division of work *(ARNE)*
-* [X] *DOC:* **implementation**: software design *(TIMM)*
-* [X] *DOC:* **third party libs**: quick-json *(TIMM)*
-* [X] *DOC:* **third party libs**: symja *(YUNUS)*
-* [X] *DOC:* **third party libs**: jmathplot *(YUNUS)*
+* [x] *DOC:* **requirements**: technical requirement *(ARNE)*
+* [x] *DOC:* **workflow**: division of work *(ARNE)*
+* [x] *DOC:* **implementation**: software design *(TIMM)*
+* [x] *DOC:* **third party libs**: quick-json *(TIMM)*
+* [x] *DOC:* **third party libs**: symja *(YUNUS)*
+* [x] *DOC:* **third party libs**: jmathplot *(YUNUS)*
 
 ### Due to Mo, 26 May
 
@@ -26,13 +26,13 @@ ToDo
 * [ ] *DOC:* **requirements**: skills *(YUNUS)*
 * [ ] *DOC:* **naming and design** *(YUNUS)*
 * [ ] *DOC:* **class description** *(YUNUS)*
-* [ ] *DOC:* **protocols** *(YUNUS)*
+* [ ] *DOC:* **protocols** *(YUNUS)*
 * [ ] *DOC:* **requirements**: technical requirement: CI *(TIMM)*
 * [ ] *DOC:* **testing** *(TIMM)*
 * [ ] *DOC:* **deployment** *(TIMM)*
 * [ ] *DOC:* **UML** *(TIMM)*
 * [ ] *DOC:* **implementation**: problems during implementation *(TIMM)*
-* [ ] *CODING:* **local file search** *(TIMM)*
+* [x] *CODING:* **local file search** *(TIMM)*
 * [ ] *CODING:* **testing** *(TIMM)*
 * [ ] *DOC:* **zeitlicher ablauf** *(ARNE)*
 * [ ] *DOC:* **user guide** *(ARNE)*
@@ -47,13 +47,13 @@ ToDo
 
 ### Due to Mo, 9 Jun
 
-* [ ] *DOC:* **final texts / format**
-* ([ ] *DOC:* **future prospects**) **?**
-* [ ] *CODING:* **COMMENTING** *(EVERYBODY)*
+* [ ] *DOC:* **final texts / format**
+* ([ ] *DOC:* **future prospects**) **?**
+* [ ] *CODING:* **COMMENTING** *(EVERYBODY)*
 
 ### Fr, 13 Jun
 
-* [ ] **DELIVERY**
+* [ ] **DELIVERY**
 
 Build
 -----
