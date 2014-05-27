@@ -6,6 +6,7 @@ import java.net.ConnectException;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 
+import javax.swing.ImageIcon;
 import javax.swing.SwingWorker;
 
 import de.dqi11.quickStarter.controller.MainController;
