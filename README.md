@@ -44,6 +44,7 @@ ToDo
   * [ ] *DOC:* **reflection:** yunus
   * [ ] *DOC:* **reflection:** timm
   * [ ] *DOC:* **reflection:** daniel
+* [ ] *CODING:* **help dialog**
 
 ### Due to Mo, 9 Jun
 
