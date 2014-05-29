@@ -33,7 +33,7 @@ ToDo
 * [x] *DOC:* **UML** *(TIMM)*
 * [ ] *DOC:* **implementation**: problems during implementation *(TIMM)*
 * [x] *CODING:* **local file search** *(TIMM)*
-* [ ] *CODING:* **testing** *(TIMM)*
+* [x] *CODING:* **testing** *(TIMM)*
 * [ ] *DOC:* **zeitlicher ablauf** *(ARNE)*
 * [ ] *DOC:* **user guide** *(ARNE)*
 * [ ] *CODING:* **bigsearch (wiki, github, ...)** *(ARNE)*
