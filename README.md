@@ -34,6 +34,7 @@ ToDo
 * [ ] *DOC:* **implementation**: problems during implementation *(TIMM)*
 * [x] *CODING:* **local file search** *(TIMM)*
 * [x] *CODING:* **testing** *(TIMM)*
+* [x] *TESTING:* **code coverage** *(TIMM)*
 * [ ] *DOC:* **zeitlicher ablauf** *(ARNE)*
 * [ ] *DOC:* **user guide** *(ARNE)*
 * [ ] *CODING:* **bigsearch (wiki, github, ...)** *(ARNE)*
