@@ -27,7 +27,7 @@ ToDo
 * [ ] *DOC:* **naming and design** *(YUNUS)*
 * [ ] *DOC:* **class description** *(YUNUS)*
 * [ ] *DOC:* **protocols** *(YUNUS)*
-* [ ] *DOC:* **requirements**: technical requirement: CI *(TIMM)*
+* [x] *DOC:* **requirements**: technical requirement: CI *(TIMM)*
 * [ ] *DOC:* **testing** *(TIMM)*
 * [ ] *DOC:* **deployment** *(TIMM)*
 * [ ] *DOC:* **UML** *(TIMM)*
