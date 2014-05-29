@@ -30,7 +30,7 @@ ToDo
 * [x] *DOC:* **requirements**: technical requirement: CI *(TIMM)*
 * [ ] *DOC:* **testing** *(TIMM)*
 * [ ] *DOC:* **deployment** *(TIMM)*
-* [ ] *DOC:* **UML** *(TIMM)*
+* [x] *DOC:* **UML** *(TIMM)*
 * [ ] *DOC:* **implementation**: problems during implementation *(TIMM)*
 * [x] *CODING:* **local file search** *(TIMM)*
 * [ ] *CODING:* **testing** *(TIMM)*
