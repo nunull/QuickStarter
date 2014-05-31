@@ -16,7 +16,7 @@ public class WinOS extends OS implements HotkeyListener{
 	}
 	@Override
 	public void shutdown() {
-		// TODO Auto-generated method stub
+		JIntellitype.getInstance().cleanUp();
 	}
 	
 	@Override
