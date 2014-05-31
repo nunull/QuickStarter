@@ -1,0 +1,57 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules.bridges,OpenWeatherMapBridge,12,0,0,0,2,0,2,0,2,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules.bridges,GlosbeBridge,23,0,0,0,3,0,2,0,2,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules.bridges,HTTPBridge,96,0,4,0,27,0,4,0,2,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.helpers,JSONParser,3,82,0,4,2,18,0,8,0,6
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.controller,PersitencyController,383,399,60,46,83,75,37,23,3,4
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.controller,MainController,126,192,17,15,36,47,20,14,9,9
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.controller,Search,6,91,0,6,4,22,0,12,0,9
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,GoogleMapsModule,21,15,1,1,1,5,1,2,0,2
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,GoogleTranslateModule,26,18,3,1,1,6,2,2,0,2
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,CalculatorModule,41,20,1,1,3,7,1,2,0,2
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,GoogleMapsModule.new ModuleAction() {...},45,0,2,0,7,0,3,0,2,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,Module,10,38,0,0,4,11,3,5,3,5
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,WarningModuleAction,15,0,0,0,6,0,3,0,3,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,WikiSearchModule,24,18,3,1,1,6,2,2,0,2
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,ErrorCoreModule,10,10,3,1,1,4,2,2,0,2
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,TranslateModule.new SwingWorker() {...},83,0,4,0,15,0,5,0,3,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,GoogleTranslateModule.new ModuleAction() {...},69,0,4,0,9,0,4,0,2,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,CoreModule,0,4,0,0,0,2,0,1,0,1
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,FileSearchModule.new ModuleAction() {...},23,8,0,0,4,2,1,1,1,1
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,WeatherModule,24,20,1,1,5,6,1,2,0,2
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,GoogleSearchModule.new ModuleAction() {...},37,9,2,0,5,2,2,1,1,1
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,ModuleAction,39,27,0,0,16,10,10,2,10,2
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,CalculatorModule.new ModuleAction() {...},106,0,2,0,20,0,3,0,2,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,WeatherModule.new SwingWorker() {...},181,0,8,0,23,0,7,0,3,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,FileSearchModule,101,38,26,2,16,8,15,3,2,2
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,GoogleSearchModule,8,54,3,5,0,10,3,3,0,2
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,LoadingModuleAction,18,0,0,0,4,0,2,0,2,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,WikiSearchModule.new ModuleAction() {...},44,0,2,0,7,0,3,0,2,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.modules,TranslateModule,23,14,1,1,4,5,1,2,0,2
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,MainWindow,136,382,14,4,33,89,18,11,9,11
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,MainWindow.new DocumentListener() {...},15,6,0,0,7,2,3,1,3,1
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,Label,92,0,2,0,35,0,8,0,7,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,ModuleWindow,7,0,0,0,4,0,2,0,2,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,MainWindow.new Runnable() {...},13,0,0,0,4,0,2,0,2,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,Window,58,113,2,0,17,35,9,8,8,8
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,ModuleActionListCellRenderer,144,9,14,0,32,4,8,1,1,1
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,MainWindow.new KeyListener() {...},38,6,8,0,13,2,7,1,3,1
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,PreferenceWindow.new ComponentAdapter() {...},62,9,6,0,12,2,5,1,2,1
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,MainWindow.new Runnable() {...},9,64,4,6,2,14,4,3,0,2
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,BoldFont,11,18,0,0,2,5,1,2,1,2
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,Taskbar,63,132,11,1,15,29,8,1,2,1
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,Window.new KeyListener() {...},12,6,2,0,5,2,4,1,3,1
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,DefaultFont,11,18,0,0,2,5,1,2,1,2
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,PreferenceWindow.new ListSelectionListener() {...},27,9,2,0,4,2,2,1,1,1
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,ModuleActionListCellRenderer.new ImageObserver() {...},19,0,2,0,5,0,3,0,2,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.gui,PreferenceWindow,0,199,0,4,0,41,0,4,0,2
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter,Main,6,0,0,0,3,0,2,0,2,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.os,WinOS,32,0,4,0,12,0,6,0,4,0
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.os,OS,12,6,0,0,6,2,3,1,3,1
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/src",de.dqi11.quickStarter.os,MacOS,37,11,12,0,9,6,10,1,4,1
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/test",de.dqi11.test.helpers,JSONParserTest,0,59,0,0,0,13,0,4,0,4
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/test",de.dqi11.test.controller,SearchTest,0,261,0,0,0,48,0,8,0,8
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/test",de.dqi11.test.controller,PersistencyControllerTest,0,21,0,0,0,6,0,4,0,4
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/test",de.dqi11.test.controller,MainControllerTest,4,80,1,1,1,16,1,5,0,5
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/test",de.dqi11.test.gui,DefaultFontTest,0,12,0,0,0,5,0,3,0,3
+"Test (May 29, 2014 6:24:11 PM)/QuickStarter/test",de.dqi11.test.gui,BoldFontTest,0,12,0,0,0,5,0,3,0,3

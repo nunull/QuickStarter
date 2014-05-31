@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>GoogleTranslateModule.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Test (May 29, 2014 6:24:11 PM)</a> &gt; <a href="../../index.html" class="el_group">QuickStarter</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">de.dqi11.quickStarter.modules</a> &gt; <span class="el_source">GoogleTranslateModule.java</span></div><h1>GoogleTranslateModule.java</h1><pre class="source lang-java linenums"><span class="nc" id="L1">package de.dqi11.quickStarter.modules;</span>
+
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Locale;
+
+import javax.swing.ImageIcon;
+
+import de.dqi11.quickStarter.controller.MainController;
+import de.dqi11.quickStarter.controller.Search;
+
+/**
+ * Module for accessing the translate.google.com website
+ */
+public class GoogleTranslateModule extends Module {
+<span class="fc" id="L19">	private final String KEY = this.toString();</span>
+	private String systemLanguage;
+	
+	public GoogleTranslateModule(MainController mainController) {
+<span class="fc" id="L23">		super(mainController);</span>
+<span class="fc" id="L24">		systemLanguage = Locale.getDefault().getCountry();</span>
+<span class="fc" id="L25">	}</span>
+
+	@Override
+	public ModuleAction getModuleAction(Search search) throws ConnectException {
+<span class="pc bpc" id="L29" title="3 of 4 branches missed.">		if(search.isCommand(&quot;translate&quot;) &amp;&amp; !search.getParams().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L30">			return new ModuleAction(KEY, &quot;Translate &lt;b&gt;&quot; + search.getParams() + &quot;&lt;/b&gt; on Google&quot;, new ImageIcon(&quot;res/google-logo.png&quot;)) {</span>
+				@Override
+				public void invoke(Search search) {
+<span class="nc bnc" id="L33" title="All 2 branches missed.">					if(Desktop.isDesktopSupported()) {</span>
+						try {
+<span class="nc bnc" id="L35" title="All 2 branches missed.">							if(systemLanguage != null)</span>
+<span class="nc" id="L36">								Desktop.getDesktop().browse(new URI(&quot;https://translate.google.com/#auto/&quot; + systemLanguage + &quot;/&quot; + search.getParams().replaceAll(&quot; &quot;, &quot;+&quot;)));</span>
+							else
+<span class="nc" id="L38">								Desktop.getDesktop().browse(new URI(&quot;https://translate.google.com/#auto/en/&quot; + search.getParams().replaceAll(&quot; &quot;, &quot;+&quot;)));</span>
+<span class="nc" id="L39">						} catch (IOException | URISyntaxException e) {</span>
+<span class="nc" id="L40">							getMainController().updateModule(new WarningModuleAction(KEY, &quot;An error occured.&quot;));</span>
+						}
+					}
+<span class="nc" id="L43">				}</span>
+			};
+		} else {
+<span class="fc" id="L46">			return null;</span>
+		}
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span>Test (May 29, 2014 6:24:11 PM)</div></body></html>

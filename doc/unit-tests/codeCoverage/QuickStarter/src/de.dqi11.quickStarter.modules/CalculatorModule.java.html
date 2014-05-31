@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>CalculatorModule.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Test (May 29, 2014 6:24:11 PM)</a> &gt; <a href="../../index.html" class="el_group">QuickStarter</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">de.dqi11.quickStarter.modules</a> &gt; <span class="el_source">CalculatorModule.java</span></div><h1>CalculatorModule.java</h1><pre class="source lang-java linenums"><span class="nc" id="L1">package de.dqi11.quickStarter.modules;</span>
+
+import java.awt.Dimension;
+import java.net.ConnectException;
+
+import org.math.plot.Plot2DPanel;
+import org.matheclipse.parser.client.SyntaxError;
+import org.matheclipse.parser.client.eval.ComplexEvaluator;
+import org.matheclipse.parser.client.eval.ComplexVariable;
+import org.matheclipse.parser.client.eval.DoubleEvaluator;
+
+import de.dqi11.quickStarter.controller.MainController;
+import de.dqi11.quickStarter.controller.Search;
+import de.dqi11.quickStarter.gui.ModuleWindow;
+
+public class CalculatorModule extends Module {
+<span class="fc" id="L17">	private final String KEY = this.toString();</span>
+	
+	public CalculatorModule(MainController mainController) {
+<span class="fc" id="L20">		super(mainController);</span>
+<span class="fc" id="L21">	}</span>
+
+	@Override
+	public ModuleAction getModuleAction(Search search) throws ConnectException {
+		
+		// Check, whether the entered String is a mathematical function.
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">		if(search.getSearchString().matches(&quot;[a-zA-Z]\\([a-zA-Z]\\).*&quot;)) {</span>
+<span class="nc" id="L28">			return new ModuleAction(KEY, &quot;Draw &lt;b&gt;&quot; + search.getSearchString() + &quot;&lt;/b&gt;&quot;) {</span>
+				@Override
+				public ModuleWindow getModuleWindow(Search search) {
+					try {
+<span class="nc" id="L32">						ComplexEvaluator evaluator = new ComplexEvaluator();</span>
+<span class="nc" id="L33">						String variableName = new Character(search.getSearchString().charAt(2)).toString();</span>
+<span class="nc" id="L34">						String expression = search.getSearchString().split(&quot;=&quot;)[1].trim();</span>
+						
+<span class="nc" id="L36">						ModuleWindow moduleWindow = new ModuleWindow(search.getSearchString());</span>
+<span class="nc" id="L37">						Plot2DPanel plot = new Plot2DPanel();</span>
+<span class="nc" id="L38">						plot.setPreferredSize(new Dimension(770, 490));</span>
+<span class="nc" id="L39">						plot.plotToolBar.setVisible(false);</span>
+						
+<span class="nc" id="L41">						double[] x = new double[100];</span>
+<span class="nc" id="L42">						double[] y = new double[100];</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">						for(int i = 0, j = x.length; i &lt; j; i++) {</span>
+<span class="nc" id="L44">							evaluator.defineVariable(variableName, new ComplexVariable(i-50));</span>
+							
+<span class="nc" id="L46">							x[i] = i-50;</span>
+<span class="nc" id="L47">							y[i] = evaluator.evaluate(expression).getReal();</span>
+						}
+						
+<span class="nc" id="L50">						plot.addLinePlot(search.getSearchString(), x, y);</span>
+						
+<span class="nc" id="L52">						moduleWindow.add(plot);</span>
+						
+<span class="nc" id="L54">						return moduleWindow;</span>
+<span class="nc" id="L55">					} catch(IndexOutOfBoundsException e) {</span>
+						
+						// Return null, if something went wrong. (e.g. the String is not a mathematical function)
+<span class="nc" id="L58">						return null;</span>
+					}
+				}
+			};
+			
+		// Try evaluating the entered String as a mathematical expression.
+		} else {
+<span class="fc" id="L65">			DoubleEvaluator evaluator = new DoubleEvaluator();</span>
+			
+			try {
+<span class="nc" id="L68">				double result = evaluator.evaluate(search.getSearchString());</span>
+				
+<span class="nc" id="L70">				return new ModuleAction(KEY, search.getSearchString() + &quot; = &lt;b&gt;&quot; + result + &quot;&lt;/b&gt;&quot;);</span>
+<span class="fc" id="L71">			} catch(SyntaxError | ArithmeticException e) {</span>
+				
+				// Return null, if something went wrong. (e.g. the String is not a mathematical expression)
+<span class="fc" id="L74">				return null;</span>
+			}
+		}
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span>Test (May 29, 2014 6:24:11 PM)</div></body></html>

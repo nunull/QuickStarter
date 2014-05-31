@@ -1,4 +1,4 @@
-package de.dqi11.test;
+package de.dqi11.test.controller;
 
 import static org.junit.Assert.*;
 

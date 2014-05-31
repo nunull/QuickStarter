@@ -6,48 +6,75 @@ ToDo
 
 ### Due to Thu, 22 May
 
-* [X] *DOC:* **requirements**: skills *(ARNE)*
-* [X] *DOC:* **requirements**: technical requirement *(ARNE)*
-* [X] *DOC:* **workflow**: division of work *(ARNE)*
-* [X] *DOC:* **implementation**: software design *(TIMM)*
-* [X] *DOC:* **third party libs**: quick-json *(TIMM)*
-* [X] *DOC:* **third party libs**: symja *(YUNUS)*
-* [X] *DOC:* **third party libs**: jmathplot *(YUNUS)*
-* [ ] *CODING:* **bigsearch (wiki, github, ...)** *(ARNE)*
+* [x] *DOC:* **requirements**: technical requirement *(ARNE)*
+* [x] *DOC:* **workflow**: division of work *(ARNE)*
+* [x] *DOC:* **implementation**: software design *(TIMM)*
+* [x] *DOC:* **third party libs**: quick-json *(TIMM)*
+* [x] *DOC:* **third party libs**: symja *(YUNUS)*
+* [x] *DOC:* **third party libs**: jmathplot *(YUNUS)*
 
 ### Due to Mo, 26 May
 
-* [ ] *DOC:* **implementation**: used software *(ARNE)*
-* [ ] *DOC:* **implementation**: initial decisions *(TIMM)*
-* [ ] *DOC:* **implementation**: problems during implementation *(YUNUS)*
-* [ ] *CODING:* **pref pane** *(YUNUS, TIMM, ARNE)*
-  * [ ] *CODING:* **pref pane**: gui *(YUNUS)*
+* [x] *DOC:* **implementation**: initial decisions *(TIMM)*
+* [x] *CODING:* **pref pane** *(YUNUS, TIMM, ARNE)*
+  * [x] *CODING:* **pref pane**: gui *(YUNUS)*
   * [x] *CODING:* **pref pane**: persistency *(TIMM)*
-* [ ] *CODING:* **WeatherModule**: ModuleWindow *(TIMM)*
-* [ ] *CODING:* **COMMENTING** *(EVERYBODY)*
-
-### Due to Thu, 29 May
-
-* [ ] *DOC:* **preface** *(YUNUS)*
-* [ ] *DOC:* **naming and design** *(YUNUS)*
-* [ ] *DOC:* **testing** *(TIMM)*
-* [ ] *DOC:* **deployment** *(TIMM)*
-* [ ] *DOC:* **zeitlicher ablauf** *(ARNE)*
-* [ ] *DOC:* **user guide** *(ARNE)*
-* [ ] *CODING:* **local file search** *(TIMM)*
-* [ ] *CODING:* **closing button** *(ARNE)*
+* [x] *CODING:* **WeatherModule**: ModuleWindow *(TIMM)*
 
 ### Due to Mo, 2 Jun
 
-* [ ] *DOC:* **reflection**
+* [x] *DOC:* **requirements**: skills *(YUNUS)*
+* [ ] *DOC:* **naming and design** *(YUNUS)*
+* [ ] *DOC:* **class description** *(YUNUS)*
+* [ ] *DOC:* **protocols** *(YUNUS)*
+* [x] *DOC:* **requirements**: technical requirement: CI *(TIMM)*
+* [x] *DOC:* **testing** *(TIMM)*
+* [ ] *DOC:* **deployment** *(TIMM)*
+* [x] *DOC:* **UML** *(TIMM)*
+* [ ] *DOC:* **implementation**: problems during implementation *(TIMM)*
+* [x] *CODING:* **local file search** *(TIMM)*
+* [x] *CODING:* **testing** *(TIMM)*
+* [x] *TESTING:* **code coverage** *(TIMM)*
+* [ ] *DOC:* **zeitlicher ablauf** *(ARNE)*
+* [ ] *DOC:* **user guide** *(ARNE)*
+* [ ] *CODING:* **bigsearch (wiki, github, ...)** *(ARNE)*
+* [ ] *DOC:* **preface** *(ARNE)*
+* [ ] *DOC:* **reflection** *(ALL)*
+  * [ ] *DOC:* **reflection:** preface
+  * [ ] *DOC:* **reflection:** arne
+  * [ ] *DOC:* **reflection:** yunus
+  * [ ] *DOC:* **reflection:** timm
+  * [ ] *DOC:* **reflection:** daniel
+* [ ] *CODING:* **help dialog**
 
 ### Due to Mo, 9 Jun
 
-* [ ] *DOC:* **final texts / format**
+* [ ] *DOC:* **final texts / format**
+* ([ ] *DOC:* **future prospects**) **?**
+* [ ] *CODING:* **COMMENTING** *(EVERYBODY)*
 
 ### Fr, 13 Jun
 
-* [ ] **DELIVERY**
+* [ ] **DELIVERY**
+
+-----
+**Dokumente die in den Anhangt der Doku gehören**
+
+* [ ] Fahrplan
+
+* [x] Projektantrag
+
+* [ ] Projektauftrag
+
+* [ ] Protokoll Projektsitzung
+
+* [ ] Struktur der Projektdokumentation im BSCW
+
+* [ ] Bewertungsrahmen / - raster
+
+* [ ] Erklärung zur selbstständigen Projektbearbeitung
+
+* [ ] Projektbewertung
 
 Build
 -----

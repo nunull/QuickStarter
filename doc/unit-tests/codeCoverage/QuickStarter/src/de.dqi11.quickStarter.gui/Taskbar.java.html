@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Taskbar.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Test (May 29, 2014 6:24:11 PM)</a> &gt; <a href="../../index.html" class="el_group">QuickStarter</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">de.dqi11.quickStarter.gui</a> &gt; <span class="el_source">Taskbar.java</span></div><h1>Taskbar.java</h1><pre class="source lang-java linenums">package de.dqi11.quickStarter.gui;
+
+import java.awt.AWTException;
+import java.awt.CheckboxMenuItem;
+import java.awt.Desktop;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import javax.imageio.ImageIO;
+
+import de.dqi11.quickStarter.controller.MainController;
+import de.dqi11.quickStarter.os.OS;
+
+public class Taskbar implements ActionListener, ItemListener {
+	private MainController mainController;
+	private SystemTray systemTray;
+	private TrayIcon trayIcon;
+	private BufferedImage trayIconImage;
+	private PopupMenu popup;
+	private MenuItem helpMenuItem;
+	private MenuItem aboutMenuItem;
+	private MenuItem toggleShortcutMenuItem;
+	private MenuItem preferencesMenuItem;
+	private MenuItem quitMenuItem;
+	
+<span class="fc" id="L37">	public Taskbar(MainController mainController) {</span>
+<span class="fc" id="L38">		this.mainController = mainController;</span>
+		
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">		if(SystemTray.isSupported()) {</span>
+			try {
+<span class="fc" id="L42">				trayIconImage = ImageIO.read(new File(&quot;res/tray-icon.png&quot;));</span>
+<span class="pc" id="L43">			} catch (IOException e) {</span>
+			}
+			
+<span class="fc" id="L46">			systemTray = SystemTray.getSystemTray();</span>
+<span class="fc" id="L47">			trayIcon = new TrayIcon(trayIconImage);</span>
+<span class="fc" id="L48">			trayIcon.setImageAutoSize(true);</span>
+			
+<span class="fc" id="L50">			popup = new PopupMenu();</span>
+<span class="fc" id="L51">			helpMenuItem = new MenuItem(&quot;Help&quot;);</span>
+<span class="fc" id="L52">			helpMenuItem.setActionCommand(&quot;help&quot;);</span>
+			
+<span class="fc" id="L54">			aboutMenuItem = new MenuItem(&quot;About&quot;);</span>
+<span class="fc" id="L55">			aboutMenuItem.setActionCommand(&quot;about&quot;);</span>
+			
+<span class="fc" id="L57">			toggleShortcutMenuItem = new CheckboxMenuItem(&quot;Shortcut active&quot;, true);</span>
+<span class="fc" id="L58">			((CheckboxMenuItem) toggleShortcutMenuItem).addItemListener(this);</span>
+			
+<span class="fc" id="L60">			preferencesMenuItem = new MenuItem(&quot;Preferences&quot;);</span>
+<span class="fc" id="L61">			preferencesMenuItem.setActionCommand(&quot;app.pref&quot;);</span>
+			
+<span class="fc" id="L63">			quitMenuItem = new MenuItem(&quot;Quit&quot;);</span>
+<span class="fc" id="L64">			quitMenuItem.setActionCommand(&quot;app.quit&quot;);</span>
+			
+<span class="fc" id="L66">			popup.add(helpMenuItem);</span>
+<span class="fc" id="L67">			popup.add(aboutMenuItem);</span>
+<span class="fc" id="L68">			popup.add(preferencesMenuItem);</span>
+<span class="fc" id="L69">			popup.add(toggleShortcutMenuItem);</span>
+<span class="fc" id="L70">			popup.add(quitMenuItem);</span>
+<span class="fc" id="L71">			popup.addActionListener(this);</span>
+<span class="fc" id="L72">			trayIcon.setPopupMenu(popup);</span>
+			
+			try {
+<span class="fc" id="L75">				systemTray.add(trayIcon);</span>
+<span class="pc" id="L76">			} catch (AWTException e) {</span>
+			}
+		}
+<span class="fc" id="L79">	}</span>
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L83">		String actionCommand = e.getActionCommand();</span>
+		
+<span class="nc bnc" id="L85" title="All 2 branches missed.">		if(actionCommand.equals(aboutMenuItem.getActionCommand())) {</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">			if(Desktop.isDesktopSupported()) {</span>
+				try {
+<span class="nc" id="L88">					Desktop.getDesktop().browse(new URI(&quot;https://github.com/nunull/QuickStarter&quot;));</span>
+<span class="nc" id="L89">				} catch (IOException e1) {</span>
+<span class="nc" id="L90">				} catch (URISyntaxException e1) {</span>
+				}
+			}
+<span class="nc bnc" id="L93" title="All 2 branches missed.">		} else if(actionCommand.equals(quitMenuItem.getActionCommand())) {</span>
+<span class="nc" id="L94">			mainController.quit();</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">		} else if (actionCommand.equals(preferencesMenuItem.getActionCommand())){</span>
+<span class="nc" id="L96">			mainController.showPrefenceWindow();</span>
+		}
+<span class="nc" id="L98">	}</span>
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+<span class="nc" id="L102">		OS os = mainController.getOS();</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">		os.setActive(!os.isActive());</span>
+<span class="nc" id="L104">		((CheckboxMenuItem) toggleShortcutMenuItem).setState(os.isActive());</span>
+<span class="nc" id="L105">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span>Test (May 29, 2014 6:24:11 PM)</div></body></html>

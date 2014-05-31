@@ -1,11 +1,10 @@
-package de.dqi11.test;
+package de.dqi11.test.controller;
 
 import static org.junit.Assert.*;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,14 +21,7 @@ public class MainControllerTest {
 	public void setUp() throws Exception {
 		mainController = new MainController();
 	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-	}
-
+	
 	/**
 	 * Test method for {@link de.dqi11.quickStarter.controller.MainController#invoke(de.dqi11.quickStarter.controller.Search)}.
 	 */

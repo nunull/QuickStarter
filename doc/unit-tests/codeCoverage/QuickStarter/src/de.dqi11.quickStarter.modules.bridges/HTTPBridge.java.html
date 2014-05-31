@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>HTTPBridge.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Test (May 29, 2014 6:24:11 PM)</a> &gt; <a href="../../index.html" class="el_group">QuickStarter</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">de.dqi11.quickStarter.modules.bridges</a> &gt; <span class="el_source">HTTPBridge.java</span></div><h1>HTTPBridge.java</h1><pre class="source lang-java linenums">package de.dqi11.quickStarter.modules.bridges;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.ConnectException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
+import java.net.URL;
+import java.net.UnknownHostException;
+
+<span class="nc" id="L13">public class HTTPBridge {</span>
+	private static final int TIMEOUT = 30000;
+	
+	public static String getContent(String url) throws ConnectException {
+		try {
+<span class="nc" id="L18">			URL u = new URL(url);</span>
+<span class="nc" id="L19">			HttpURLConnection c = (HttpURLConnection) u.openConnection();</span>
+<span class="nc" id="L20">			c.setRequestMethod(&quot;GET&quot;);</span>
+<span class="nc" id="L21">			c.setRequestProperty(&quot;Content-length&quot;, &quot;0&quot;);</span>
+<span class="nc" id="L22">			c.setUseCaches(false);</span>
+<span class="nc" id="L23">			c.setAllowUserInteraction(false);</span>
+<span class="nc" id="L24">			c.setConnectTimeout(TIMEOUT);</span>
+<span class="nc" id="L25">			c.setReadTimeout(TIMEOUT);</span>
+<span class="nc" id="L26">			c.connect();</span>
+<span class="nc" id="L27">			int status = c.getResponseCode();</span>
+
+<span class="nc bnc" id="L29" title="All 2 branches missed.">			switch (status) {</span>
+			case 200:
+			case 201:
+<span class="nc" id="L32">				BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));</span>
+<span class="nc" id="L33">				StringBuilder sb = new StringBuilder();</span>
+				String line;
+<span class="nc bnc" id="L35" title="All 2 branches missed.">				while ((line = br.readLine()) != null) {</span>
+<span class="nc" id="L36">					sb.append(line + &quot;\n&quot;);</span>
+				}
+<span class="nc" id="L38">				br.close();</span>
+<span class="nc" id="L39">				return sb.toString();</span>
+			}
+<span class="nc" id="L41">		} catch(SocketTimeoutException e) {</span>
+<span class="nc" id="L42">			throw new ConnectException();</span>
+<span class="nc" id="L43">		} catch(UnknownHostException e) {</span>
+<span class="nc" id="L44">			throw new ConnectException();</span>
+<span class="nc" id="L45">		} catch(MalformedURLException ex) {</span>
+<span class="nc" id="L46">			throw new ConnectException();</span>
+<span class="nc" id="L47">	    } catch (IOException ex) {</span>
+<span class="nc" id="L48">	    	throw new ConnectException();</span>
+	    }
+		
+<span class="nc" id="L51">	    return null;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span>Test (May 29, 2014 6:24:11 PM)</div></body></html>

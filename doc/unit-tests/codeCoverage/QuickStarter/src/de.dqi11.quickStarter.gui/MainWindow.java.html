@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>MainWindow.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Test (May 29, 2014 6:24:11 PM)</a> &gt; <a href="../../index.html" class="el_group">QuickStarter</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">de.dqi11.quickStarter.gui</a> &gt; <span class="el_source">MainWindow.java</span></div><h1>MainWindow.java</h1><pre class="source lang-java linenums"><span class="pc" id="L1">package de.dqi11.quickStarter.gui;</span>
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedList;
+import java.util.Observable;
+
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import de.dqi11.quickStarter.controller.Search;
+import de.dqi11.quickStarter.modules.ModuleAction;
+
+/**
+ * Represents the main-application window, which 
+ * shows the search-field and ModuleActions.
+ */
+public class MainWindow extends Observable {
+<span class="fc" id="L38">	private final int WIDTH = 500;</span>
+<span class="fc" id="L39">	private final int TEXTFIELD_HEIGHT = 60;</span>
+<span class="fc" id="L40">	private final int ADVICESLIST_MAXHEIGHT = 450;</span>
+	private boolean visible;
+	private JDialog mainDialog;
+	private JPanel mainPanel;
+	private JPanel headerPanel;
+	private JTextField textField;
+	private JLabel errorLabel;
+	private JList&lt;ModuleAction&gt; advicesList;
+	private DefaultListModel&lt;ModuleAction&gt; moduleActionsListModel;
+	private KeyListener keyListener;
+	private DocumentListener documentListener;
+	private LinkedList&lt;ModuleAction&gt; moduleActions;
+	private Font defaultFont;
+	private Font boldFont;
+	private Thread updateHeightThread;
+	
+	/**
+	 * Constructor.
+	 */
+<span class="fc" id="L59">	public MainWindow() {</span>
+<span class="fc" id="L60">		visible = false;</span>
+<span class="fc" id="L61">	}</span>
+	
+	/**
+	 * Initializes the whole GUI.
+	 */
+	public void init() {
+<span class="fc" id="L67">		initListeners();</span>
+<span class="fc" id="L68">		initFonts();</span>
+<span class="fc" id="L69">		initMainDialog();</span>
+<span class="fc" id="L70">		initMainPanel();</span>
+<span class="fc" id="L71">		initHeaderPanel();</span>
+<span class="fc" id="L72">		initErrorLabel();</span>
+<span class="fc" id="L73">		initModuleActionsPanel();</span>
+<span class="fc" id="L74">		updateHeight();</span>
+<span class="fc" id="L75">	}</span>
+	
+	/**
+	 * Initializes the actions.
+	 */
+	private void initListeners() {
+<span class="fc" id="L81">		keyListener = new KeyListener() {</span>
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// Nothing to do here.
+<span class="nc" id="L86">			}</span>
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// Nothing to do here.
+<span class="nc" id="L91">			}</span>
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// escape-key
+<span class="nc bnc" id="L96" title="All 2 branches missed.">				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {</span>
+<span class="nc" id="L97">					toggleApplication();</span>
+					
+				// enter-key
+<span class="nc bnc" id="L100" title="All 2 branches missed.">				} else if(e.getKeyCode() == KeyEvent.VK_ENTER) {</span>
+<span class="nc" id="L101">					invokeSelectedModuleAction();</span>
+					
+				// down-arrow-key
+<span class="nc bnc" id="L104" title="All 2 branches missed.">				} else if(e.getKeyCode() == KeyEvent.VK_DOWN) {</span>
+<span class="nc" id="L105">					e.consume();</span>
+<span class="nc" id="L106">					selectNext();</span>
+					
+				// up-arrow-key
+<span class="nc bnc" id="L109" title="All 2 branches missed.">				} else if(e.getKeyCode() == KeyEvent.VK_UP) {</span>
+<span class="nc" id="L110">					e.consume();</span>
+<span class="nc" id="L111">					selectPrevious();</span>
+				}
+<span class="nc" id="L113">			}</span>
+		};
+		
+<span class="fc" id="L116">		documentListener = new DocumentListener() {</span>
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+<span class="nc" id="L120">				setChanged();</span>
+<span class="nc" id="L121">				notifyObservers();</span>
+<span class="nc" id="L122">			}</span>
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+<span class="nc" id="L126">				setChanged();</span>
+<span class="nc" id="L127">				notifyObservers();</span>
+<span class="nc" id="L128">			}</span>
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// Nothing to do here.
+<span class="nc" id="L133">			}</span>
+		};
+<span class="fc" id="L135">	}</span>
+	
+	/**
+	 * Initializes all fonts.
+	 */
+	private void initFonts() {
+		// Initialize default font.
+		try {
+<span class="fc" id="L143">			defaultFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(&quot;res/fonts/ubuntu/Ubuntu-Light.ttf&quot;));</span>
+<span class="fc" id="L144">			defaultFont =  defaultFont.deriveFont(16f);</span>
+<span class="pc" id="L145">		} catch (Exception e) {</span>
+<span class="nc" id="L146">			defaultFont = new Font(&quot;Arial&quot;, Font.PLAIN, 16);</span>
+		}
+		
+		// Initialize bold font.
+		try {
+<span class="fc" id="L151">			boldFont = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(&quot;res/fonts/ubuntu/Ubuntu-Bold.ttf&quot;));</span>
+<span class="fc" id="L152">			boldFont =  boldFont.deriveFont(16f);</span>
+<span class="pc" id="L153">		} catch (Exception e) {</span>
+<span class="nc" id="L154">			boldFont = new Font(&quot;Arial&quot;, Font.BOLD, 16);</span>
+		}
+<span class="fc" id="L156">	}</span>
+	
+	/**
+	 * Initializes the mainFrame.
+	 */
+	private void initMainDialog() {
+<span class="fc" id="L162">		JFrame parent = new JFrame();</span>
+<span class="fc" id="L163">		parent.setIconImage(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB));</span>
+<span class="fc" id="L164">		mainDialog = new JDialog(parent);</span>
+		
+<span class="fc" id="L166">		mainDialog.setUndecorated(true);</span>
+<span class="fc" id="L167">		mainDialog.setResizable(false);</span>
+<span class="fc" id="L168">		mainDialog.setSize(WIDTH-20, TEXTFIELD_HEIGHT);</span>
+//		mainFrame.setShape(new RoundRectangle2D.Double(10, 10, 100, 100, 50, 50));
+<span class="fc" id="L170">		mainDialog.setLocationRelativeTo(null);</span>
+<span class="fc" id="L171">		mainDialog.setLocation(mainDialog.getLocation().x, 100);</span>
+<span class="fc" id="L172">		mainDialog.setOpacity(0.8f);</span>
+<span class="fc" id="L173">		mainDialog.setBackground(Color.BLACK);</span>
+<span class="fc" id="L174">	}</span>
+	
+	/**
+	 * Initializes the mainPanel.
+	 */
+	private void initMainPanel() {
+<span class="fc" id="L180">		mainPanel = new JPanel();</span>
+<span class="fc" id="L181">		mainPanel.setOpaque(false);</span>
+<span class="fc" id="L182">		mainDialog.setContentPane(mainPanel);</span>
+<span class="fc" id="L183">	}</span>
+	
+	/**
+	 * Initializes the textField.
+	 */
+	private void initHeaderPanel() {
+<span class="fc" id="L189">		textField = new JTextField();</span>
+		
+<span class="fc" id="L191">		Border line = BorderFactory.createLineBorder(Color.BLACK);</span>
+<span class="fc" id="L192">		Border empty = new EmptyBorder(0, 0, 0, 0);</span>
+<span class="fc" id="L193">		CompoundBorder border = new CompoundBorder(line, empty);</span>
+<span class="fc" id="L194">		textField.setBorder(border);</span>
+<span class="fc" id="L195">		textField.setPreferredSize(new Dimension(WIDTH, TEXTFIELD_HEIGHT));</span>
+<span class="fc" id="L196">		textField.setFont(boldFont);</span>
+<span class="fc" id="L197">		textField.setBackground(Color.BLACK);</span>
+<span class="fc" id="L198">		textField.setForeground(Color.WHITE);</span>
+<span class="fc" id="L199">		textField.setCaretColor(Color.WHITE);</span>
+		
+<span class="fc" id="L201">		textField.addKeyListener(keyListener);</span>
+<span class="fc" id="L202">		textField.getDocument().addDocumentListener(documentListener);</span>
+		
+//		mainPanel.add(new JLabel(new ImageIcon(&quot;res/logo.png&quot;)));
+//		mainPanel.add(textField);
+		
+<span class="fc" id="L207">		headerPanel = new JPanel();</span>
+<span class="fc" id="L208">		headerPanel.setBackground(Color.BLACK);</span>
+<span class="fc" id="L209">		headerPanel.setForeground(Color.WHITE);</span>
+<span class="fc" id="L210">		empty = new EmptyBorder(0, 100, 0, 0);</span>
+<span class="fc" id="L211">		border = new CompoundBorder(line, empty);</span>
+<span class="fc" id="L212">		headerPanel.setBorder(border);</span>
+		
+<span class="fc" id="L214">		headerPanel.add(new JLabel(new ImageIcon(&quot;res/logo.png&quot;)));</span>
+<span class="fc" id="L215">		headerPanel.add(textField);</span>
+		
+<span class="fc" id="L217">		mainPanel.add(headerPanel);</span>
+<span class="fc" id="L218">	}</span>
+	
+	private void initErrorLabel() {
+<span class="fc" id="L221">		errorLabel = new JLabel();</span>
+		
+<span class="fc" id="L223">		mainPanel.add(errorLabel);</span>
+<span class="fc" id="L224">	}</span>
+	
+	/**
+	 * Initializes the advicesPanel;
+	 */
+	private void initModuleActionsPanel() {
+<span class="fc" id="L230">		moduleActionsListModel = new DefaultListModel&lt;ModuleAction&gt;();</span>
+
+<span class="fc" id="L232">		advicesList = new JList&lt;ModuleAction&gt;(moduleActionsListModel);</span>
+<span class="fc" id="L233">		advicesList.setCellRenderer(new ModuleActionListCellRenderer(defaultFont));</span>
+
+<span class="fc" id="L235">		advicesList.setPreferredSize(new Dimension(WIDTH, ADVICESLIST_MAXHEIGHT));</span>
+<span class="fc" id="L236">		advicesList.setOpaque(false);</span>
+		
+<span class="fc" id="L238">		mainPanel.add(advicesList);</span>
+<span class="fc" id="L239">	}</span>
+	
+	/**
+	 * Updates the shown module actions.
+	 */
+	public void updateModuleActions() {
+<span class="nc" id="L245">		moduleActionsListModel.clear();</span>
+		
+<span class="nc bnc" id="L247" title="All 2 branches missed.">		for(ModuleAction moduleAction : moduleActions) {</span>
+<span class="nc" id="L248">			moduleActionsListModel.addElement(moduleAction);</span>
+		}
+		
+<span class="nc" id="L251">		selectFirst();</span>
+<span class="nc" id="L252">		updateHeight();</span>
+<span class="nc" id="L253">	}</span>
+	
+	/**
+	 * Updates the window-height.
+	 */
+	@SuppressWarnings(&quot;deprecation&quot;)
+	private void updateHeight() {
+<span class="fc" id="L260">		final int startHeight = mainDialog.getHeight();</span>
+<span class="fc" id="L261">		final int endHeight = moduleActionsListModel.getSize() * TEXTFIELD_HEIGHT + TEXTFIELD_HEIGHT + 31;</span>
+		
+<span class="pc bpc" id="L263" title="1 of 2 branches missed.">		if(updateHeightThread != null) {</span>
+<span class="nc" id="L264">			updateHeightThread.stop();</span>
+		}
+		
+<span class="pc bpc" id="L267" title="1 of 2 branches missed.">		if(startHeight != endHeight) {</span>
+<span class="fc" id="L268">			updateHeightThread = new Thread(new Runnable() {</span>
+				
+				@Override
+				public void run() {
+<span class="fc" id="L272">					int direction = 1;</span>
+<span class="pc bpc" id="L273" title="1 of 2 branches missed.">					if(startHeight &gt; endHeight) direction = -1;</span>
+<span class="fc" id="L274">					int speed = 45;</span>
+					
+<span class="pc bpc" id="L276" title="3 of 8 branches missed.">					for(int i = startHeight; i &lt; endHeight &amp;&amp; direction &gt; 0 || i &gt; endHeight &amp;&amp; direction &lt; 0; i += direction * speed) {</span>
+<span class="fc" id="L277">						final int currentHeight = i;</span>
+						
+						try {
+<span class="fc" id="L280">							SwingUtilities.invokeAndWait(new Runnable() {</span>
+								
+								@Override
+								public void run() {
+<span class="fc" id="L284">									mainDialog.setSize(mainDialog.getWidth(), currentHeight);</span>
+<span class="fc" id="L285">									mainDialog.repaint();</span>
+<span class="fc" id="L286">								}</span>
+							});
+<span class="pc" id="L288">						} catch (InvocationTargetException e1) {</span>
+<span class="nc" id="L289">						} catch (InterruptedException e1) {</span>
+						}
+						
+						try {
+<span class="fc" id="L293">							Thread.sleep(20);</span>
+<span class="pc" id="L294">						} catch (InterruptedException e) {</span>
+						}
+					}
+					
+					try {
+<span class="fc" id="L299">						SwingUtilities.invokeAndWait(new Runnable() {</span>
+							
+							@Override
+							public void run() {
+<span class="fc" id="L303">								mainDialog.setSize(mainDialog.getWidth(), endHeight);</span>
+<span class="fc" id="L304">								mainDialog.repaint();</span>
+								
+<span class="fc" id="L306">							}</span>
+						});
+<span class="pc" id="L308">					} catch (InvocationTargetException e) {</span>
+<span class="nc" id="L309">					} catch (InterruptedException e) {</span>
+					}
+<span class="fc" id="L311">				}</span>
+			});
+<span class="fc" id="L313">			updateHeightThread.start();</span>
+		}
+<span class="fc" id="L315">	}</span>
+	
+	/**
+	 * Toggles the visibility of the application.
+	 */
+	public void toggleApplication() {
+<span class="pc bpc" id="L321" title="1 of 2 branches missed.">		visible = !visible;</span>
+		
+<span class="fc" id="L323">		mainDialog.setVisible(visible);</span>
+<span class="pc bpc" id="L324" title="1 of 2 branches missed.">		if(visible) {</span>
+<span class="fc" id="L325">			mainDialog.setAlwaysOnTop(true);</span>
+<span class="fc" id="L326">			mainDialog.toFront();</span>
+<span class="fc" id="L327">			mainDialog.requestFocus();</span>
+<span class="fc" id="L328">			mainDialog.setAlwaysOnTop(false);</span>
+		}
+<span class="fc" id="L330">		textField.setText(&quot;&quot;);</span>
+<span class="fc" id="L331">		textField.requestFocus();</span>
+<span class="fc" id="L332">	}</span>
+	
+	/**
+	 * Returns the current search-string.
+	 * 
+	 * @return The search-string.
+	 */
+	public String getSearchString() {
+<span class="nc" id="L340">		return textField.getText();</span>
+	}
+	
+	/**
+	 * Selects the first ModuleAction.
+	 */
+	public void selectFirst() {
+<span class="nc" id="L347">		advicesList.setSelectedIndex(0);</span>
+<span class="nc" id="L348">	}</span>
+	
+	/**
+	 * Selects the next ModuleAction.
+	 */
+	public void selectNext() {
+<span class="nc" id="L354">		int index = advicesList.getSelectedIndex() + 1;</span>
+		
+<span class="nc bnc" id="L356" title="All 2 branches missed.">		advicesList.setSelectedIndex(index &gt; advicesList.getLastVisibleIndex() ? advicesList.getLastVisibleIndex() : index);</span>
+<span class="nc" id="L357">	}</span>
+	
+	/**
+	 * Selects the previous ModuleAction.
+	 */
+	public void selectPrevious() {
+<span class="nc" id="L363">		int index = advicesList.getSelectedIndex() - 1;</span>
+		
+<span class="nc bnc" id="L365" title="All 2 branches missed.">		advicesList.setSelectedIndex(index &lt; 0 ? 0 : index);</span>
+<span class="nc" id="L366">	}</span>
+	
+	/**
+	 * Returns the index of the selected ModuleAction.
+	 * 
+	 * @return the index
+	 */
+	public int getSelectedIndex() {
+<span class="nc" id="L374">		return advicesList.getSelectedIndex();</span>
+	}
+	
+	/**
+	 * Returns the selected ModuleAction.
+	 * 
+	 * @return the selected ModuleAction.
+	 */
+	public ModuleAction getSelectedModuleAction() {
+<span class="nc" id="L383">		return advicesList.getSelectedValue();</span>
+	}
+	
+	/**
+	 * Invokes the currently selected ModuleAction.
+	 */
+	public void invokeSelectedModuleAction() {
+<span class="nc" id="L390">		Search search = new Search(getSearchString());</span>
+<span class="nc" id="L391">		ModuleAction moduleAction = getSelectedModuleAction();</span>
+		
+<span class="nc bnc" id="L393" title="All 2 branches missed.">		if(moduleAction != null) {</span>
+<span class="nc" id="L394">			final ModuleWindow moduleWindow = moduleAction.getModuleWindow(search);</span>
+			
+<span class="nc" id="L396">			toggleApplication();</span>
+<span class="nc bnc" id="L397" title="All 2 branches missed.">			if(moduleWindow == null) {</span>
+<span class="nc" id="L398">				moduleAction.invoke(search);</span>
+<span class="nc" id="L399">			} else {</span>
+<span class="nc" id="L400">				SwingUtilities.invokeLater(new Runnable() {</span>
+					
+					@Override
+					public void run() {
+<span class="nc" id="L404">						moduleWindow.show();		</span>
+<span class="nc" id="L405">					}</span>
+				});
+			}
+		}
+<span class="nc" id="L409">	}</span>
+	
+	/**
+	 * Sets the ModuleActions and updates the GUI.
+	 * 
+	 * @param moduleActions The List of ModuleActions.
+	 */
+	public void setModuleActions(LinkedList&lt;ModuleAction&gt; moduleActions) {
+<span class="nc" id="L417">		this.moduleActions = moduleActions;</span>
+<span class="nc" id="L418">		updateModuleActions();</span>
+<span class="nc" id="L419">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span>Test (May 29, 2014 6:24:11 PM)</div></body></html>

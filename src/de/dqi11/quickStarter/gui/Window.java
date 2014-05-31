@@ -3,8 +3,6 @@ package de.dqi11.quickStarter.gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.FileInputStream;
@@ -109,6 +107,7 @@ public class Window implements KeyListener {
 	private void initMainPanel() {
 		mainPanel = new JPanel();
 		mainPanel.setOpaque(false);
+		
 		mainFrame.setContentPane(mainPanel);
 	}
 	
@@ -120,6 +119,7 @@ public class Window implements KeyListener {
 	 */
 	public void add(Component component) {
 		mainPanel.add(component);
+		mainFrame.validate();
 	}
 	
 	/**
@@ -161,5 +161,10 @@ public class Window implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+	}
+	
+	public void repaint() {
+		mainFrame.repaint();
+		mainPanel.repaint();
 	}
 }

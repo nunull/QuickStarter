@@ -1,8 +1,6 @@
 package de.dqi11.quickStarter.modules;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.net.ConnectException;
 import java.util.concurrent.CancellationException;
@@ -15,6 +13,7 @@ import javax.swing.SwingWorker;
 
 import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.controller.Search;
+import de.dqi11.quickStarter.gui.Label;
 import de.dqi11.quickStarter.gui.ModuleWindow;
 import de.dqi11.quickStarter.helpers.JSONParser;
 import de.dqi11.quickStarter.modules.bridges.OpenWeatherMapBridge;
@@ -29,32 +28,25 @@ public class WeatherModule extends Module {
 	public WeatherModule(MainController mainController) {
 		super(mainController);
 		
-		// Unnecessary
-		worker = new SwingWorker<ModuleAction, ModuleAction>(){
-			@Override
-			protected ModuleAction doInBackground() throws Exception {
-				return null;
-			}
-		};
-		
-		defaultLocation = mainController.getModuleKey(this, "city");
+		defaultLocation = mainController.getModuleProperty(this, "city");
 	}
 
 	@Override
 	public ModuleAction getModuleAction(final Search search) throws ConnectException {
-
 		if (search.isCommand("weather")) {
 			try {
 				worker.cancel(true);
-			}catch(CancellationException e) {
+			}catch(NullPointerException | CancellationException e) {
+				// Do nothing. It is OK if the worker is not initialized or executed, yet.
 			}
 			
+			// Set up the worker, that will get the necessary data in the background.
 			worker = new SwingWorker<ModuleAction, ModuleAction>() {
 
 				@Override
 				protected ModuleAction doInBackground() throws Exception {
 					String location = search.getParam(0);
-					if(location == null) location = defaultLocation;
+					if(location.equals("")) location = defaultLocation;
 					if(location.split(",").length == 1) {
 						if(search.getParam(1) != null) location += "," + search.getParam(1);
 						else location += ",de";
@@ -62,9 +54,6 @@ public class WeatherModule extends Module {
 
 					String json = OpenWeatherMapBridge.getJSON(location);
 					jsonParser = new JSONParser(json);
-					
-					// Debug
-					System.out.println(json);
 					
 					// Get and format the temperature.
 					float temp = Float.valueOf(jsonParser.get("main.temp"));
@@ -79,9 +68,6 @@ public class WeatherModule extends Module {
 							final String city = search.getParam(0).split(",")[0];
 							
 							ModuleWindow window = new ModuleWindow("Weather " + city);
-							
-							Font defaultFont = window.getDefaultFont();
-							Font bigFont = new Font(defaultFont.getName(), defaultFont.getStyle(), 50);
 							
 							JPanel container = new JPanel();
 							container.setBackground(Color.WHITE);
@@ -98,49 +84,27 @@ public class WeatherModule extends Module {
 							panelTable.setLayout(gridLayout);
 							panelTable.setBackground(Color.WHITE);
 							
-							panelTable.add(new JLabel(jsonParser.get("name")));
+							panelTable.add(new Label(jsonParser.get("name")));
 							
 							// Creates empty space (needed since there is no real adressing using GridLayout)
-							panelTable.add(new JLabel(""));
+							panelTable.add(new Label(""));
 							
-							JLabel label1 = new JLabel(tempFormated + "\u00B0C");
-							label1.setPreferredSize(new Dimension(140, 40));
-							
-							label1.setFont(bigFont);
-							panelTable.add(label1);
-							
-							JLabel humidityTextLabel = new JLabel("Humidity");
-							JLabel humidityLabel = new JLabel(jsonParser.get("main.humidity") + "%");
-							JLabel windSpeedTextLabel = new JLabel(("Windspeed"));
-							JLabel windSpeedLabel = new JLabel(jsonParser.get("wind.speed") + "mps");
-							JLabel cloudsTextLabel = new JLabel("Clouds");
-							JLabel cloudsLabel = new JLabel(jsonParser.get("clouds.all"));
-							
-							String rain = jsonParser.get("rain.3h");
-							JLabel rainTextLabel = new JLabel("Rain");
-							JLabel rainLabel = new JLabel(rain + "mm per 3 hours");
-							
-							humidityTextLabel.setFont(defaultFont);
-							humidityLabel.setFont(defaultFont);
-							windSpeedTextLabel.setFont(defaultFont);
-							windSpeedLabel.setFont(defaultFont);
-							cloudsTextLabel.setFont(defaultFont);
-							cloudsLabel.setFont(defaultFont);
-							rainTextLabel.setFont(defaultFont);
-							rainLabel.setFont(defaultFont);
+							panelTable.add(new Label(tempFormated + "\u00B0C", true, 60));
 							
 							// Creates empty space (needed since there is no real addressing using GridLayout)
-							panelTable.add(new JLabel());
+							panelTable.add(new Label());
 							
-							panelTable.add(humidityTextLabel);
-							panelTable.add(humidityLabel);
-							panelTable.add(windSpeedTextLabel);
-							panelTable.add(windSpeedLabel);
-							panelTable.add(cloudsTextLabel);
-							panelTable.add(cloudsLabel);
+							panelTable.add(new Label("Humidity"));
+							panelTable.add(new Label(jsonParser.get("main.humidity") + "%", true));
+							panelTable.add(new Label(("Windspeed")));
+							panelTable.add(new Label(jsonParser.get("wind.speed") + "mps", true));
+							panelTable.add(new Label("Cloudiness"));
+							panelTable.add(new Label(jsonParser.get("clouds.all") + "%", true));
+							
+							String rain = jsonParser.get("rain.3h");
 							if(rain != null) {
-								panelTable.add(rainTextLabel);
-								panelTable.add(rainLabel);
+								panelTable.add(new Label("Rain"));
+								panelTable.add(new Label(rain + "mm per 3 hours"));
 							}
 							
 							container.add(panelTable);
@@ -175,5 +139,4 @@ public class WeatherModule extends Module {
 
 		return null;
 	}
-
 }

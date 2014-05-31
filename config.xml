@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><modules>
     <module>
     	<id>0</id>
-    	<class>CalculatorModule</class>
-    </module>
+    	<class>CalculatorModule</class></module>
     <module>
     	<id>1</id>
     	<class>FileSearchModule</class>
@@ -24,7 +23,7 @@
     <module>
     	<id>3</id>
         <class>WeatherModule</class>
-    <properties><city>Bremen</city></properties></module>
+    <properties><city pref="true">Bremen</city></properties></module>
     <module>
     	<id>4</id>
         <class>GoogleTranslateModule</class>
@@ -37,4 +36,6 @@
     	<id>6</id>
         <class>GoogleMapsModule</class>
     </module>
+    <module>
+    	<class>WikiSearchModule</class></module>
 </modules>
