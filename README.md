@@ -23,7 +23,7 @@ ToDo
 
 ### Due to Mo, 2 Jun
 
-* [ ] *DOC:* **requirements**: skills *(YUNUS)*
+* [x] *DOC:* **requirements**: skills *(YUNUS)*
 * [ ] *DOC:* **naming and design** *(YUNUS)*
 * [ ] *DOC:* **class description** *(YUNUS)*
 * [ ] *DOC:* **protocols** *(YUNUS)*
