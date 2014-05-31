@@ -57,6 +57,25 @@ ToDo
 
 * [ ] **DELIVERY**
 
+-----
+**Dokumente die in den Anhangt der Doku gehören**
+
+* [ ] Fahrplan
+
+* [x] Projektantrag
+
+* [ ] Projektauftrag
+
+* [ ] Protokoll Projektsitzung
+
+* [ ] Struktur der Projektdokumentation im BSCW
+
+* [ ] Bewertungsrahmen / - raster
+
+* [ ] Erklärung zur selbstständigen Projektbearbeitung
+
+* [ ] Projektbewertung
+
 Build
 -----
 
