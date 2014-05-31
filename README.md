@@ -75,6 +75,8 @@ ToDo
 * [ ] Erklärung zur selbstständigen Projektbearbeitung
 
 * [ ] Projektbewertung
+* [ ] UML
+
 
 Build
 -----
