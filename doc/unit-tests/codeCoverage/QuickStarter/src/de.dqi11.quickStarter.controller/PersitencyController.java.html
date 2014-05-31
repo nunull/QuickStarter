@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>PersitencyController.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Test (May 29, 2014 6:24:11 PM)</a> &gt; <a href="../../index.html" class="el_group">QuickStarter</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">de.dqi11.quickStarter.controller</a> &gt; <span class="el_source">PersitencyController.java</span></div><h1>PersitencyController.java</h1><pre class="source lang-java linenums">package de.dqi11.quickStarter.controller;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.TreeMap;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import de.dqi11.quickStarter.modules.Module;
+
+/**
+ * Container for all persistency-functionality.
+ */
+public class PersitencyController {
+<span class="fc" id="L34">	private final String CONFIG_FILE_PATH = &quot;config.xml&quot;;</span>
+	private MainController mainController;
+	private Document configDocument;
+
+<span class="fc" id="L38">	public PersitencyController(MainController mainController) {</span>
+<span class="fc" id="L39">		this.mainController = mainController;</span>
+
+<span class="fc" id="L41">		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span>
+		DocumentBuilder builder;
+		try {
+<span class="fc" id="L44">			builder = factory.newDocumentBuilder();</span>
+<span class="fc" id="L45">			configDocument = builder.parse(new File(CONFIG_FILE_PATH));</span>
+<span class="pc" id="L46">		} catch (ParserConfigurationException e) {</span>
+<span class="nc" id="L47">		} catch (SAXException e) {</span>
+<span class="nc" id="L48">		} catch (IOException e) {</span>
+		}
+<span class="fc" id="L50">	}</span>
+
+	/**
+	 * Returns all currently active Modules.
+	 * 
+	 * @return A list of Modules.
+	 */
+	public LinkedList&lt;Module&gt; getModules() {
+<span class="fc" id="L58">		NodeList modulesXML = configDocument.getElementsByTagName(&quot;module&quot;);</span>
+<span class="fc" id="L59">		LinkedList&lt;Module&gt; modules = new LinkedList&lt;&gt;();</span>
+
+		@SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L62">		LinkedList&lt;Integer&gt;[] moduleExceptions = new LinkedList[modulesXML.getLength()];</span>
+
+<span class="fc bfc" id="L64" title="All 2 branches covered.">		for(int i = 0, j = modulesXML.getLength(); i &lt; j; i++) {</span>
+<span class="fc" id="L65">			moduleExceptions[i] = new LinkedList&lt;&gt;();</span>
+		}
+
+<span class="fc bfc" id="L68" title="All 2 branches covered.">		for(int i = 0, j = modulesXML.getLength(); i &lt; j; i++) {</span>
+<span class="fc" id="L69">			NodeList childs = modulesXML.item(i).getChildNodes();</span>
+<span class="fc" id="L70">			String currentClassName = &quot;&quot;;</span>
+
+<span class="fc bfc" id="L72" title="All 2 branches covered.">			for(int n = 0, m = childs.getLength(); n &lt; m; n++) {</span>
+<span class="fc" id="L73">				Node child = childs.item(n);</span>
+
+<span class="fc bfc" id="L75" title="All 2 branches covered.">				if(child.getNodeName().equals(&quot;class&quot;)) {</span>
+<span class="fc" id="L76">					currentClassName = child.getTextContent();</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">				} else if(child.getNodeName().equals(&quot;exceptions&quot;)) {</span>
+<span class="fc" id="L78">					NodeList exceptions = child.getChildNodes();</span>
+
+<span class="fc bfc" id="L80" title="All 2 branches covered.">					for(int x = 0, y = exceptions.getLength(); x &lt; y; x++) {</span>
+<span class="fc" id="L81">						Node exception = exceptions.item(x);</span>
+
+<span class="fc bfc" id="L83" title="All 2 branches covered.">						if(exception.getNodeName().equals(&quot;exception&quot;)) {</span>
+<span class="fc" id="L84">							moduleExceptions[i].add(new Integer(exception.getTextContent()));</span>
+						}
+					}
+				}
+			}
+
+			try {
+<span class="fc" id="L91">				Module module = (Module) Class.</span>
+<span class="fc" id="L92">						forName(&quot;de.dqi11.quickStarter.modules.&quot; + currentClassName).</span>
+<span class="fc" id="L93">						getDeclaredConstructor(MainController.class).</span>
+<span class="fc" id="L94">						newInstance(mainController);</span>
+
+<span class="fc" id="L96">				modules.add(module);</span>
+<span class="pc" id="L97">			} catch (InstantiationException e) {</span>
+<span class="nc" id="L98">			} catch (IllegalAccessException e) {</span>
+<span class="nc" id="L99">			} catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L100">			} catch (InvocationTargetException e) {</span>
+<span class="nc" id="L101">			} catch (NoSuchMethodException e) {</span>
+<span class="nc" id="L102">			} catch (SecurityException e) {</span>
+<span class="nc" id="L103">			} catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L104">			} catch (DOMException e) {</span>
+			}
+		}
+
+<span class="fc bfc" id="L108" title="All 2 branches covered.">		for(int i = 0, j = moduleExceptions.length; i &lt; j; i++) {</span>
+<span class="fc" id="L109">			LinkedList&lt;Integer&gt; currentModuleExceptions = moduleExceptions[i];</span>
+
+<span class="fc bfc" id="L111" title="All 2 branches covered.">			for(Integer id : currentModuleExceptions) {</span>
+<span class="fc" id="L112">				modules.get(i).addException(modules.get(id));</span>
+			}
+		}
+
+<span class="fc" id="L116">		return modules;</span>
+	}
+
+	/**
+	 * Returns all properties of the specific module.
+	 * 
+	 * @param module The module.
+	 * @return All properties as key-value-pairs.
+	 */
+	public Map&lt;String, String&gt; getModuleProperties(Module module) {
+<span class="nc" id="L126">		NodeList modulesXML = configDocument.getElementsByTagName(&quot;module&quot;);</span>
+<span class="nc" id="L127">		Map&lt;String, String&gt; properties = new TreeMap&lt;String, String&gt;();</span>
+
+<span class="nc bnc" id="L129" title="All 2 branches missed.">		for(int i = 0, j = modulesXML.getLength(); i &lt; j; i++) {</span>
+<span class="nc" id="L130">			NodeList childs = modulesXML.item(i).getChildNodes();</span>
+
+<span class="nc bnc" id="L132" title="All 2 branches missed.">			for(int a = 0, b = childs.getLength(); a &lt; b; a++) {</span>
+<span class="nc bnc" id="L133" title="All 4 branches missed.">				if(childs.item(a).getNodeName().equals(&quot;class&quot;) &amp;&amp; module.getClass().getSimpleName().equals(childs.item(a).getTextContent())) {</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">					for(int n = 0, m = childs.getLength(); n &lt; m; n++) {</span>
+<span class="nc" id="L135">						Node child = childs.item(n);</span>
+						
+						
+
+<span class="nc bnc" id="L139" title="All 2 branches missed.">						if(child.getNodeName().equals(&quot;properties&quot;)) {</span>
+<span class="nc" id="L140">							NodeList propertyNodes = child.getChildNodes();</span>
+
+<span class="nc bnc" id="L142" title="All 2 branches missed.">							for(int x = 0, y = propertyNodes.getLength(); x &lt; y; x++) {</span>
+<span class="nc" id="L143">								Node property = propertyNodes.item(x);</span>
+
+<span class="nc" id="L145">								properties.put(property.getNodeName(), property.getTextContent());</span>
+							}
+						}
+					}
+				}
+			}
+
+			
+
+		}
+
+<span class="nc" id="L156">		return properties;</span>
+	}
+
+	/**
+	 * Returns all properties of the specific module, that are either user-editable via the preferences or not.
+	 * 
+	 * @param module The module.
+	 * @param preferences Specifies if the properties returned are user-editable (true) or not (false).
+	 * @return All properties as key-value-pairs.
+	 */
+	public Map&lt;String, String&gt; getModuleProperties(Module module, boolean preferences) {
+<span class="fc" id="L167">		NodeList modulesXML = configDocument.getElementsByTagName(&quot;module&quot;);</span>
+<span class="fc" id="L168">		Map&lt;String, String&gt; properties = new TreeMap&lt;String, String&gt;();</span>
+
+<span class="fc bfc" id="L170" title="All 2 branches covered.">		for(int i = 0, j = modulesXML.getLength(); i &lt; j; i++) {</span>
+<span class="fc" id="L171">			NodeList childs = modulesXML.item(i).getChildNodes();</span>
+
+<span class="fc bfc" id="L173" title="All 2 branches covered.">			for(int c = 0, d = childs.getLength(); c &lt; d; c++) {</span>
+<span class="fc bfc" id="L174" title="All 4 branches covered.">				if(childs.item(c).getNodeName().equals(&quot;class&quot;) &amp;&amp; module.getClass().getSimpleName().equals(childs.item(c).getTextContent())) {</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">					for(int n = 0, m = childs.getLength(); n &lt; m; n++) {</span>
+<span class="fc" id="L176">						Node child = childs.item(n);</span>
+
+<span class="fc bfc" id="L178" title="All 2 branches covered.">						if(child.getNodeName().equals(&quot;properties&quot;)) {</span>
+<span class="fc" id="L179">							NodeList propertyNodes = child.getChildNodes();</span>
+
+<span class="fc bfc" id="L181" title="All 2 branches covered.">							for(int x = 0, y = propertyNodes.getLength(); x &lt; y; x++) {</span>
+<span class="fc" id="L182">								Node property = propertyNodes.item(x);</span>
+<span class="fc" id="L183">								NamedNodeMap attributes = property.getAttributes();</span>
+<span class="fc" id="L184">								boolean hasPrefAttribute = false;</span>
+<span class="fc" id="L185">								boolean valid = false;</span>
+
+<span class="fc bfc" id="L187" title="All 2 branches covered.">								for(int a = 0, b = attributes.getLength(); a &lt; b; a++) {</span>
+<span class="fc" id="L188">									Node attribute = attributes.item(a);</span>
+<span class="fc" id="L189">									String nodeName = attribute.getNodeName();</span>
+<span class="fc" id="L190">									String textContent = attribute.getTextContent();</span>
+
+<span class="pc bpc" id="L192" title="1 of 2 branches missed.">									if(nodeName.equals(&quot;pref&quot;)) {</span>
+<span class="fc" id="L193">										hasPrefAttribute = true;</span>
+
+<span class="pc bpc" id="L195" title="2 of 4 branches missed.">										if(textContent.equals(&quot;true&quot;) &amp;&amp; preferences ||</span>
+<span class="nc bnc" id="L196" title="All 4 branches missed.">												textContent.equals(&quot;false&quot;) &amp;&amp; !preferences) {</span>
+
+<span class="fc" id="L198">											valid = true;</span>
+										}
+									}
+								}
+
+<span class="pc bpc" id="L203" title="3 of 4 branches missed.">								if(!hasPrefAttribute &amp;&amp; !preferences) {</span>
+<span class="nc" id="L204">									valid = true;</span>
+								}
+
+<span class="pc bpc" id="L207" title="1 of 2 branches missed.">								if(valid) {</span>
+<span class="fc" id="L208">									properties.put(property.getNodeName(), property.getTextContent());</span>
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			
+		}
+
+<span class="fc" id="L219">		return properties;</span>
+	}
+
+	/**
+	 * Returns the specific key if present or null.
+	 * 
+	 * @param module The module.
+	 * @param key The key.
+	 * @return The value of the key or null if not present.
+	 */
+	public String getModuleProperty(Module module, String key) {
+<span class="fc" id="L230">		NodeList modulesXML = configDocument.getElementsByTagName(&quot;module&quot;);</span>
+
+<span class="pc bpc" id="L232" title="1 of 2 branches missed.">		for(int i = 0, j = modulesXML.getLength(); i &lt; j; i++) {</span>
+<span class="fc" id="L233">			NodeList childs = modulesXML.item(i).getChildNodes();</span>
+
+<span class="fc bfc" id="L235" title="All 2 branches covered.">			for(int n = 0, m = childs.getLength(); n &lt; m; n++) {</span>
+<span class="fc" id="L236">				Node child = childs.item(n);</span>
+
+<span class="fc bfc" id="L238" title="All 2 branches covered.">				if(child.getNodeName().equals(&quot;properties&quot;)) {</span>
+<span class="fc" id="L239">					NodeList properties = child.getChildNodes();</span>
+
+<span class="pc bpc" id="L241" title="1 of 2 branches missed.">					for(int x = 0, y = properties.getLength(); x &lt; y; x++) {</span>
+<span class="fc" id="L242">						Node property = properties.item(x);</span>
+
+<span class="pc bpc" id="L244" title="1 of 2 branches missed.">						if(property.getNodeName().equals(key)) {</span>
+<span class="fc" id="L245">							return property.getTextContent();</span>
+						}
+					}
+				}
+			}
+		}
+
+<span class="nc" id="L252">		return null;</span>
+	}
+
+	/**
+	 * Saves or updates the value of the specific key.
+	 * 
+	 * @param module The module.
+	 * @param key The key.
+	 * @param value The value.
+	 */
+	public void saveOrUpdateModuleProperty(Module module, String key, String value) {
+<span class="nc" id="L263">		NodeList modulesXML = configDocument.getElementsByTagName(&quot;module&quot;);</span>
+
+<span class="nc bnc" id="L265" title="All 2 branches missed.">		for(int i = 0, j = modulesXML.getLength(); i &lt; j; i++) {</span>
+<span class="nc" id="L266">			NodeList childs = modulesXML.item(i).getChildNodes();</span>
+<span class="nc" id="L267">			String currentClassName = &quot;&quot;;</span>
+<span class="nc" id="L268">			boolean hasProperties = false;</span>
+
+<span class="nc bnc" id="L270" title="All 2 branches missed.">			for(int n = 0, m = childs.getLength(); n &lt; m; n++) {</span>
+<span class="nc" id="L271">				Node child = childs.item(n);</span>
+
+<span class="nc bnc" id="L273" title="All 2 branches missed.">				if(child.getNodeName().equals(&quot;class&quot;)) {</span>
+<span class="nc" id="L274">					currentClassName = child.getTextContent();</span>
+<span class="nc bnc" id="L275" title="All 2 branches missed.">				} else if(child.getNodeName().equals(&quot;properties&quot;)) {</span>
+<span class="nc" id="L276">					hasProperties = true;</span>
+				}
+			}
+
+<span class="nc bnc" id="L280" title="All 2 branches missed.">			if(currentClassName.equals(module.getClass().getSimpleName())) {</span>
+<span class="nc bnc" id="L281" title="All 2 branches missed.">				if(!hasProperties) {</span>
+<span class="nc" id="L282">					modulesXML.item(i).appendChild(configDocument.createElement(&quot;properties&quot;));</span>
+				}
+
+<span class="nc" id="L285">				childs = modulesXML.item(i).getChildNodes();</span>
+<span class="nc bnc" id="L286" title="All 2 branches missed.">				for(int n = 0, m = childs.getLength(); n &lt; m; n++) {</span>
+<span class="nc" id="L287">					Node child = childs.item(n);</span>
+
+<span class="nc bnc" id="L289" title="All 2 branches missed.">					if(child.getNodeName().equals(&quot;properties&quot;)) {</span>
+<span class="nc" id="L290">						NodeList properties = child.getChildNodes();</span>
+
+<span class="nc" id="L292">						boolean hasProperty = false;</span>
+
+<span class="nc bnc" id="L294" title="All 2 branches missed.">						for(int x = 0, y = properties.getLength(); x &lt; y; x++) {</span>
+<span class="nc" id="L295">							Node property = properties.item(x);</span>
+
+<span class="nc bnc" id="L297" title="All 2 branches missed.">							if(property.getNodeName().equals(key)) {</span>
+<span class="nc" id="L298">								hasProperty = true;</span>
+
+<span class="nc" id="L300">								property.setTextContent(value);</span>
+							}
+						}
+
+<span class="nc bnc" id="L304" title="All 2 branches missed.">						if(!hasProperty) {</span>
+<span class="nc" id="L305">							Element newProperty = configDocument.createElement(key);</span>
+<span class="nc" id="L306">							newProperty.setTextContent(value);</span>
+
+<span class="nc" id="L308">							child.appendChild(newProperty);</span>
+						}
+					}
+				}
+			}
+		}
+
+<span class="nc" id="L315">		DOMSource source = new DOMSource(configDocument);</span>
+<span class="nc" id="L316">		TransformerFactory transformerFactory = TransformerFactory.newInstance();</span>
+		try {
+<span class="nc" id="L318">			Transformer transformer = transformerFactory.newTransformer();</span>
+<span class="nc" id="L319">			StreamResult streamResult = new StreamResult(CONFIG_FILE_PATH);</span>
+<span class="nc" id="L320">			transformer.transform(source, streamResult);</span>
+<span class="nc" id="L321">		} catch (TransformerConfigurationException e) {</span>
+<span class="nc" id="L322">		} catch (TransformerException e) {</span>
+		}
+<span class="nc" id="L324">	}</span>
+
+	/**
+	 * Removes the specific key.
+	 * 
+	 * @param module The module.
+	 * @param key The key.
+	 */
+	public void removeModuleProperty(Module module, String key) {
+<span class="nc" id="L333">		NodeList modulesXML = configDocument.getElementsByTagName(&quot;module&quot;);</span>
+
+<span class="nc bnc" id="L335" title="All 2 branches missed.">		for(int i = 0, j = modulesXML.getLength(); i &lt; j; i++) {</span>
+<span class="nc" id="L336">			NodeList childs = modulesXML.item(i).getChildNodes();</span>
+
+<span class="nc bnc" id="L338" title="All 2 branches missed.">			for(int n = 0, m = childs.getLength(); n &lt; m; n++) {</span>
+<span class="nc" id="L339">				Node child = childs.item(n);</span>
+
+<span class="nc bnc" id="L341" title="All 2 branches missed.">				if(child.getNodeName().equals(&quot;properties&quot;)) {</span>
+<span class="nc" id="L342">					NodeList properties = child.getChildNodes();</span>
+
+<span class="nc bnc" id="L344" title="All 2 branches missed.">					for(int x = 0, y = properties.getLength(); x &lt; y; x++) {</span>
+<span class="nc" id="L345">						Node property = properties.item(x);</span>
+
+<span class="nc bnc" id="L347" title="All 2 branches missed.">						if(property.getNodeName().equals(key)) {</span>
+<span class="nc" id="L348">							property.getParentNode().removeChild(property);</span>
+
+<span class="nc" id="L350">							break;</span>
+						}
+					}
+				}
+			}
+		}
+
+<span class="nc" id="L357">		DOMSource source = new DOMSource(configDocument);</span>
+<span class="nc" id="L358">		TransformerFactory transformerFactory = TransformerFactory.newInstance();</span>
+		try {
+<span class="nc" id="L360">			Transformer transformer = transformerFactory.newTransformer();</span>
+<span class="nc" id="L361">			StreamResult streamResult = new StreamResult(CONFIG_FILE_PATH);</span>
+<span class="nc" id="L362">			transformer.transform(source, streamResult);</span>
+<span class="nc" id="L363">		} catch (TransformerConfigurationException e) {</span>
+<span class="nc" id="L364">		} catch (TransformerException e) {</span>
+		}
+<span class="nc" id="L366">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span>Test (May 29, 2014 6:24:11 PM)</div></body></html>

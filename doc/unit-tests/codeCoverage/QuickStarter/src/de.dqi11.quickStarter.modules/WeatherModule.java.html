@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>WeatherModule.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Test (May 29, 2014 6:24:11 PM)</a> &gt; <a href="../../index.html" class="el_group">QuickStarter</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">de.dqi11.quickStarter.modules</a> &gt; <span class="el_source">WeatherModule.java</span></div><h1>WeatherModule.java</h1><pre class="source lang-java linenums"><span class="nc" id="L1">package de.dqi11.quickStarter.modules;</span>
+
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.net.ConnectException;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingWorker;
+
+import de.dqi11.quickStarter.controller.MainController;
+import de.dqi11.quickStarter.controller.Search;
+import de.dqi11.quickStarter.gui.Label;
+import de.dqi11.quickStarter.gui.ModuleWindow;
+import de.dqi11.quickStarter.helpers.JSONParser;
+import de.dqi11.quickStarter.modules.bridges.OpenWeatherMapBridge;
+
+public class WeatherModule extends Module {
+<span class="fc" id="L22">	private final String KEY = this.toString();</span>
+	private SwingWorker&lt;ModuleAction, ModuleAction&gt; worker;
+	private JSONParser jsonParser;
+	private String tempFormated;
+	private String defaultLocation;
+	
+	public WeatherModule(MainController mainController) {
+<span class="fc" id="L29">		super(mainController);</span>
+		
+<span class="fc" id="L31">		defaultLocation = mainController.getModuleProperty(this, &quot;city&quot;);</span>
+<span class="fc" id="L32">	}</span>
+
+	@Override
+	public ModuleAction getModuleAction(final Search search) throws ConnectException {
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">		if (search.isCommand(&quot;weather&quot;)) {</span>
+			try {
+<span class="nc" id="L38">				worker.cancel(true);</span>
+<span class="nc" id="L39">			}catch(NullPointerException | CancellationException e) {</span>
+				// Do nothing. It is OK if the worker is not initialized or executed, yet.
+			}
+			
+			// Set up the worker, that will get the necessary data in the background.
+<span class="nc" id="L44">			worker = new SwingWorker&lt;ModuleAction, ModuleAction&gt;() {</span>
+
+				@Override
+				protected ModuleAction doInBackground() throws Exception {
+<span class="nc" id="L48">					String location = search.getParam(0);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">					if(location.equals(&quot;&quot;)) location = defaultLocation;</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">					if(location.split(&quot;,&quot;).length == 1) {</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">						if(search.getParam(1) != null) location += &quot;,&quot; + search.getParam(1);</span>
+<span class="nc" id="L52">						else location += &quot;,de&quot;;</span>
+					}
+
+<span class="nc" id="L55">					String json = OpenWeatherMapBridge.getJSON(location);</span>
+<span class="nc" id="L56">					jsonParser = new JSONParser(json);</span>
+					
+					// Get and format the temperature.
+<span class="nc" id="L59">					float temp = Float.valueOf(jsonParser.get(&quot;main.temp&quot;));</span>
+<span class="nc" id="L60">					temp = Math.round(temp);</span>
+<span class="nc" id="L61">					tempFormated = String.format(&quot;%s&quot;, temp);</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">					if(temp == (int) temp) tempFormated = String.format(&quot;%s&quot;, (int) temp);</span>
+					
+<span class="nc" id="L64">					String text = jsonParser.get(&quot;name&quot;) + &quot;: &lt;b&gt;&quot; + tempFormated + &quot;\u00B0C&lt;/b&gt;&quot;;</span>
+<span class="nc" id="L65">					return new ModuleAction(KEY, text, new ImageIcon(&quot;res/weather-icons/weather-icon.png&quot;)) {</span>
+						@Override
+						public ModuleWindow getModuleWindow(Search search) {
+<span class="nc" id="L68">							final String city = search.getParam(0).split(&quot;,&quot;)[0];</span>
+							
+<span class="nc" id="L70">							ModuleWindow window = new ModuleWindow(&quot;Weather &quot; + city);</span>
+							
+<span class="nc" id="L72">							JPanel container = new JPanel();</span>
+<span class="nc" id="L73">							container.setBackground(Color.WHITE);</span>
+							
+<span class="nc" id="L75">							String icon = (jsonParser.getArrayList(&quot;weather&quot;).get(0).get(&quot;icon&quot;));</span>
+<span class="nc" id="L76">							icon = icon.substring(0, 2) + &quot;.png&quot;;</span>
+<span class="nc" id="L77">							JLabel iconLabel = new JLabel(new ImageIcon (&quot;res/weather-icons/&quot; + icon));</span>
+<span class="nc" id="L78">							container.add(iconLabel);</span>
+							
+<span class="nc" id="L80">							JPanel panelTable = new JPanel();</span>
+<span class="nc" id="L81">							GridLayout gridLayout = new GridLayout(0, 2);</span>
+<span class="nc" id="L82">							gridLayout.setHgap(50);</span>
+<span class="nc" id="L83">							gridLayout.setVgap(10);</span>
+<span class="nc" id="L84">							panelTable.setLayout(gridLayout);</span>
+<span class="nc" id="L85">							panelTable.setBackground(Color.WHITE);</span>
+							
+<span class="nc" id="L87">							panelTable.add(new Label(jsonParser.get(&quot;name&quot;)));</span>
+							
+							// Creates empty space (needed since there is no real adressing using GridLayout)
+<span class="nc" id="L90">							panelTable.add(new Label(&quot;&quot;));</span>
+							
+<span class="nc" id="L92">							panelTable.add(new Label(tempFormated + &quot;\u00B0C&quot;, true, 60));</span>
+							
+							// Creates empty space (needed since there is no real addressing using GridLayout)
+<span class="nc" id="L95">							panelTable.add(new Label());</span>
+							
+<span class="nc" id="L97">							panelTable.add(new Label(&quot;Humidity&quot;));</span>
+<span class="nc" id="L98">							panelTable.add(new Label(jsonParser.get(&quot;main.humidity&quot;) + &quot;%&quot;, true));</span>
+<span class="nc" id="L99">							panelTable.add(new Label((&quot;Windspeed&quot;)));</span>
+<span class="nc" id="L100">							panelTable.add(new Label(jsonParser.get(&quot;wind.speed&quot;) + &quot;mps&quot;, true));</span>
+<span class="nc" id="L101">							panelTable.add(new Label(&quot;Cloudiness&quot;));</span>
+<span class="nc" id="L102">							panelTable.add(new Label(jsonParser.get(&quot;clouds.all&quot;) + &quot;%&quot;, true));</span>
+							
+<span class="nc" id="L104">							String rain = jsonParser.get(&quot;rain.3h&quot;);</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">							if(rain != null) {</span>
+<span class="nc" id="L106">								panelTable.add(new Label(&quot;Rain&quot;));</span>
+<span class="nc" id="L107">								panelTable.add(new Label(rain + &quot;mm per 3 hours&quot;));</span>
+							}
+							
+<span class="nc" id="L110">							container.add(panelTable);</span>
+								
+<span class="nc" id="L112">							window.add(container);</span>
+							
+<span class="nc" id="L114">							return window;</span>
+						}
+					};
+				}
+
+				@Override
+				protected void done() {
+					try {
+<span class="nc" id="L122">						getMainController().updateModule(get());</span>
+<span class="nc" id="L123">					} catch (InterruptedException | ExecutionException e) {</span>
+<span class="nc" id="L124">						getMainController().updateModule(new WarningModuleAction(KEY, &quot;An error occured.&quot;, new ImageIcon(&quot;res/weather-icon-tmp.png&quot;)));</span>
+
+						try {
+<span class="nc" id="L127">							getModuleAction(search);</span>
+<span class="nc" id="L128">						} catch (ConnectException e1) {</span>
+<span class="nc" id="L129">							e1.printStackTrace();</span>
+						}
+					}
+<span class="nc" id="L132">					super.done();</span>
+<span class="nc" id="L133">				}</span>
+			};
+<span class="nc" id="L135">			worker.execute();</span>
+
+<span class="nc" id="L137">			return new LoadingModuleAction(KEY, &quot;Loading weather...&quot;);</span>
+		}
+
+<span class="fc" id="L140">		return null;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span>Test (May 29, 2014 6:24:11 PM)</div></body></html>

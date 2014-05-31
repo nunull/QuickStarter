@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>PreferenceWindow.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Test (May 29, 2014 6:24:11 PM)</a> &gt; <a href="../../index.html" class="el_group">QuickStarter</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">de.dqi11.quickStarter.gui</a> &gt; <span class="el_source">PreferenceWindow.java</span></div><h1>PreferenceWindow.java</h1><pre class="source lang-java linenums"><span class="fc" id="L1">package de.dqi11.quickStarter.gui;</span>
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.TreeMap;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import de.dqi11.quickStarter.controller.MainController;
+import de.dqi11.quickStarter.modules.Module;
+
+/**
+ * A class to show and change the preferences of the program, including the modules.
+ */
+public class PreferenceWindow extends Window {;
+	private MainController mainController;
+	private JPanel contentPanel;
+	private LinkedList&lt;JPanel&gt; preferencePanels;
+	private Map&lt;Module, Map&lt;String, JTextField&gt;&gt; properties;
+	
+	public PreferenceWindow(final MainController mainController) {
+<span class="fc" id="L32">		super(&quot;Preferences&quot;);</span>
+		
+<span class="fc" id="L34">		this.mainController = mainController;</span>
+<span class="fc" id="L35">		this.mainFrame.addComponentListener(new ComponentAdapter() {</span>
+			
+			@Override
+			public void componentShown(ComponentEvent e) {
+<span class="nc" id="L39">				super.componentShown(e);</span>
+<span class="nc" id="L40">			}</span>
+			
+			@Override
+			public void componentHidden(ComponentEvent e) {
+<span class="nc" id="L44">				super.componentShown(e);</span>
+				
+<span class="nc bnc" id="L46" title="All 2 branches missed.">				for(Module module : properties.keySet()) {</span>
+<span class="nc" id="L47">					Map&lt;String, JTextField&gt; moduleProperties = properties.get(module);</span>
+					
+<span class="nc bnc" id="L49" title="All 2 branches missed.">					for(String key : moduleProperties.keySet()) {</span>
+<span class="nc" id="L50">						JTextField textField = moduleProperties.get(key);</span>
+<span class="nc" id="L51">						String oldValue = textField.getName();</span>
+<span class="nc" id="L52">						String newValue = textField.getText();</span>
+						
+<span class="nc bnc" id="L54" title="All 2 branches missed.">						if(!oldValue.equals(newValue)) {</span>
+<span class="nc" id="L55">							mainController.saveOrUpdateModuleProperty(module, key, newValue);</span>
+						}
+					}
+				}
+<span class="nc" id="L59">			}</span>
+		});
+<span class="fc" id="L61">		this.preferencePanels = new LinkedList&lt;&gt;();</span>
+<span class="fc" id="L62">		this.properties = new TreeMap&lt;&gt;();</span>
+		
+<span class="fc" id="L64">		initGUI();</span>
+<span class="fc" id="L65">	}</span>
+	
+	private void initGUI(){
+<span class="fc" id="L68">		DefaultListModel&lt;String&gt; listModel = new DefaultListModel&lt;&gt;();</span>
+<span class="fc" id="L69">		final JList&lt;String&gt; list = new JList&lt;&gt;();</span>
+<span class="fc" id="L70">		list.setModel(listModel);</span>
+<span class="fc" id="L71">		list.setPreferredSize(new Dimension(200, 500));</span>
+<span class="fc" id="L72">		list.setVisible(true);</span>
+		
+<span class="fc" id="L74">		contentPanel = new JPanel();</span>
+<span class="fc" id="L75">		contentPanel.setPreferredSize(new Dimension(560, 500));</span>
+<span class="fc" id="L76">		contentPanel.setBackground(Color.WHITE);</span>
+		
+<span class="fc" id="L78">		LinkedList&lt;Module&gt; modules = mainController.getModules();</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">		for(Module module : modules) {</span>
+<span class="fc" id="L80">			listModel.addElement(module.getClass().getSimpleName().replace(&quot;Module&quot;, &quot;&quot;));</span>
+			
+<span class="fc" id="L82">			JPanel panel = new JPanel();</span>
+<span class="fc" id="L83">			panel.setVisible(false);</span>
+<span class="fc" id="L84">			panel.setBackground(Color.WHITE);</span>
+			
+<span class="fc" id="L86">			Map&lt;String, String&gt; properties = mainController.getModuleProperties(module, true);</span>
+<span class="fc" id="L87">			Map&lt;String, JTextField&gt; guiProperties = new TreeMap&lt;&gt;();</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">			for(String key : properties.keySet()) {</span>
+<span class="fc" id="L89">				String value = properties.get(key);</span>
+				
+<span class="fc" id="L91">				JLabel keyLabel = new JLabel(key);</span>
+<span class="fc" id="L92">				keyLabel.setPreferredSize(new Dimension(200, 20));</span>
+<span class="fc" id="L93">				JTextField valueField = new JTextField(value);</span>
+<span class="fc" id="L94">				valueField.setPreferredSize(new Dimension(340, 20));</span>
+<span class="fc" id="L95">				valueField.setName(value);</span>
+				
+<span class="fc" id="L97">				panel.add(keyLabel);</span>
+<span class="fc" id="L98">				panel.add(valueField);</span>
+				
+<span class="fc" id="L100">				guiProperties.put(key, valueField);</span>
+			}
+			
+<span class="fc" id="L103">			this.properties.put(module, guiProperties);</span>
+			
+<span class="fc" id="L105">			preferencePanels.add(panel);</span>
+<span class="fc" id="L106">			contentPanel.add(panel);</span>
+		}
+<span class="fc" id="L108">		list.setSelectedIndex(0);</span>
+<span class="fc" id="L109">		list.addListSelectionListener(new ListSelectionListener() {</span>
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+<span class="nc bnc" id="L113" title="All 2 branches missed.">				for(JPanel panel : preferencePanels) {</span>
+<span class="nc" id="L114">					panel.setVisible(false);</span>
+				}
+<span class="nc" id="L116">				preferencePanels.get(list.getSelectedIndex()).setVisible(true);</span>
+				
+<span class="nc" id="L118">			}</span>
+		});
+		
+<span class="fc" id="L121">		add(list);</span>
+<span class="fc" id="L122">		add(contentPanel);</span>
+<span class="fc" id="L123">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span>Test (May 29, 2014 6:24:11 PM)</div></body></html>

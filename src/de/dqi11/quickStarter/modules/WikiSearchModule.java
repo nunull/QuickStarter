@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Locale;
 
 import javax.swing.ImageIcon;
 
@@ -17,11 +16,11 @@ import de.dqi11.quickStarter.controller.Search;
  */
 public class WikiSearchModule extends Module {
 	private final String KEY = this.toString();
-	private String systemLanguage;
+//	private String systemLanguage;
 	
 	public WikiSearchModule(MainController mainController) {
 		super(mainController);
-		systemLanguage = Locale.getDefault().getCountry();
+//		systemLanguage = Locale.getDefault().getCountry();
 	}
 
 	@Override

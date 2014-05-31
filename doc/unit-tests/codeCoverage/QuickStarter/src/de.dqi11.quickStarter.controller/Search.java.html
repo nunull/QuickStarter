@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Search.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Test (May 29, 2014 6:24:11 PM)</a> &gt; <a href="../../index.html" class="el_group">QuickStarter</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">de.dqi11.quickStarter.controller</a> &gt; <span class="el_source">Search.java</span></div><h1>Search.java</h1><pre class="source lang-java linenums">package de.dqi11.quickStarter.controller;
+
+/**
+ * Represents a specific search.
+ */
+public class Search {
+	private String searchString;
+	
+	/**
+	 * Default constructor.
+	 */
+<span class="fc" id="L12">	public Search() {</span>
+<span class="fc" id="L13">		searchString = &quot;&quot;;</span>
+<span class="fc" id="L14">	}</span>
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param searchString A specific search-string.
+	 */
+<span class="fc" id="L21">	public Search(String searchString) {</span>
+<span class="fc" id="L22">		this.searchString = &quot;&quot;;</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">		if(searchString != null) {</span>
+<span class="fc" id="L24">			this.searchString = searchString.trim();</span>
+		}
+<span class="fc" id="L26">	}</span>
+	
+	/**
+	 * Returns true if the search has the specific command (first part of the search-string).
+	 * 
+	 * @param command The specific command.
+	 * @return true if the search has the specific command, false otherwise.
+	 */
+	public boolean isCommand(String command) {
+<span class="fc bfc" id="L35" title="All 2 branches covered.">		command = command == null ? &quot;&quot; : command;</span>
+		
+<span class="fc" id="L37">		return partEquals(0, command);</span>
+	}
+	
+	/**
+	 * Returns the command or an empty string, if there is not any.
+	 * 
+	 * @return the command.
+	 */
+	public String getCommand() {
+<span class="fc" id="L46">		String[] parts = searchString.split(&quot; &quot;);</span>
+		
+		try {
+<span class="fc" id="L49">			return parts[0];</span>
+<span class="nc" id="L50">		} catch(IndexOutOfBoundsException e) {</span>
+<span class="nc" id="L51">			return &quot;&quot;;</span>
+		}
+	}
+	
+	/**
+	 * Checks if the part equals the specific String.
+	 * 
+	 * @param index The index of the part.
+	 * @param part The part.
+	 * @return True, if the part equals the specific String, false otherwise.
+	 */
+	public boolean partEquals(int index, String part) {
+<span class="fc" id="L63">		String[] parts = searchString.split(&quot; &quot;);</span>
+		
+		try {
+<span class="fc" id="L66">			return parts[index].equals(part);</span>
+<span class="nc" id="L67">		} catch(IndexOutOfBoundsException e) {</span>
+<span class="nc" id="L68">			return false;</span>
+		}
+	}
+	
+	/**
+	 * Returns the parameters of the search.
+	 * 
+	 * @return The parameters (separated by spaces).
+	 */
+	public String getParams() {
+<span class="fc" id="L78">		return searchString.replaceFirst(getCommand() + &quot; &quot;, &quot;&quot;);</span>
+	}
+	
+	/**
+	 * Returns the parameter at the given index.
+	 * 
+	 * @param index The index.
+	 * @return The parameter or an empty string if the index is out of bounds.
+	 */
+	public String getParam(int index) {
+<span class="fc" id="L88">		String[] params = searchString.split(&quot; &quot;);</span>
+		
+		try {
+<span class="fc" id="L91">			return params[index+1];</span>
+<span class="fc" id="L92">		} catch(IndexOutOfBoundsException e) {</span>
+<span class="fc" id="L93">			return &quot;&quot;;</span>
+		}
+	}
+	
+	/**
+	 * Checks whether the search-string equals the given string.
+	 * 
+	 * @param s The String to check.
+	 * @return true if the strings are equal, false otherwise.
+	 */
+	public boolean equals(String s) {
+<span class="fc bfc" id="L104" title="All 2 branches covered.">		s = s == null ? &quot;&quot; : s;</span>
+		
+<span class="fc" id="L106">		return searchString.equals(s);</span>
+	}
+	
+	/**
+	 * Returns the specific search string.
+	 * 
+	 * @return The search string.
+	 */
+	public String getSearchString() {
+<span class="fc" id="L115">		return searchString;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span>Test (May 29, 2014 6:24:11 PM)</div></body></html>

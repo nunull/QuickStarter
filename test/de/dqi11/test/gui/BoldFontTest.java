@@ -1,9 +1,7 @@
 package de.dqi11.test.gui;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import de.dqi11.quickStarter.gui.BoldFont;

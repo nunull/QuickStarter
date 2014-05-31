@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>MainController.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Test (May 29, 2014 6:24:11 PM)</a> &gt; <a href="../../index.html" class="el_group">QuickStarter</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">de.dqi11.quickStarter.controller</a> &gt; <span class="el_source">MainController.java</span></div><h1>MainController.java</h1><pre class="source lang-java linenums">package de.dqi11.quickStarter.controller;
+
+import java.awt.HeadlessException;
+import java.net.ConnectException;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
+
+import de.dqi11.quickStarter.gui.MainWindow;
+import de.dqi11.quickStarter.gui.PreferenceWindow;
+import de.dqi11.quickStarter.gui.Taskbar;
+import de.dqi11.quickStarter.modules.ErrorCoreModule;
+import de.dqi11.quickStarter.modules.ModuleAction;
+import de.dqi11.quickStarter.modules.Module;
+import de.dqi11.quickStarter.os.MacOS;
+import de.dqi11.quickStarter.os.OS;
+import de.dqi11.quickStarter.os.WinOS;
+
+/**
+ * The main-controller. Brings everything together.
+ */
+public class MainController implements Observer {
+<span class="fc" id="L24">	private boolean networkError = false;</span>
+	private LinkedList&lt;Module&gt; modules;
+	private LinkedList&lt;ModuleAction&gt; moduleActions;
+	private OS os;
+	private MainWindow mainWindow;
+	@SuppressWarnings(&quot;unused&quot;)
+	private Taskbar taskbar;
+	private PersitencyController persitencyController;
+	private PreferenceWindow prefereceWindow;
+	
+	/**
+	 * Constructor.
+	 */
+<span class="fc" id="L37">	public MainController() {</span>
+<span class="fc" id="L38">		this.modules = new LinkedList&lt;Module&gt;();</span>
+<span class="fc" id="L39">		this.moduleActions = new LinkedList&lt;ModuleAction&gt;();</span>
+<span class="fc" id="L40">		this.persitencyController = new PersitencyController(this);</span>
+		
+<span class="fc" id="L42">		initModules();</span>
+<span class="fc" id="L43">		initOS();</span>
+<span class="fc" id="L44">		initGUI();</span>
+		
+		/*
+		 * Just a small test.
+		 */
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">		if(mainWindow != null) {</span>
+<span class="fc" id="L50">			mainWindow.toggleApplication();</span>
+		}
+<span class="fc" id="L52">	}</span>
+	
+	/**
+	 * Initializes the modules.
+	 */
+	private void initModules() {
+<span class="fc" id="L58">		modules = persitencyController.getModules();</span>
+		
+		// CoreModules have to be added last, since otherwise they won't receive 
+		// errors, which were produced by other Modules.
+<span class="fc" id="L62">		modules.add(new ErrorCoreModule(this));</span>
+<span class="fc" id="L63">	}</span>
+	
+	/**
+	 * Initializes the wrappers for operating-systems.
+	 */
+	private void initOS() {
+<span class="fc" id="L69">		String osName = System.getProperty(&quot;os.name&quot;);</span>
+		
+		try {
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">			if( osName.contains(&quot;Windows&quot;) ) os = new WinOS();</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">			else if( osName.contains(&quot;Mac&quot;) ) os = new MacOS();</span>
+<span class="pc" id="L74">		} catch(Exception e) {	</span>
+		}
+		
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">		if(os != null) {</span>
+<span class="fc" id="L78">			os.addObserver(this);</span>
+		}
+<span class="fc" id="L80">	}</span>
+	
+	/**
+	 * Initializes the GUI.
+	 */
+	private void initGUI() {
+		try {
+<span class="fc" id="L87">			mainWindow = new MainWindow();</span>
+<span class="fc" id="L88">			mainWindow.addObserver(this);</span>
+<span class="fc" id="L89">			mainWindow.init();</span>
+<span class="fc" id="L90">			prefereceWindow = new PreferenceWindow(this);</span>
+			
+			// TODO
+	//		SwingUtilities.invokeLater(new Runnable() {
+	//			
+	//			@Override
+	//			public void run() {
+	//				mainWindow.init();
+	//			}
+	//		});
+			
+<span class="fc" id="L101">			taskbar = new Taskbar(this);</span>
+<span class="pc" id="L102">		} catch(HeadlessException e) {</span>
+<span class="nc" id="L103">			mainWindow = null;</span>
+		}
+<span class="fc" id="L105">	}</span>
+	
+	/**
+	 * Gets possible actions for the given search-term.
+	 * 
+	 * @param search The specific search-term.
+	 * @return a list of Advices (possible actions).
+	 */
+	public LinkedList&lt;ModuleAction&gt; invoke(Search search) {
+<span class="fc" id="L114">		moduleActions = new LinkedList&lt;ModuleAction&gt;();</span>
+		
+<span class="fc bfc" id="L116" title="All 2 branches covered.">		if(search != null) {</span>
+<span class="fc" id="L117">			LinkedList&lt;Module&gt; activeModules = new LinkedList&lt;&gt;();</span>
+<span class="fc" id="L118">			networkError = false;</span>
+			
+<span class="fc bfc" id="L120" title="All 2 branches covered.">			for(Module m : modules) {</span>
+				try {
+<span class="fc" id="L122">					ModuleAction moduleAction = m.getModuleAction(search);</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">					if(moduleAction != null) {</span>
+<span class="fc" id="L124">						activeModules.add(m);</span>
+<span class="fc" id="L125">						moduleActions.add(moduleAction);</span>
+					}
+<span class="pc" id="L127">				} catch(ConnectException e) {</span>
+<span class="nc" id="L128">					networkError = true;</span>
+				}
+			}
+			
+<span class="fc bfc" id="L132" title="All 2 branches covered.">			for(Module m : activeModules) {</span>
+<span class="fc" id="L133">				LinkedList&lt;Module&gt; exceptions = m.getExceptions();</span>
+				
+<span class="fc bfc" id="L135" title="All 2 branches covered.">				for(Module exception : exceptions) {</span>
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">					if(activeModules.contains(exception)) {</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">						for(ModuleAction moduleAction : moduleActions) {</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">							if(moduleAction.getKey().equals(m.getKey())) {</span>
+<span class="nc" id="L139">								moduleActions.remove(moduleAction);</span>
+								
+<span class="nc" id="L141">								break;</span>
+							}
+						}
+					}
+				}
+			}
+		}
+		
+<span class="fc" id="L149">		return moduleActions;</span>
+	}
+	
+	/**
+	 * Updates the ModuleAction from the specific module.
+	 *  
+	 * @param modulAction The new ModuleAction.
+	 * @return true if replacement was successful, false otherwise.
+	 */
+	public boolean updateModule(ModuleAction modulAction) {
+		try {
+<span class="nc" id="L160">			int index = moduleActions.lastIndexOf(modulAction);</span>
+<span class="nc" id="L161">			moduleActions.add(index, modulAction);</span>
+<span class="nc" id="L162">			moduleActions.remove(index + 1);</span>
+			
+<span class="nc bnc" id="L164" title="All 2 branches missed.">			if(mainWindow != null) {</span>
+<span class="nc" id="L165">				mainWindow.updateModuleActions();</span>
+			}
+			
+<span class="nc" id="L168">			return true;</span>
+<span class="nc" id="L169">		} catch(IndexOutOfBoundsException e) {</span>
+<span class="nc" id="L170">			return false;</span>
+		}
+	}
+	
+	/**
+	 * Shuts global (OS-wide) shortcut-handlers down. 
+	 */
+	public void shutdown() {
+<span class="nc" id="L178">		os.shutdown();</span>
+<span class="nc" id="L179">	}</span>
+	
+	/**
+	 * Quits the application.
+	 */
+	public void quit() {
+<span class="nc" id="L185">		shutdown();</span>
+		
+		// TODO bad style
+<span class="nc" id="L188">		System.exit(0);</span>
+<span class="nc" id="L189">	}</span>
+
+	/**
+	 * Will be called from 
+	 * 1. OS-classes, when the visibility of the application should be toggled,
+	 * 2. MainWindow, when ModuleActions should be updated.
+	 */
+	@Override
+	public void update(Observable o, Object arg) {
+<span class="nc bnc" id="L198" title="All 2 branches missed.">		if(mainWindow != null) {</span>
+<span class="nc bnc" id="L199" title="All 2 branches missed.">			if(o instanceof OS) {</span>
+<span class="nc" id="L200">				mainWindow.toggleApplication();</span>
+<span class="nc bnc" id="L201" title="All 2 branches missed.">			} else if(o instanceof MainWindow) {</span>
+<span class="nc" id="L202">				mainWindow.setModuleActions(</span>
+<span class="nc" id="L203">						invoke(</span>
+<span class="nc" id="L204">								new Search(</span>
+<span class="nc" id="L205">										mainWindow.getSearchString())));;</span>
+			}
+		}
+<span class="nc" id="L208">	}</span>
+	
+	/**
+	 * Returns all properties of the specific module.
+	 * 
+	 * @param module The module.
+	 * @return All properties as key-value-pairs.
+	 */
+	public Map&lt;String, String&gt; getModuleProperties(Module module) {
+<span class="nc" id="L217">		return persitencyController.getModuleProperties(module);</span>
+	}
+	
+	/**
+	 * Returns all properties of the specific module, that are either user-editable via the preferences or not.
+	 * 
+	 * @param module The module.
+	 * @param preferences Specifies if the properties returned are user-editable (true) or not (false).
+	 * @return All properties as key-value-pairs.
+	 */
+	public Map&lt;String, String&gt; getModuleProperties(Module module, boolean preferences) {
+<span class="fc" id="L228">		return persitencyController.getModuleProperties(module, preferences);</span>
+	}
+	
+	/**
+	 * Returns the specific key if present or null.
+	 * 
+	 * @param module The module.
+	 * @param key The key.
+	 * @return The value of the key or null if not present.
+	 * @see de.dqi11.quickStarter.controller.PersitencyController#getModuleProperty(Module, String)
+	 */
+	public String getModuleProperty(Module module, String key) {
+<span class="fc" id="L240">		return persitencyController.getModuleProperty(module, key);</span>
+	}
+	
+	public LinkedList&lt;Module&gt; getModules() {
+<span class="fc" id="L244">		return persitencyController.getModules();</span>
+	}
+
+	/**
+	 * Saves or updates the value of the specific key.
+	 * 
+	 * @param module The module.
+	 * @param key The key.
+	 * @param value The value.
+	 * @see de.dqi11.quickStarter.controller.PersitencyController#saveOrUpdateModuleProperty(Module, String, String)
+	 */
+	public void saveOrUpdateModuleProperty(Module module, String key, String value) {
+<span class="nc" id="L256">		persitencyController.saveOrUpdateModuleProperty(module, key, value);</span>
+<span class="nc" id="L257">	}</span>
+	
+	/**
+	 * Removes the specific key.
+	 * 
+	 * @param module The module.
+	 * @param key The key.
+	 * @see de.dqi11.quickStarter.controller.PersitencyController#removeModuleProperty(Module, String)
+	 */
+	public void removeModuleProperty(Module module, String key) {
+<span class="nc" id="L267">		persitencyController.removeModuleProperty(module, key);</span>
+<span class="nc" id="L268">	}</span>
+
+	/**
+	 * Getter.
+	 * 
+	 * @return true, if an networkError occurred.
+	 */
+	public boolean isNetworkError() {
+<span class="fc" id="L276">		return networkError;</span>
+	}
+
+	public OS getOS() {
+<span class="nc" id="L280">		return os;</span>
+	}
+
+	public void showPrefenceWindow() {
+<span class="nc" id="L284">		prefereceWindow.show();</span>
+<span class="nc" id="L285">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span>Test (May 29, 2014 6:24:11 PM)</div></body></html>

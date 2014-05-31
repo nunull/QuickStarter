@@ -1,13 +1,12 @@
 package de.dqi11.test.helpers;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.helpers.JSONParser;
 
 public class JSONParserTest {
