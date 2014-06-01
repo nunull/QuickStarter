@@ -23,6 +23,8 @@ ToDo
 
 ### Due to Mo, 2 Jun
 
+#### REMINDER: there are some poins, which are marked with ALL
+
 * [x] *DOC:* **requirements**: skills *(YUNUS)*
 * [ ] *DOC:* **naming and design** *(YUNUS)*
 * [ ] *DOC:* **class description** *(YUNUS)*
