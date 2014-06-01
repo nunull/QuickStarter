@@ -52,7 +52,7 @@ ToDo
 ### Due to Mo, 9 Jun
 
 * [ ] *DOC:* **final texts / format**
-* ([ ] *DOC:* **future prospects**) **?**
+* [ ]  *maybe:* **future prospects** **?**
 * [ ] *CODING:* **COMMENTING** *(EVERYBODY)*
 
 ### Fr, 13 Jun
