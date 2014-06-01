@@ -31,7 +31,7 @@ ToDo
 * [ ] *DOC:* **protocols** *(YUNUS)*
 * [x] *DOC:* **requirements**: technical requirement: CI *(TIMM)*
 * [x] *DOC:* **testing** *(TIMM)*
-* [ ] *DOC:* **deployment** *(TIMM)*
+* [x] *DOC:* **deployment** *(TIMM)*
 * [x] *DOC:* **UML** *(TIMM)*
 * [ ] *DOC:* **implementation**: problems during implementation *(TIMM)*
 * [x] *CODING:* **local file search** *(TIMM)*
