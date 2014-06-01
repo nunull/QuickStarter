@@ -28,7 +28,7 @@ ToDo
 * [x] *DOC:* **requirements**: skills *(YUNUS)*
 * [ ] *DOC:* **naming and design** *(YUNUS)*
 * [ ] *DOC:* **class description** *(YUNUS)*
-* [ ] *DOC:* **protocols** *(YUNUS)*
+* [x] *DOC:* **protocols** *(YUNUS)*
 * [x] *DOC:* **requirements**: technical requirement: CI *(TIMM)*
 * [x] *DOC:* **testing** *(TIMM)*
 * [x] *DOC:* **deployment** *(TIMM)*
