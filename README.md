@@ -38,7 +38,7 @@ ToDo
 * [x] *CODING:* **testing** *(TIMM)*
 * [x] *TESTING:* **code coverage** *(TIMM)*
 * [ ] *DOC:* **zeitlicher ablauf** *(ARNE)*
-* [ ] *DOC:* **user guide** *(ARNE)*
+* [x] *DOC:* **user guide** *(ARNE)*
 * [ ] *CODING:* **bigsearch (wiki, github, ...)** *(ARNE)*
 * [ ] *DOC:* **preface** *(ARNE)*
 * [ ] *DOC:* **reflection** *(ALL)*
