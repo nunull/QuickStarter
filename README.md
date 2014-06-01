@@ -45,7 +45,7 @@ ToDo
   * [ ] *DOC:* **reflection:** preface
   * [ ] *DOC:* **reflection:** arne
   * [ ] *DOC:* **reflection:** yunus
-  * [ ] *DOC:* **reflection:** timm
+  * [x] *DOC:* **reflection:** timm
   * [ ] *DOC:* **reflection:** daniel
 * [ ] *CODING:* **help dialog**
 
