@@ -41,10 +41,10 @@ ToDo
 * [x] *DOC:* **user guide** *(ARNE)*
 * [ ] *CODING:* **bigsearch (wiki, github, ...)** *(ARNE)*
 * [ ] *DOC:* **preface** *(ARNE)*
-* [ ] *DOC:* **reflection** *(ALL)*
+* *DOC:* **reflection** *(ALL)*
   * [ ] *DOC:* **reflection:** preface
   * [ ] *DOC:* **reflection:** arne
-  * [ ] *DOC:* **reflection:** yunus
+  * [x] *DOC:* **reflection:** yunus
   * [x] *DOC:* **reflection:** timm
   * [ ] *DOC:* **reflection:** daniel
 * [ ] *CODING:* **help dialog**
