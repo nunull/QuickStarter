@@ -26,7 +26,7 @@ ToDo
 #### REMINDER: there are some poins, which are marked with ALL
 
 * [x] *DOC:* **requirements**: skills *(YUNUS)*
-* [ ] *DOC:* **naming and design** *(YUNUS)*
+* [x] *DOC:* **naming and design** *(YUNUS)*
 * [ ] *DOC:* **class description** *(YUNUS)*
 * [x] *DOC:* **protocols** *(YUNUS)*
 * [x] *DOC:* **requirements**: technical requirement: CI *(TIMM)*
