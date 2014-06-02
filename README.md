@@ -68,7 +68,7 @@ ToDo
 
 * [ ] Projektauftrag
 
-* [ ] Protokoll Projektsitzung
+* [x] Protokoll Projektsitzung
 
 * [ ] Struktur der Projektdokumentation im BSCW
 
