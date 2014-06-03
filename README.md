@@ -41,19 +41,27 @@ ToDo
   * [x] *DOC:* **reflection:** yunus
   * [x] *DOC:* **reflection:** timm
 
-### Due to Mo, 9 Jun
+### Due to Fr, 6 Jun
 
 * [ ] *DOC:* **zeitlicher ablauf** *(ARNE)*
 * [ ] *DOC:* **class description** *(YUNUS)*
 * [ ] *DOC:* **implementation**: problems during implementation *(TIMM)*
 * *DOC:* **reflection** *(ALL)*
-  * [ ] *DOC:* **reflection:** preface
+  * [ ] *DOC:* **reflection:** preface *(TIMM)*
   * [ ] *DOC:* **reflection:** arne
   * [ ] *DOC:* **reflection:** daniel
+* [ ] *CODING:* **bigsearch (wiki, github, youtube)** *(ARNE)*
+* [ ] *CODING:* **help dialog** *(TIMM)*
+* [ ] *CODING:* **pref window (activation, display commands)** *(YUNUS)*
+
+----
+
+* [ ] *DOC:* **dev guide** *(?)*
+* [ ]  *maybe:* **future prospects (autocorrect, ...)** *(?)*
+
+### Due to Mo, 9 Jun
+
 * [ ] *DOC:* **final texts / format**
-* [ ]  *maybe:* **future prospects** **?**
-* [ ] *CODING:* **bigsearch (wiki, github, ...)** *(ARNE)*
-* [ ] *CODING:* **help dialog**
 * [ ] *CODING:* **COMMENTING** *(EVERYBODY)*
 
 ### Fr, 13 Jun
