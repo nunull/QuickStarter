@@ -27,32 +27,33 @@ ToDo
 
 * [x] *DOC:* **requirements**: skills *(YUNUS)*
 * [x] *DOC:* **naming and design** *(YUNUS)*
-* [ ] *DOC:* **class description** *(YUNUS)*
 * [x] *DOC:* **protocols** *(YUNUS)*
 * [x] *DOC:* **requirements**: technical requirement: CI *(TIMM)*
 * [x] *DOC:* **testing** *(TIMM)*
 * [x] *DOC:* **deployment** *(TIMM)*
 * [x] *DOC:* **UML** *(TIMM)*
-* [ ] *DOC:* **implementation**: problems during implementation *(TIMM)*
 * [x] *CODING:* **local file search** *(TIMM)*
 * [x] *CODING:* **testing** *(TIMM)*
 * [x] *TESTING:* **code coverage** *(TIMM)*
-* [ ] *DOC:* **zeitlicher ablauf** *(ARNE)*
 * [x] *DOC:* **user guide** *(ARNE)*
-* [ ] *CODING:* **bigsearch (wiki, github, ...)** *(ARNE)*
-* [ ] *DOC:* **preface** *(ARNE)*
+* [x] *DOC:* **preface** *(ARNE)*
 * *DOC:* **reflection** *(ALL)*
-  * [ ] *DOC:* **reflection:** preface
-  * [ ] *DOC:* **reflection:** arne
   * [x] *DOC:* **reflection:** yunus
   * [x] *DOC:* **reflection:** timm
-  * [ ] *DOC:* **reflection:** daniel
-* [ ] *CODING:* **help dialog**
 
 ### Due to Mo, 9 Jun
 
+* [ ] *DOC:* **zeitlicher ablauf** *(ARNE)*
+* [ ] *DOC:* **class description** *(YUNUS)*
+* [ ] *DOC:* **implementation**: problems during implementation *(TIMM)*
+* *DOC:* **reflection** *(ALL)*
+  * [ ] *DOC:* **reflection:** preface
+  * [ ] *DOC:* **reflection:** arne
+  * [ ] *DOC:* **reflection:** daniel
 * [ ] *DOC:* **final texts / format**
 * [ ]  *maybe:* **future prospects** **?**
+* [ ] *CODING:* **bigsearch (wiki, github, ...)** *(ARNE)*
+* [ ] *CODING:* **help dialog**
 * [ ] *CODING:* **COMMENTING** *(EVERYBODY)*
 
 ### Fr, 13 Jun
