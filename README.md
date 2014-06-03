@@ -86,8 +86,14 @@ ToDo
 * [ ] Erklärung zur selbstständigen Projektbearbeitung
 
 * [ ] Projektbewertung
-* [ ] UML
 
+* [x] UML
+
+### Fragen an die Betreuer
+
+* Welche Dokumente gehören in den Anhang der Dokumentation?
+* Ist unser Format der Fußnoten in Ordnung?
+* Schriftart der Dokumentation: Sans oder Serif?
 
 Build
 -----
