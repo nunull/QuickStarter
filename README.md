@@ -89,6 +89,8 @@ ToDo
 * [ ] Projektbewertung
 
 * [x] UML
+ 
+* [ ] Stability testing graphs
 
 ### Fragen an die Betreuer
 
