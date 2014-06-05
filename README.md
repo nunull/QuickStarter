@@ -45,7 +45,7 @@ ToDo
 
 * [ ] *DOC:* **zeitlicher ablauf** *(ARNE)*
 * [ ] *DOC:* **class description** *(YUNUS)*
-* [ ] *DOC:* **implementation**: problems during implementation *(TIMM)*
+* [x] *DOC:* **implementation**: problems during implementation *(TIMM)*
 * *DOC:* **reflection** *(ALL)*
   * [ ] *DOC:* **reflection:** preface *(TIMM)*
   * [ ] *DOC:* **reflection:** arne
