@@ -51,7 +51,7 @@ ToDo
   * [ ] *DOC:* **reflection:** arne
   * [ ] *DOC:* **reflection:** daniel
 * [ ] *CODING:* **bigsearch (wiki, github, youtube)** *(ARNE)*
-* [ ] *CODING:* **help dialog** *(TIMM)*
+* [x] *CODING:* **help dialog** *(TIMM)*
 * [ ] *CODING:* **pref window (activation, display commands)** *(YUNUS)*
 
 ----
