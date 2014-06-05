@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import de.dqi11.quickStarter.gui.HelpWindow;
 import de.dqi11.quickStarter.gui.MainWindow;
 import de.dqi11.quickStarter.gui.PreferenceWindow;
 import de.dqi11.quickStarter.gui.Taskbar;
@@ -30,6 +31,7 @@ public class MainController implements Observer {
 	private Taskbar taskbar;
 	private PersitencyController persitencyController;
 	private PreferenceWindow prefereceWindow;
+	private HelpWindow helpWindow;
 	
 	/**
 	 * Constructor.
@@ -88,6 +90,7 @@ public class MainController implements Observer {
 			mainWindow.addObserver(this);
 			mainWindow.init();
 			prefereceWindow = new PreferenceWindow(this);
+			helpWindow = new HelpWindow();
 			
 			// TODO
 	//		SwingUtilities.invokeLater(new Runnable() {
@@ -280,6 +283,10 @@ public class MainController implements Observer {
 		return os;
 	}
 
+	public void showHelpWindow() {
+		helpWindow.show();
+	}
+	
 	public void showPrefenceWindow() {
 		prefereceWindow.show();
 	}

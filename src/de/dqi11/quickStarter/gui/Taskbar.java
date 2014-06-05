@@ -82,7 +82,9 @@ public class Taskbar implements ActionListener, ItemListener {
 	public void actionPerformed(ActionEvent e) {
 		String actionCommand = e.getActionCommand();
 		
-		if(actionCommand.equals(aboutMenuItem.getActionCommand())) {
+		if(actionCommand.equals(helpMenuItem.getActionCommand())) {
+			mainController.showHelpWindow();
+		} else if(actionCommand.equals(aboutMenuItem.getActionCommand())) {
 			if(Desktop.isDesktopSupported()) {
 				try {
 					Desktop.getDesktop().browse(new URI("https://github.com/nunull/QuickStarter"));
