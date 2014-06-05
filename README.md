@@ -53,11 +53,12 @@ ToDo
 * [ ] *CODING:* **bigsearch (wiki, github, youtube)** *(ARNE)*
 * [x] *CODING:* **help dialog** *(TIMM)*
 * [x] *CODING:* **pref window (activation, display commands)** *(YUNUS)*
+* [ ] *DOC:* **fix UML diagram** *(TIMM)*
+* [ ] *DOC:* **future prospects (autocorrect, ...)** *(TIMM)*
 
 ----
 
 * [ ] *DOC:* **dev guide** *(?)*
-* [ ]  *maybe:* **future prospects (autocorrect, ...)** *(?)*
 
 ### Due to Mo, 9 Jun
 
