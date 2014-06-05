@@ -19,7 +19,6 @@ import javax.swing.event.ListSelectionListener;
 
 import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.modules.Module;
-import de.dqi11.quickStarter.os.OS;
 
 /**
  * A class to show and change the preferences of the program, including the modules.
@@ -29,6 +28,7 @@ public class PreferenceWindow extends Window {;
 	private JPanel contentPanel;
 	private LinkedList<JPanel> preferencePanels;
 	private Map<Module, Map<String, JTextField>> properties;
+	private Map<Module, JRadioButton> moduleStates;
 	
 
 	public PreferenceWindow(final MainController mainController) {
@@ -46,10 +46,12 @@ public class PreferenceWindow extends Window {;
 			public void componentHidden(ComponentEvent e) {
 				super.componentShown(e);
 				
-				// TODO save state
-				
 				for(Module module : properties.keySet()) {
 					Map<String, JTextField> moduleProperties = properties.get(module);
+					boolean isActive = moduleStates.get(module).isSelected();
+					
+					System.out.println(module.getClass().getSimpleName() + ":" + isActive);
+					mainController.setModuleActive(module, isActive);
 					
 					for(String key : moduleProperties.keySet()) {
 						JTextField textField = moduleProperties.get(key);
@@ -66,6 +68,7 @@ public class PreferenceWindow extends Window {;
 		
 		this.preferencePanels = new LinkedList<>();
 		this.properties = new TreeMap<>();
+		this.moduleStates = new TreeMap<>();
 		
 		initGUI();
 	}
@@ -92,6 +95,7 @@ public class PreferenceWindow extends Window {;
 			
 			JRadioButton isActiveButton = new JRadioButton("Active", mainController.isModuleActive(module));
 			isActiveButton.setPreferredSize(new Dimension(540, 20));
+			this.moduleStates.put(module, isActiveButton);
 			panel.add(isActiveButton);
 			
 			Map<String, String> properties = mainController.getModuleProperties(module, true);
