@@ -50,14 +50,32 @@ public class PersitencyController {
 	}
 
 	/**
-	 * Returns all currently active Modules.
+	 * Returns all Modules.
 	 * 
 	 * @return A list of Modules.
 	 */
 	public LinkedList<Module> getModules() {
+		return getModules(false);
+	}
+	
+	/**
+	 * Return all currently active Modules.
+	 * @return A list of active Modules.
+	 */
+	public LinkedList<Module> getActiveModules(){
+		return getModules(true);
+	}
+	
+	/**
+	 * 
+	 * @param onlyActivated true to get a list with activated Modules, false to get all Modules
+	 * @return a list of Modules (depending on the parameter)
+	 */
+	private LinkedList<Module> getModules(boolean onlyActivated){
 		NodeList modulesXML = configDocument.getElementsByTagName("module");
 		LinkedList<Module> modules = new LinkedList<>();
-
+		int ignoredModules = 0;
+		
 		@SuppressWarnings("unchecked")
 		LinkedList<Integer>[] moduleExceptions = new LinkedList[modulesXML.getLength()];
 
@@ -66,54 +84,80 @@ public class PersitencyController {
 		}
 
 		for(int i = 0, j = modulesXML.getLength(); i < j; i++) {
-			NodeList childs = modulesXML.item(i).getChildNodes();
-			String currentClassName = "";
+			Node moduleItem = modulesXML.item(i);
+			if (!onlyActivated || moduleItem.getAttributes().getNamedItem("active").getTextContent().equals("true")){
+				NodeList childs = moduleItem.getChildNodes();
+				String currentClassName = "";
+				int currentID = -1;
 
-			for(int n = 0, m = childs.getLength(); n < m; n++) {
-				Node child = childs.item(n);
+				for(int n = 0, m = childs.getLength(); n < m; n++) {
+					Node child = childs.item(n);
 
-				if(child.getNodeName().equals("class")) {
-					currentClassName = child.getTextContent();
-				} else if(child.getNodeName().equals("exceptions")) {
-					NodeList exceptions = child.getChildNodes();
+					if(child.getNodeName().equals("class")) {
+						currentClassName = child.getTextContent();
+					} else if(child.getNodeName().equals("exceptions")) {
+						NodeList exceptions = child.getChildNodes();
 
-					for(int x = 0, y = exceptions.getLength(); x < y; x++) {
-						Node exception = exceptions.item(x);
+						for(int x = 0, y = exceptions.getLength(); x < y; x++) {
+							Node exception = exceptions.item(x);
 
-						if(exception.getNodeName().equals("exception")) {
-							moduleExceptions[i].add(new Integer(exception.getTextContent()));
+							if(exception.getNodeName().equals("exception")) {
+								moduleExceptions[currentID].add(new Integer(exception.getTextContent()));
+							}
+						}
+					} else if(child.getNodeName().equals("id")) {
+						try {
+							currentID = Integer.parseInt(child.getTextContent());
+						} catch(NumberFormatException e) {
 						}
 					}
 				}
-			}
 
-			try {
-				Module module = (Module) Class.
-						forName("de.dqi11.quickStarter.modules." + currentClassName).
-						getDeclaredConstructor(MainController.class).
-						newInstance(mainController);
-
-				modules.add(module);
-			} catch (InstantiationException e) {
-			} catch (IllegalAccessException e) {
-			} catch (IllegalArgumentException e) {
-			} catch (InvocationTargetException e) {
-			} catch (NoSuchMethodException e) {
-			} catch (SecurityException e) {
-			} catch (ClassNotFoundException e) {
-			} catch (DOMException e) {
+				try {
+					Module module = (Module) Class.
+							forName("de.dqi11.quickStarter.modules." + currentClassName).
+							getDeclaredConstructor(MainController.class).
+							newInstance(mainController);
+//					modules.add(module);
+					
+					module.setID(currentID);
+					modules.add(module);
+				} catch (InstantiationException e) {
+				} catch (IllegalAccessException e) {
+				} catch (IllegalArgumentException e) {
+				} catch (InvocationTargetException e) {
+				} catch (NoSuchMethodException e) {
+				} catch (SecurityException e) {
+				} catch (ClassNotFoundException e) {
+				} catch (DOMException e) {
+				}
+			} else {
+				ignoredModules++;
 			}
 		}
-
+		
 		for(int i = 0, j = moduleExceptions.length; i < j; i++) {
 			LinkedList<Integer> currentModuleExceptions = moduleExceptions[i];
 
 			for(Integer id : currentModuleExceptions) {
-				modules.get(i).addException(modules.get(id));
+				try {
+					findModuleByID(i, modules).addException(findModuleByID(id, modules));
+				} catch(NullPointerException e) {
+				}
+				
+//				modules.get(i).addException(modules.get(id));
 			}
 		}
 
 		return modules;
+	}
+	
+	private Module findModuleByID(int ID, LinkedList<Module> modules) {
+		for(Module m : modules) {
+			if(m.getID() == ID) return m;
+		}
+		
+		return null;
 	}
 
 	/**
@@ -183,7 +227,8 @@ public class PersitencyController {
 								NamedNodeMap attributes = property.getAttributes();
 								boolean hasPrefAttribute = false;
 								boolean valid = false;
-
+								
+								if(attributes == null) return properties;
 								for(int a = 0, b = attributes.getLength(); a < b; a++) {
 									Node attribute = attributes.item(a);
 									String nodeName = attribute.getNodeName();
@@ -240,7 +285,6 @@ public class PersitencyController {
 
 					for(int x = 0, y = properties.getLength(); x < y; x++) {
 						Node property = properties.item(x);
-
 						if(property.getNodeName().equals(key)) {
 							return property.getTextContent();
 						}
