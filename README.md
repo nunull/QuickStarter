@@ -43,12 +43,12 @@ ToDo
 
 ### Due to Fr, 6 Jun
 
-* [ ] *DOC:* **zeitlicher ablauf** *(ARNE)*
+* [x] *DOC:* **zeitlicher ablauf** *(ARNE)*
 * [ ] *DOC:* **class description** *(YUNUS)*
 * [x] *DOC:* **implementation**: problems during implementation *(TIMM)*
 * *DOC:* **reflection** *(ALL)*
   * [x] *DOC:* **reflection:** preface *(TIMM)*
-  * [ ] *DOC:* **reflection:** arne
+  * [x] *DOC:* **reflection:** arne
   * [ ] *DOC:* **reflection:** daniel
 * [ ] *CODING:* **bigsearch (wiki, github, youtube)** *(ARNE)*
 * [x] *CODING:* **help dialog** *(TIMM)*
