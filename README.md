@@ -52,7 +52,7 @@ ToDo
   * [ ] *DOC:* **reflection:** daniel
 * [ ] *CODING:* **bigsearch (wiki, github, youtube)** *(ARNE)*
 * [x] *CODING:* **help dialog** *(TIMM)*
-* [ ] *CODING:* **pref window (activation, display commands)** *(YUNUS)*
+* [x] *CODING:* **pref window (activation, display commands)** *(YUNUS)*
 
 ----
 
