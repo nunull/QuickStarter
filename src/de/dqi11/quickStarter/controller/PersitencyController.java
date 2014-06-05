@@ -35,6 +35,11 @@ public class PersitencyController {
 	private MainController mainController;
 	private Document configDocument;
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param mainController The main-controller.
+	 */
 	public PersitencyController(MainController mainController) {
 		this.mainController = mainController;
 
@@ -60,6 +65,7 @@ public class PersitencyController {
 	
 	/**
 	 * Return all currently active Modules.
+	 * 
 	 * @return A list of active Modules.
 	 */
 	public LinkedList<Module> getActiveModules(){
@@ -67,6 +73,68 @@ public class PersitencyController {
 	}
 	
 	/**
+	 * Returns whether the given module is active or not.
+	 * 
+	 * @param module The module.
+	 * @return true if the given module is active.
+	 */
+	public boolean isModuleActive(Module module) {
+		LinkedList<Module> allModules = getModules();
+		LinkedList<Module> activeModules = getActiveModules();
+		
+		
+		for(Module m : allModules) {
+			if(module.getClass().getSimpleName().equals(m.getClass().getSimpleName())) {
+				for(Module activeModule : activeModules) {
+					if(module.getClass().getSimpleName().equals(activeModule.getClass().getSimpleName())) {
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Sets the state of the given module.
+	 * 
+	 * @param module The module.
+	 * @param active The state.
+	 */
+	public void setModuleActive(Module module, boolean active) {
+		NodeList modulesXML = configDocument.getElementsByTagName("module");
+
+		for(int i = 0, j = modulesXML.getLength(); i < j; i++) {
+			NodeList childs = modulesXML.item(i).getChildNodes();
+
+			for(int n = 0, m = childs.getLength(); n < m; n++) {
+				Node child = childs.item(n);
+
+				if(child.getNodeName().equals("class") && 
+							child.getTextContent().equals(module.getClass().getSimpleName())) {
+					Node isActive = modulesXML.item(i).getAttributes().getNamedItem("active");
+					
+					if(isActive != null) {
+						isActive.setNodeValue(active ? "true" : "false");
+					}
+				}
+			}
+		}
+
+		DOMSource source = new DOMSource(configDocument);
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		try {
+			Transformer transformer = transformerFactory.newTransformer();
+			StreamResult streamResult = new StreamResult(CONFIG_FILE_PATH);
+			transformer.transform(source, streamResult);
+		} catch (TransformerConfigurationException e) {
+		} catch (TransformerException e) {
+		}
+	}
+	
+	/**
+	 * Returns the modules saved in XML.
 	 * 
 	 * @param onlyActivated true to get a list with activated Modules, false to get all Modules
 	 * @return a list of Modules (depending on the parameter)
@@ -145,7 +213,6 @@ public class PersitencyController {
 				try {
 					module.addException(exception);
 				} catch(NullPointerException e) {
-					System.out.println("NULL");
 				}
 			}
 		}
@@ -153,6 +220,13 @@ public class PersitencyController {
 		return modules;
 	}
 	
+	/**
+	 * Finds and returns a module by its ID.
+	 * 
+	 * @param ID The ID.
+	 * @param module The list of modules to search in.
+	 * @return The found module.
+	 */
 	private Module findModuleByID(int ID, LinkedList<Module> modules) {
 		for(Module m : modules) {
 			if(m.getID() == ID) return m;

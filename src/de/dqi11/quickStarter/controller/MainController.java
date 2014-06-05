@@ -243,8 +243,33 @@ public class MainController implements Observer {
 		return persitencyController.getModuleProperty(module, key);
 	}
 	
+	/**
+	 * Returns all Modules.
+	 * 
+	 * @return A list of Modules.
+	 */
 	public LinkedList<Module> getModules() {
 		return persitencyController.getModules();
+	}
+	
+	/**
+	 * Returns whether the given module is active or not.
+	 * 
+	 * @param module The module.
+	 * @return true if the given module is active.
+	 */
+	public boolean isModuleActive(Module module) {
+		return persitencyController.isModuleActive(module);
+	}
+	
+	/**
+	 * Sets the state of the given module.
+	 * 
+	 * @param module The module.
+	 * @param active The state.
+	 */
+	public void setModuleActive(Module module, boolean active) {
+		persitencyController.setModuleActive(module, active);
 	}
 
 	/**

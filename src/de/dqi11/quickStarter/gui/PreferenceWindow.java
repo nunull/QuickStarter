@@ -12,12 +12,14 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.modules.Module;
+import de.dqi11.quickStarter.os.OS;
 
 /**
  * A class to show and change the preferences of the program, including the modules.
@@ -44,6 +46,8 @@ public class PreferenceWindow extends Window {;
 			public void componentHidden(ComponentEvent e) {
 				super.componentShown(e);
 				
+				// TODO save state
+				
 				for(Module module : properties.keySet()) {
 					Map<String, JTextField> moduleProperties = properties.get(module);
 					
@@ -59,6 +63,7 @@ public class PreferenceWindow extends Window {;
 				}
 			}
 		});
+		
 		this.preferencePanels = new LinkedList<>();
 		this.properties = new TreeMap<>();
 		
@@ -81,8 +86,13 @@ public class PreferenceWindow extends Window {;
 			listModel.addElement(module.getClass().getSimpleName().replace("Module", ""));
 			
 			JPanel panel = new JPanel();
+			panel.setPreferredSize(new Dimension(560, 300));
 			panel.setVisible(false);
 			panel.setBackground(Color.WHITE);
+			
+			JRadioButton isActiveButton = new JRadioButton("Active", mainController.isModuleActive(module));
+			isActiveButton.setPreferredSize(new Dimension(540, 20));
+			panel.add(isActiveButton);
 			
 			Map<String, String> properties = mainController.getModuleProperties(module, true);
 			Map<String, JTextField> guiProperties = new TreeMap<>();
@@ -106,7 +116,10 @@ public class PreferenceWindow extends Window {;
 			preferencePanels.add(panel);
 			contentPanel.add(panel);
 		}
+		
 		list.setSelectedIndex(0);
+		preferencePanels.get(0).setVisible(true);
+		
 		list.addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
@@ -114,8 +127,8 @@ public class PreferenceWindow extends Window {;
 				for(JPanel panel : preferencePanels) {
 					panel.setVisible(false);
 				}
-				preferencePanels.get(list.getSelectedIndex()).setVisible(true);
 				
+				preferencePanels.get(list.getSelectedIndex()).setVisible(true);
 			}
 		});
 		

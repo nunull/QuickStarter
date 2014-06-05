@@ -1,17 +1,16 @@
 package de.dqi11.quickStarter.gui;
 
+import java.awt.Dimension;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import javax.imageio.stream.FileImageInputStream;
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.text.Document;
+import javax.swing.border.EmptyBorder;
 
 public class HelpWindow extends Window {
 	private boolean initialized = false;
-	private Document doc;
 	private JTextPane textPane;
 	
 	public HelpWindow() {
@@ -48,8 +47,14 @@ public class HelpWindow extends Window {
 	private void initGUI() {
 		textPane = new JTextPane();
 		textPane.setEditable(false);
+		textPane.setPreferredSize(new Dimension(740, 460));
 		
-		add(textPane);
+		JScrollPane scrollPane = new JScrollPane(textPane);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setPreferredSize(new Dimension(740, 460));
+		scrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		
+		add(scrollPane);
 	}
 	
 	@Override
