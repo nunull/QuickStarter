@@ -14,6 +14,7 @@ public abstract class Module implements Comparable<Module> {
 	private LinkedList<Module> exceptions;
 	private boolean active;
 	private String key;
+	private int ID;
 	
 	/**
 	 * Constructor
@@ -92,5 +93,13 @@ public abstract class Module implements Comparable<Module> {
 	@Override
 	public int compareTo(Module o) {
 		return this.getClass().getSimpleName().compareTo(o.getClass().getSimpleName());
+	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
 	}
 }

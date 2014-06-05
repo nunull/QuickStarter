@@ -55,7 +55,7 @@ public class MainController implements Observer {
 	 * Initializes the modules.
 	 */
 	private void initModules() {
-		modules = persitencyController.getModules();
+		modules = persitencyController.getActiveModules();
 		
 		// CoreModules have to be added last, since otherwise they won't receive 
 		// errors, which were produced by other Modules.

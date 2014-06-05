@@ -28,6 +28,7 @@ public class PreferenceWindow extends Window {;
 	private LinkedList<JPanel> preferencePanels;
 	private Map<Module, Map<String, JTextField>> properties;
 	
+
 	public PreferenceWindow(final MainController mainController) {
 		super("Preferences");
 		
