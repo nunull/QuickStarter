@@ -74,7 +74,6 @@ public class PersitencyController {
 	private LinkedList<Module> getModules(boolean onlyActivated){
 		NodeList modulesXML = configDocument.getElementsByTagName("module");
 		LinkedList<Module> modules = new LinkedList<>();
-		int ignoredModules = 0;
 		
 		@SuppressWarnings("unchecked")
 		LinkedList<Integer>[] moduleExceptions = new LinkedList[modulesXML.getLength()];
@@ -85,7 +84,9 @@ public class PersitencyController {
 
 		for(int i = 0, j = modulesXML.getLength(); i < j; i++) {
 			Node moduleItem = modulesXML.item(i);
-			if (!onlyActivated || moduleItem.getAttributes().getNamedItem("active").getTextContent().equals("true")){
+			if( !onlyActivated || 
+						(moduleItem.getAttributes().getNamedItem("active") != null && 
+						moduleItem.getAttributes().getNamedItem("active").getTextContent().equals("true") )) {
 				NodeList childs = moduleItem.getChildNodes();
 				String currentClassName = "";
 				int currentID = -1;
@@ -131,8 +132,6 @@ public class PersitencyController {
 				} catch (ClassNotFoundException e) {
 				} catch (DOMException e) {
 				}
-			} else {
-				ignoredModules++;
 			}
 		}
 		
@@ -140,12 +139,14 @@ public class PersitencyController {
 			LinkedList<Integer> currentModuleExceptions = moduleExceptions[i];
 
 			for(Integer id : currentModuleExceptions) {
-				try {
-					findModuleByID(i, modules).addException(findModuleByID(id, modules));
-				} catch(NullPointerException e) {
-				}
+				Module module = findModuleByID(i, modules);
+				Module exception = findModuleByID(id, modules);
 				
-//				modules.get(i).addException(modules.get(id));
+				try {
+					module.addException(exception);
+				} catch(NullPointerException e) {
+					System.out.println("NULL");
+				}
 			}
 		}
 
