@@ -47,7 +47,7 @@ ToDo
 * [ ] *DOC:* **class description** *(YUNUS)*
 * [x] *DOC:* **implementation**: problems during implementation *(TIMM)*
 * *DOC:* **reflection** *(ALL)*
-  * [ ] *DOC:* **reflection:** preface *(TIMM)*
+  * [x] *DOC:* **reflection:** preface *(TIMM)*
   * [ ] *DOC:* **reflection:** arne
   * [ ] *DOC:* **reflection:** daniel
 * [ ] *CODING:* **bigsearch (wiki, github, youtube)** *(ARNE)*
