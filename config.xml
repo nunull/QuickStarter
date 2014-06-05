@@ -28,9 +28,5 @@
     </module>
     <module active="true">
     	<id>5</id>
-        <class>GoogleMapsModule</class>
-    </module>
-    <module active="true">
-    	<id>6</id>
-    	<class>WikiSearchModule</class></module>
+    	<class>BigsearchModule</class></module>
 </modules>
