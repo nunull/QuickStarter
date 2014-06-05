@@ -68,7 +68,7 @@ public class CalculatorModule extends Module {
 				double result = evaluator.evaluate(search.getSearchString());
 				
 				return new ModuleAction(KEY, search.getSearchString() + " = <b>" + result + "</b>");
-			} catch(SyntaxError | ArithmeticException e) {
+			} catch(SyntaxError | ArithmeticException | NumberFormatException e) {
 				
 				// Return null, if something went wrong. (e.g. the String is not a mathematical expression)
 				return null;
