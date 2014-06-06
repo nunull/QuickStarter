@@ -95,6 +95,10 @@ ToDo
 ### Fragen an die Betreuer
 
 * Welche Dokumente gehören in den Anhang der Dokumentation?
+ * Was ist der Fahrplan?
+ * Was ist der Projektauftrag?
+ * Struktur der Projektdokumentation im BSCW?
+ * Projektbewertung
 * Ist unser Format der Fußnoten in Ordnung?
 * Schriftart der Dokumentation: Sans oder Serif?
 
