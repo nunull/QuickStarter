@@ -14,11 +14,11 @@ import de.dqi11.quickStarter.controller.Search;
 /**
  * Module for accessing the Wikipedia.com website
  */
-public class BigsearchModule extends Module {
+public class WebSearchModule extends Module {
 	private final String KEY = this.toString();
 //	private String systemLanguage;
 	
-	public BigsearchModule(MainController mainController) {
+	public WebSearchModule(MainController mainController) {
 		super(mainController);
 //		systemLanguage = Locale.getDefault().getCountry();
 	}

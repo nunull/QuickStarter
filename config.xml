@@ -6,16 +6,20 @@
     	<id>1</id>
     	<class>FileSearchModule</class>
     	<exceptions>
+        	<exception>0</exception>
         	<exception>3</exception>
-        	<exception>6</exception>
+        	<exception>4</exception>
+        	<exception>5</exception>
         </exceptions>
     </module>
     <module active="true">
     	<id>2</id>
         <class>GoogleSearchModule</class>
         <exceptions>
+        	<exception>0</exception>
         	<exception>3</exception>
-        	<exception>6</exception>
+        	<exception>4</exception>
+        	<exception>5</exception>
         </exceptions>
     </module>
     <module active="true">
@@ -28,5 +32,6 @@
     </module>
     <module active="true">
     	<id>5</id>
-    	<class>BigsearchModule</class></module>
+    	<class>WebSearchModule</class>
+    </module>
 </modules>
