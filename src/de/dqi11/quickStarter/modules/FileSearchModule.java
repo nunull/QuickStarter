@@ -134,29 +134,32 @@ public class FileSearchModule extends Module {
 	};
 	
 	private LinkedList<File> findFiles(File dir, FilenameFilter filter, int iteration) {
-		if(dir != null && dir.isDirectory() && !dir.isHidden()) {
+		if(dir != null && dir.isDirectory() && dir.canRead() && !dir.isHidden()) {
 			LinkedList<File> results = new LinkedList<>();
 			File[] files = dir.listFiles();
 			File[] resultsArray = dir.listFiles(filter);
 			
-			for(int i = 0, j = (resultsArray.length < MAX_RESULTS_PER_FOLTER ? resultsArray.length : MAX_RESULTS_PER_FOLTER); i < j; i++) {
-				if(!resultsArray[i].isHidden() && !resultsArray[i].getName().startsWith(".")) {
-					results.add(resultsArray[i]);
-				}
-			}
-			
-			if(files != null) {
-				for(int i = 0, j = files.length; i < j; i++) {
-					File file = files[i];
-					
-					if(file != null && file.isDirectory() && iteration < MAX_FOLDER_ITERATIONS) {
-						LinkedList<File> tmp = findFiles(file, filter, iteration + 1);
-						if(tmp != null) results.addAll(tmp);
+			if(resultsArray != null) {
+				for(int i = 0, j = (resultsArray.length < MAX_RESULTS_PER_FOLTER ? resultsArray.length : MAX_RESULTS_PER_FOLTER); i < j; i++) {
+					if(!resultsArray[i].isHidden() && !resultsArray[i].getName().startsWith(".")) {
+						results.add(resultsArray[i]);
 					}
 				}
+				
+				if(files != null) {
+					for(int i = 0, j = files.length; i < j; i++) {
+						File file = files[i];
+						
+						if(file != null && file.isDirectory() && file.canRead() && iteration < MAX_FOLDER_ITERATIONS) {
+							System.out.println("r");
+							LinkedList<File> tmp = findFiles(file, filter, iteration + 1);
+							if(tmp != null) results.addAll(tmp);
+						}
+					}
+				}
+				
+				return results;
 			}
-			
-			return results;
 		}
 		
 		return null;
