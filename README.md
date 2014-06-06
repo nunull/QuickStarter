@@ -53,7 +53,7 @@ ToDo
 * [x] *CODING:* **bigsearch (wiki, github, youtube)** *(ARNE)*
 * [x] *CODING:* **help dialog** *(TIMM)*
 * [x] *CODING:* **pref window (activation, display commands)** *(YUNUS)*
-* [ ] *DOC:* **fix UML diagram** *(TIMM)*
+* [x] *DOC:* **fix UML diagram** *(TIMM)*
 * [ ] *DOC:* **future prospects (autocorrect, ...)** *(TIMM)*
 
 ----
