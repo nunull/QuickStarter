@@ -482,7 +482,7 @@ bg=light_gray</panel_attributes>
       <w>112</w>
       <h>21</h>
     </coordinates>
-    <panel_attributes>BigsearchModule
+    <panel_attributes>WebSearchModule
 bg=light_gray</panel_attributes>
     <additional_attributes/>
   </element>

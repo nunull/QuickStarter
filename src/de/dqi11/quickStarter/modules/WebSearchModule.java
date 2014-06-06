@@ -12,15 +12,13 @@ import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.controller.Search;
 
 /**
- * Module for accessing the Wikipedia.com website
+ * This module is able to open the default browser to link the use to their search engines.
  */
 public class WebSearchModule extends Module {
 	private final String KEY = this.toString();
-//	private String systemLanguage;
 	
 	public WebSearchModule(MainController mainController) {
 		super(mainController);
-//		systemLanguage = Locale.getDefault().getCountry();
 	}
 
 	@Override
@@ -52,7 +50,7 @@ public class WebSearchModule extends Module {
 					}
 				}
 			};
-		} else if(search.isCommand("Youtube") && !search.getParams().equals("")) {
+		} else if(search.isCommand("youtube") && !search.getParams().equals("")) {
 			//TODO Exchange Google-icon with Youtube-icon
 			return new ModuleAction(KEY, "Youtube search for <b>" + search.getParams(), new ImageIcon("res/google-logo.png")) {
 				@Override

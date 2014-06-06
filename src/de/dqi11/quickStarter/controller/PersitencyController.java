@@ -28,7 +28,7 @@ import org.xml.sax.SAXException;
 import de.dqi11.quickStarter.modules.Module;
 
 /**
- * Container for all persistency-functionality.
+ * Container for all persistency-functionality (based on a XML file).
  */
 public class PersitencyController {
 	private final String CONFIG_FILE_PATH = "config.xml";
@@ -57,7 +57,7 @@ public class PersitencyController {
 	/**
 	 * Returns all Modules.
 	 * 
-	 * @return A list of Modules.
+	 * @return A list of Modules, which are registered in the XML file.
 	 */
 	public LinkedList<Module> getModules() {
 		return getModules(false);
@@ -66,7 +66,7 @@ public class PersitencyController {
 	/**
 	 * Return all currently active Modules.
 	 * 
-	 * @return A list of active Modules.
+	 * @return A list of active Modules, which are registered in the XML file.
 	 */
 	public LinkedList<Module> getActiveModules(){
 		return getModules(true);
