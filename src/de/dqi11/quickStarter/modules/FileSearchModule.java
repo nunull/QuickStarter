@@ -151,7 +151,6 @@ public class FileSearchModule extends Module {
 						File file = files[i];
 						
 						if(file != null && file.isDirectory() && file.canRead() && iteration < MAX_FOLDER_ITERATIONS) {
-							System.out.println("r");
 							LinkedList<File> tmp = findFiles(file, filter, iteration + 1);
 							if(tmp != null) results.addAll(tmp);
 						}
