@@ -44,7 +44,6 @@ ToDo
 ### Due to Fr, 6 Jun
 
 * [x] *DOC:* **zeitlicher ablauf** *(ARNE)*
-* [ ] *DOC:* **class description** *(YUNUS)*
 * [x] *DOC:* **implementation**: problems during implementation *(TIMM)*
 * *DOC:* **reflection** *(ALL)*
   * [x] *DOC:* **reflection:** preface *(TIMM)*
@@ -54,7 +53,6 @@ ToDo
 * [x] *CODING:* **help dialog** *(TIMM)*
 * [x] *CODING:* **pref window (activation, display commands)** *(YUNUS)*
 * [x] *DOC:* **fix UML diagram** *(TIMM)*
-* [ ] *DOC:* **future prospects (autocorrect, ...)** *(TIMM)*
 
 ----
 
@@ -62,7 +60,10 @@ ToDo
 
 ### Due to Mo, 9 Jun
 
+* [ ] *DOC:* **class description** *(YUNUS)*
 * [ ] *DOC:* **final texts / format**
+* [ ] *DOC:* **future prospects (autocorrect, ...)** *(TIMM)*
+* [ ] *DEPLOYMENT:* **create release** *(TIMM)*
 * [ ] *CODING:* **COMMENTING** *(EVERYBODY)*
 
 ### Fr, 13 Jun
