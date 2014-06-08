@@ -39,7 +39,7 @@ public class TranslateModule extends Module {
 					
 					phrase = search.getParam(0); 
 					if (phrase.equals("")) 
-						return new ModuleAction(KEY, "type the word to translate");
+						return new ModuleAction(KEY, "Type the word to translate");
 					
 					from = search.getParam(1);
 					if (from.equals("")) from = defaultSrcLanguage;
@@ -77,7 +77,7 @@ public class TranslateModule extends Module {
 			};
 			worker.execute();
 			
-			return new LoadingModuleAction(KEY, "translating " + text);
+			return new LoadingModuleAction(KEY, "Translating " + text);
 		}
 		
 		return null;

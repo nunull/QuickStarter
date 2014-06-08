@@ -40,7 +40,7 @@
 			</zipgroupfileset>
 		</jar>
 		
-		<jar jarfile="${dist}/QuickStarter-${DSTAMP}.jar" basedir="${build}">
+		<jar jarfile="${dist}/QuickStarter.jar" basedir="${build}">
 			<zipfileset src="${dist}/libs.jar" excludes="META-INF/*.SF" />
 			
 			<manifest>
