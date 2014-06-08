@@ -21,7 +21,7 @@ import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.modules.Module;
 
 /**
- * A class to show and change the preferences of the program, including the modules.
+ * A class to show and change the preferences of the program, including modules.
  */
 public class PreferenceWindow extends Window {;
 	private MainController mainController;
@@ -30,7 +30,11 @@ public class PreferenceWindow extends Window {;
 	private Map<Module, Map<String, JTextField>> properties;
 	private Map<Module, JRadioButton> moduleStates;
 	
-
+/**
+ * Constructor.
+ * 
+ * @param mainController
+ */
 	public PreferenceWindow(final MainController mainController) {
 		super("Preferences");
 		

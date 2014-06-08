@@ -10,6 +10,16 @@
 		<pathelement location="${build}"/>
 		<fileset dir="${lib.dir}" includes="**/*.jar"/>
 	</path>
+	
+	<pathconvert property="classpath.mapped" pathsep=" ">
+		<path refid="classpath"/>
+		<mapper>
+			<chainedmapper>
+				<flattenmapper/>
+				<globmapper from="*.jar" to="libs/*.jar"/>
+			</chainedmapper>
+		</mapper>
+	</pathconvert>
 
 	<target name="init">
 		<tstamp/>
@@ -23,7 +33,23 @@
 
 	<target name="dist" depends="compile">
 		<mkdir dir="${dist}"/>
-		<jar jarfile="${dist}/QuickStarter-${DSTAMP}.jar" basedir="${build}"/>
+		
+		<jar jarfile="${dist}/libs.jar">
+			<zipgroupfileset dir="${lib.dir}">
+				<include name="**/*.jar" />
+			</zipgroupfileset>
+		</jar>
+		
+		<jar jarfile="${dist}/QuickStarter-${DSTAMP}.jar" basedir="${build}">
+			<zipfileset src="${dist}/libs.jar" excludes="META-INF/*.SF" />
+			
+			<manifest>
+				<attribute name="Main-Class" value="de.dqi11.quickStarter.Main" />
+				<attribute name="Class-Path" value="${classpath.mapped}" />
+			</manifest>
+		</jar>
+		
+		<delete file="${dist}/libs.jar"/>
 	</target>
 	
 	<target name="buildTest" depends="dist">
