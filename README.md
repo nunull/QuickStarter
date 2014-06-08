@@ -88,11 +88,9 @@ ToDo
 
 * [ ] Erklärung zur selbstständigen Projektbearbeitung
 
-* [ ] Projektbewertung
-
 * [x] UML
  
-* [ ] Stability testing graphs
+* [x] Stability testing graphs
 
 * [ ] Marktanalyse?
 
