@@ -94,6 +94,8 @@ ToDo
  
 * [ ] Stability testing graphs
 
+* [ ] Marktanalyse?
+
 Build
 -----
 
