@@ -64,7 +64,7 @@ ToDo
 * [ ] *DOC:* **final texts / format**
 * [x] *DOC:* **footnotes** *(TIMM)*
 * [x] *DOC:* **future prospects (autocorrect, ...)** *(TIMM)*
-* [ ] *DEPLOYMENT:* **create release (v1.0)** *(TIMM)*
+* [x] *DEPLOYMENT:* **create release (v1.0)** *(TIMM)*
 * [ ] *CODING:* **COMMENTING** *(EVERYBODY)*
 
 ### Fr, 13 Jun
