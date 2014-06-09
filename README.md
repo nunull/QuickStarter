@@ -62,7 +62,7 @@ ToDo
 
 * [ ] *DOC:* **class description** *(YUNUS)*
 * [ ] *DOC:* **final texts / format**
-* [ ] *DOC:* **footnotes** *(TIMM)*
+* [x] *DOC:* **footnotes** *(TIMM)*
 * [x] *DOC:* **future prospects (autocorrect, ...)** *(TIMM)*
 * [ ] *DEPLOYMENT:* **create release (v1.0)** *(TIMM)*
 * [ ] *CODING:* **COMMENTING** *(EVERYBODY)*
