@@ -1,3 +1,27 @@
+/*
+ * QuickStarter - Spotlight-like QuickStarter Application.
+ * 
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014 Timm Albers, Arne Peschken, Yunus Uelker
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 package de.dqi11.quickStarter.modules;
 
 import java.awt.Color;
@@ -134,29 +158,31 @@ public class FileSearchModule extends Module {
 	};
 	
 	private LinkedList<File> findFiles(File dir, FilenameFilter filter, int iteration) {
-		if(dir != null && dir.isDirectory() && !dir.isHidden()) {
+		if(dir != null && dir.isDirectory() && dir.canRead() && !dir.isHidden()) {
 			LinkedList<File> results = new LinkedList<>();
 			File[] files = dir.listFiles();
 			File[] resultsArray = dir.listFiles(filter);
 			
-			for(int i = 0, j = (resultsArray.length < MAX_RESULTS_PER_FOLTER ? resultsArray.length : MAX_RESULTS_PER_FOLTER); i < j; i++) {
-				if(!resultsArray[i].isHidden() && !resultsArray[i].getName().startsWith(".")) {
-					results.add(resultsArray[i]);
-				}
-			}
-			
-			if(files != null) {
-				for(int i = 0, j = files.length; i < j; i++) {
-					File file = files[i];
-					
-					if(file != null && file.isDirectory() && iteration < MAX_FOLDER_ITERATIONS) {
-						LinkedList<File> tmp = findFiles(file, filter, iteration + 1);
-						if(tmp != null) results.addAll(tmp);
+			if(resultsArray != null) {
+				for(int i = 0, j = (resultsArray.length < MAX_RESULTS_PER_FOLTER ? resultsArray.length : MAX_RESULTS_PER_FOLTER); i < j; i++) {
+					if(!resultsArray[i].isHidden() && !resultsArray[i].getName().startsWith(".")) {
+						results.add(resultsArray[i]);
 					}
 				}
+				
+				if(files != null) {
+					for(int i = 0, j = files.length; i < j; i++) {
+						File file = files[i];
+						
+						if(file != null && file.isDirectory() && file.canRead() && iteration < MAX_FOLDER_ITERATIONS) {
+							LinkedList<File> tmp = findFiles(file, filter, iteration + 1);
+							if(tmp != null) results.addAll(tmp);
+						}
+					}
+				}
+				
+				return results;
 			}
-			
-			return results;
 		}
 		
 		return null;

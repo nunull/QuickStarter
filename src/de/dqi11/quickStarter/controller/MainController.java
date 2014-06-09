@@ -1,3 +1,27 @@
+/*
+ * QuickStarter - Spotlight-like QuickStarter Application.
+ * 
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014 Timm Albers, Arne Peschken, Yunus Uelker
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 package de.dqi11.quickStarter.controller;
 
 import java.awt.HeadlessException;
@@ -7,6 +31,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import de.dqi11.quickStarter.gui.HelpWindow;
 import de.dqi11.quickStarter.gui.MainWindow;
 import de.dqi11.quickStarter.gui.PreferenceWindow;
 import de.dqi11.quickStarter.gui.Taskbar;
@@ -30,6 +55,7 @@ public class MainController implements Observer {
 	private Taskbar taskbar;
 	private PersitencyController persitencyController;
 	private PreferenceWindow prefereceWindow;
+	private HelpWindow helpWindow;
 	
 	/**
 	 * Constructor.
@@ -55,7 +81,7 @@ public class MainController implements Observer {
 	 * Initializes the modules.
 	 */
 	private void initModules() {
-		modules = persitencyController.getModules();
+		modules = persitencyController.getActiveModules();
 		
 		// CoreModules have to be added last, since otherwise they won't receive 
 		// errors, which were produced by other Modules.
@@ -88,6 +114,7 @@ public class MainController implements Observer {
 			mainWindow.addObserver(this);
 			mainWindow.init();
 			prefereceWindow = new PreferenceWindow(this);
+			helpWindow = new HelpWindow();
 			
 			// TODO
 	//		SwingUtilities.invokeLater(new Runnable() {
@@ -240,8 +267,33 @@ public class MainController implements Observer {
 		return persitencyController.getModuleProperty(module, key);
 	}
 	
+	/**
+	 * Returns all Modules.
+	 * 
+	 * @return A list of Modules.
+	 */
 	public LinkedList<Module> getModules() {
 		return persitencyController.getModules();
+	}
+	
+	/**
+	 * Returns whether the given module is active or not.
+	 * 
+	 * @param module The module.
+	 * @return true if the given module is active.
+	 */
+	public boolean isModuleActive(Module module) {
+		return persitencyController.isModuleActive(module);
+	}
+	
+	/**
+	 * Sets the state of the given module.
+	 * 
+	 * @param module The module.
+	 * @param active The state.
+	 */
+	public void setModuleActive(Module module, boolean active) {
+		persitencyController.setModuleActive(module, active);
 	}
 
 	/**
@@ -280,6 +332,10 @@ public class MainController implements Observer {
 		return os;
 	}
 
+	public void showHelpWindow() {
+		helpWindow.show();
+	}
+	
 	public void showPrefenceWindow() {
 		prefereceWindow.show();
 	}

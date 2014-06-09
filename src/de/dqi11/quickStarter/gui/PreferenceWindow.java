@@ -1,3 +1,27 @@
+/*
+ * QuickStarter - Spotlight-like QuickStarter Application.
+ * 
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014 Timm Albers, Arne Peschken, Yunus Uelker
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 package de.dqi11.quickStarter.gui;
 
 import java.awt.Color;
@@ -12,6 +36,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -20,14 +45,20 @@ import de.dqi11.quickStarter.controller.MainController;
 import de.dqi11.quickStarter.modules.Module;
 
 /**
- * A class to show and change the preferences of the program, including the modules.
+ * A class to show and change the preferences of the program, including modules.
  */
 public class PreferenceWindow extends Window {;
 	private MainController mainController;
 	private JPanel contentPanel;
 	private LinkedList<JPanel> preferencePanels;
 	private Map<Module, Map<String, JTextField>> properties;
+	private Map<Module, JRadioButton> moduleStates;
 	
+/**
+ * Constructor.
+ * 
+ * @param mainController
+ */
 	public PreferenceWindow(final MainController mainController) {
 		super("Preferences");
 		
@@ -45,6 +76,10 @@ public class PreferenceWindow extends Window {;
 				
 				for(Module module : properties.keySet()) {
 					Map<String, JTextField> moduleProperties = properties.get(module);
+					boolean isActive = moduleStates.get(module).isSelected();
+					
+					System.out.println(module.getClass().getSimpleName() + ":" + isActive);
+					mainController.setModuleActive(module, isActive);
 					
 					for(String key : moduleProperties.keySet()) {
 						JTextField textField = moduleProperties.get(key);
@@ -58,8 +93,10 @@ public class PreferenceWindow extends Window {;
 				}
 			}
 		});
+		
 		this.preferencePanels = new LinkedList<>();
 		this.properties = new TreeMap<>();
+		this.moduleStates = new TreeMap<>();
 		
 		initGUI();
 	}
@@ -80,8 +117,14 @@ public class PreferenceWindow extends Window {;
 			listModel.addElement(module.getClass().getSimpleName().replace("Module", ""));
 			
 			JPanel panel = new JPanel();
+			panel.setPreferredSize(new Dimension(560, 300));
 			panel.setVisible(false);
 			panel.setBackground(Color.WHITE);
+			
+			JRadioButton isActiveButton = new JRadioButton("Active", mainController.isModuleActive(module));
+			isActiveButton.setPreferredSize(new Dimension(540, 20));
+			this.moduleStates.put(module, isActiveButton);
+			panel.add(isActiveButton);
 			
 			Map<String, String> properties = mainController.getModuleProperties(module, true);
 			Map<String, JTextField> guiProperties = new TreeMap<>();
@@ -105,7 +148,10 @@ public class PreferenceWindow extends Window {;
 			preferencePanels.add(panel);
 			contentPanel.add(panel);
 		}
+		
 		list.setSelectedIndex(0);
+		preferencePanels.get(0).setVisible(true);
+		
 		list.addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
@@ -113,8 +159,8 @@ public class PreferenceWindow extends Window {;
 				for(JPanel panel : preferencePanels) {
 					panel.setVisible(false);
 				}
-				preferencePanels.get(list.getSelectedIndex()).setVisible(true);
 				
+				preferencePanels.get(list.getSelectedIndex()).setVisible(true);
 			}
 		});
 		

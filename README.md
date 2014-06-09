@@ -23,34 +23,48 @@ ToDo
 
 ### Due to Mo, 2 Jun
 
+#### REMINDER: there are some poins, which are marked with ALL
+
 * [x] *DOC:* **requirements**: skills *(YUNUS)*
-* [ ] *DOC:* **naming and design** *(YUNUS)*
-* [ ] *DOC:* **class description** *(YUNUS)*
-* [ ] *DOC:* **protocols** *(YUNUS)*
+* [x] *DOC:* **naming and design** *(YUNUS)*
+* [x] *DOC:* **protocols** *(YUNUS)*
 * [x] *DOC:* **requirements**: technical requirement: CI *(TIMM)*
 * [x] *DOC:* **testing** *(TIMM)*
-* [ ] *DOC:* **deployment** *(TIMM)*
+* [x] *DOC:* **deployment** *(TIMM)*
 * [x] *DOC:* **UML** *(TIMM)*
-* [ ] *DOC:* **implementation**: problems during implementation *(TIMM)*
 * [x] *CODING:* **local file search** *(TIMM)*
 * [x] *CODING:* **testing** *(TIMM)*
 * [x] *TESTING:* **code coverage** *(TIMM)*
-* [ ] *DOC:* **zeitlicher ablauf** *(ARNE)*
-* [ ] *DOC:* **user guide** *(ARNE)*
-* [ ] *CODING:* **bigsearch (wiki, github, ...)** *(ARNE)*
-* [ ] *DOC:* **preface** *(ARNE)*
-* [ ] *DOC:* **reflection** *(ALL)*
-  * [ ] *DOC:* **reflection:** preface
-  * [ ] *DOC:* **reflection:** arne
-  * [ ] *DOC:* **reflection:** yunus
-  * [ ] *DOC:* **reflection:** timm
+* [x] *DOC:* **user guide** *(ARNE)*
+* [x] *DOC:* **preface** *(ARNE)*
+* *DOC:* **reflection** *(ALL)*
+  * [x] *DOC:* **reflection:** yunus
+  * [x] *DOC:* **reflection:** timm
+
+### Due to Fr, 6 Jun
+
+* [x] *DOC:* **zeitlicher ablauf** *(ARNE)*
+* [x] *DOC:* **implementation**: problems during implementation *(TIMM)*
+* *DOC:* **reflection** *(ALL)*
+  * [x] *DOC:* **reflection:** preface *(TIMM)*
+  * [x] *DOC:* **reflection:** arne
   * [ ] *DOC:* **reflection:** daniel
-* [ ] *CODING:* **help dialog**
+* [x] *CODING:* **bigsearch (wiki, github, youtube)** *(ARNE)*
+* [x] *CODING:* **help dialog** *(TIMM)*
+* [x] *CODING:* **pref window (activation, display commands)** *(YUNUS)*
+* [x] *DOC:* **fix UML diagram** *(TIMM)*
+
+----
+
+* [ ] *DOC:* **dev guide** *(?)*
 
 ### Due to Mo, 9 Jun
 
+* [ ] *DOC:* **class description** *(YUNUS)*
 * [ ] *DOC:* **final texts / format**
-* ([ ] *DOC:* **future prospects**) **?**
+* [x] *DOC:* **footnotes** *(TIMM)*
+* [x] *DOC:* **future prospects (autocorrect, ...)** *(TIMM)*
+* [x] *DEPLOYMENT:* **create release (v1.0)** *(TIMM)*
 * [ ] *CODING:* **COMMENTING** *(EVERYBODY)*
 
 ### Fr, 13 Jun
@@ -66,7 +80,7 @@ ToDo
 
 * [ ] Projektauftrag
 
-* [ ] Protokoll Projektsitzung
+* [x] Protokoll Projektsitzung
 
 * [ ] Struktur der Projektdokumentation im BSCW
 
@@ -74,7 +88,11 @@ ToDo
 
 * [ ] Erklärung zur selbstständigen Projektbearbeitung
 
-* [ ] Projektbewertung
+* [x] UML
+ 
+* [x] Stability testing graphs
+
+* [ ] Marktanalyse?
 
 Build
 -----
