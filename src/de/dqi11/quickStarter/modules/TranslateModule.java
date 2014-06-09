@@ -59,7 +59,8 @@ public class TranslateModule extends Module {
 
 				@Override
 				protected ModuleAction doInBackground() throws Exception {
-					String from, to, phrase;
+					String from, to; 
+					final String phrase;
 					
 					phrase = search.getParam(0); 
 					if (phrase.equals("")) 
@@ -78,9 +79,9 @@ public class TranslateModule extends Module {
 							if(Desktop.isDesktopSupported()) {
 								try {
 									if(systemLanguage != null)
-										Desktop.getDesktop().browse(new URI("https://translate.google.com/#auto/" + systemLanguage + "/" + search.getParams().replaceAll(" ", "+")));
+										Desktop.getDesktop().browse(new URI("https://translate.google.com/#auto/" + systemLanguage + "/" + phrase.replaceAll(" ", "+")));
 									else
-										Desktop.getDesktop().browse(new URI("https://translate.google.com/#auto/en/" + search.getParams().replaceAll(" ", "+")));
+										Desktop.getDesktop().browse(new URI("https://translate.google.com/#auto/en/" + phrase.replaceAll(" ", "+")));
 								} catch (IOException | URISyntaxException e) {
 									getMainController().updateModule(new WarningModuleAction(KEY, "An error occured."));
 								}
