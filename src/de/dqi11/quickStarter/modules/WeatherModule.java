@@ -42,7 +42,8 @@ public class WeatherModule extends Module {
 			
 			// Set up the worker, that will get the necessary data in the background.
 			worker = new SwingWorker<ModuleAction, ModuleAction>() {
-
+				private String icon;
+				
 				@Override
 				protected ModuleAction doInBackground() throws Exception {
 					String location = search.getParam(0);
@@ -62,7 +63,10 @@ public class WeatherModule extends Module {
 					if(temp == (int) temp) tempFormated = String.format("%s", (int) temp);
 					
 					String text = jsonParser.get("name") + ": <b>" + tempFormated + "\u00B0C</b>";
-					return new ModuleAction(KEY, text, new ImageIcon("res/weather-icons/weather-icon.png")) {
+					icon = (jsonParser.getArrayList("weather").get(0).get("icon"));
+					icon = icon.substring(0, 2) + ".png";
+					
+					return new ModuleAction(KEY, text, new ImageIcon("res/weather-icons/" + icon)) {
 						@Override
 						public ModuleWindow getModuleWindow(Search search) {
 							final String city = search.getParam(0).split(",")[0];
@@ -72,8 +76,6 @@ public class WeatherModule extends Module {
 							JPanel container = new JPanel();
 							container.setBackground(Color.WHITE);
 							
-							String icon = (jsonParser.getArrayList("weather").get(0).get("icon"));
-							icon = icon.substring(0, 2) + ".png";
 							JLabel iconLabel = new JLabel(new ImageIcon ("res/weather-icons/" + icon));
 							container.add(iconLabel);
 							
@@ -121,7 +123,7 @@ public class WeatherModule extends Module {
 					try {
 						getMainController().updateModule(get());
 					} catch (InterruptedException | ExecutionException e) {
-						getMainController().updateModule(new WarningModuleAction(KEY, "An error occured.", new ImageIcon("res/weather-icon-tmp.png")));
+						getMainController().updateModule(new WarningModuleAction(KEY, "No known city found.", new ImageIcon("res/weather-icon-tmp.png")));
 
 						try {
 							getModuleAction(search);
