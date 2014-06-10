@@ -82,13 +82,13 @@ ToDo
 
 * [ ] Struktur der Projektdokumentation im BSCW
 
-* [ ] Bewertungsrahmen / - raster
+* [x] Bewertungsrahmen / - raster
 
 * [ ] Erklärung zur selbstständigen Projektbearbeitung
 
-* [ ] UML
+* [x] UML
  
-* [ ] Stability testing graphs
+* [x] Stability testing graphs
 
 * [ ] Marktanalyse?
 
