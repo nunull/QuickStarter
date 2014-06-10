@@ -78,8 +78,6 @@ ToDo
 
 * [x] Projektantrag
 
-* [ ] Projektauftrag
-
 * [x] Protokoll Projektsitzung
 
 * [ ] Struktur der Projektdokumentation im BSCW
@@ -88,9 +86,9 @@ ToDo
 
 * [ ] Erklärung zur selbstständigen Projektbearbeitung
 
-* [x] UML
+* [ ] UML
  
-* [x] Stability testing graphs
+* [ ] Stability testing graphs
 
 * [ ] Marktanalyse?
 
