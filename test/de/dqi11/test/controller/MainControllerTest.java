@@ -43,7 +43,7 @@ public class MainControllerTest {
         try {
             URL url = new URL("http://www.google.com");
             HttpURLConnection urlConnect = (HttpURLConnection) url.openConnection();
-            urlConnect.getContent();
+//            urlConnect.getContent();
         } catch (Exception e) {
             return false;
         }
