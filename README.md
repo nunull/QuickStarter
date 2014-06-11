@@ -80,11 +80,11 @@ ToDo
 
 * [x] Protokoll Projektsitzung
 
-* [ ] Struktur der Projektdokumentation im BSCW
+* [x] Struktur der Projektdokumentation im BSCW
 
 * [x] Bewertungsrahmen / - raster
 
-* [ ] Erklärung zur selbstständigen Projektbearbeitung
+* [x] Erklärung zur selbstständigen Projektbearbeitung
 
 * [x] UML
  
