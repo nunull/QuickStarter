@@ -90,7 +90,7 @@ public class WeatherModule extends Module {
 					icon = (jsonParser.getArrayList("weather").get(0).get("icon"));
 					icon = icon.substring(0, 2) + ".png";
 					
-					return new ModuleAction(KEY, text, new ImageIcon("res/weather-icons/" + icon)) {
+					return new ModuleAction(KEY, text, new ImageIcon("res/weather-icons/white/" + icon)) {
 						@Override
 						public ModuleWindow getModuleWindow(Search search) {
 							final String city = search.getParam(0).split(",")[0];
@@ -147,7 +147,7 @@ public class WeatherModule extends Module {
 					try {
 						getMainController().updateModule(get());
 					} catch (InterruptedException | ExecutionException e) {
-						getMainController().updateModule(new WarningModuleAction(KEY, "No known city found.", new ImageIcon("res/weather-icon-tmp.png")));
+						getMainController().updateModule(new WarningModuleAction(KEY, "No known city found.", new ImageIcon("res/weather-icons/weather-icon.png")));
 
 						try {
 							getModuleAction(search);
