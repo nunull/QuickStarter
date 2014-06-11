@@ -48,7 +48,7 @@ ToDo
 * *DOC:* **reflection** *(ALL)*
   * [x] *DOC:* **reflection:** preface *(TIMM)*
   * [x] *DOC:* **reflection:** arne
-  * [ ] *DOC:* **reflection:** daniel
+  * [x] *DOC:* **reflection:** daniel
 * [x] *CODING:* **bigsearch (wiki, github, youtube)** *(ARNE)*
 * [x] *CODING:* **help dialog** *(TIMM)*
 * [x] *CODING:* **pref window (activation, display commands)** *(YUNUS)*
