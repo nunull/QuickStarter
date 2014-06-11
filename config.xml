@@ -25,11 +25,11 @@
     <module active="true">
     	<id>3</id>
         <class>WeatherModule</class>
-    <properties><city pref="true">Bremen</city></properties></module>
+    <properties><city pref="true">Hamburg</city></properties></module>
     <module active="true">
     	<id>4</id>
         <class>TranslateModule</class>
-        <properties><defaultSrcLanguage>de</defaultSrcLanguage></properties>
+        <properties><defaultSrcLanguage pref="true">eng</defaultSrcLanguage></properties>
     </module>
     <module active="true">
     	<id>5</id>
