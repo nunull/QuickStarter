@@ -60,8 +60,8 @@ ToDo
 
 ### Due to Mo, 9 Jun
 
-* [ ] *DOC:* **class description** *(YUNUS)*
-* [ ] *DOC:* **final texts / format**
+* [x] *DOC:* **class description** *(YUNUS)*
+* [x] *DOC:* **final texts / format**
 * [x] *DOC:* **footnotes** *(TIMM)*
 * [x] *DOC:* **future prospects (autocorrect, ...)** *(TIMM)*
 * [x] *DEPLOYMENT:* **create release (v1.0)** *(TIMM)*
