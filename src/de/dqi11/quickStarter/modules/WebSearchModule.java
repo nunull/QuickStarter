@@ -49,7 +49,7 @@ public class WebSearchModule extends Module {
 	public ModuleAction getModuleAction(Search search) throws ConnectException {
 		if(search.isCommand("wiki") && !search.getParams().equals("")) {
 			//TODO Exchange Google-icon with Wikipedia-icon
-			return new ModuleAction(KEY, "Wikipedia search for <b>" + search.getParams(), new ImageIcon("res/google-logo.png")) {
+			return new ModuleAction(KEY, "Wikipedia search for <b>" + search.getParams(), new ImageIcon("res/wikipedia-logo.png")) {
 				@Override
 				public void invoke(Search search) {
 					if(Desktop.isDesktopSupported()) {
@@ -76,7 +76,7 @@ public class WebSearchModule extends Module {
 			};
 		} else if(search.isCommand("youtube") && !search.getParams().equals("")) {
 			//TODO Exchange Google-icon with Youtube-icon
-			return new ModuleAction(KEY, "Youtube search for <b>" + search.getParams(), new ImageIcon("res/google-logo.png")) {
+			return new ModuleAction(KEY, "Youtube search for <b>" + search.getParams(), new ImageIcon("res/youtube-logo.png")) {
 				@Override
 				public void invoke(Search search) {
 					if(Desktop.isDesktopSupported()) {
