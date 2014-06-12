@@ -29,7 +29,7 @@
     <module active="true">
     	<id>4</id>
         <class>TranslateModule</class>
-        <properties><defaultSrcLanguage>de</defaultSrcLanguage></properties>
+        <properties><defaultSrcLanguage pref="true">eng</defaultSrcLanguage></properties>
     </module>
     <module active="true">
     	<id>5</id>
