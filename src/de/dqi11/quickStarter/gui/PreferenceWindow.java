@@ -105,7 +105,7 @@ public class PreferenceWindow extends Window {;
 		DefaultListModel<String> listModel = new DefaultListModel<>();
 		final JList<String> list = new JList<>();
 		list.setModel(listModel);
-		list.setPreferredSize(new Dimension(200, 500));
+		list.setPreferredSize(new Dimension(180, 500));
 		list.setVisible(true);
 		
 		contentPanel = new JPanel();
