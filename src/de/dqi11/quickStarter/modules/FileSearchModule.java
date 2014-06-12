@@ -39,6 +39,7 @@ import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.SwingWorker;
@@ -66,10 +67,10 @@ public class FileSearchModule extends Module {
 				public ModuleWindow getModuleWindow(final Search search) {
 					final ModuleWindow moduleWindow = new ModuleWindow("File search: " + search.getSearchString());
 					
-					SwingWorker<JList<File>, JList<File>> worker = new SwingWorker<JList<File>, JList<File>>() {
+					SwingWorker<JScrollPane, JScrollPane> worker = new SwingWorker<JScrollPane, JScrollPane>() {
 
 						@Override
-						protected JList<File> doInBackground()
+						protected JScrollPane doInBackground()
 								throws Exception {
 							
 							final JList<File> list = new JList<>();
@@ -125,17 +126,23 @@ public class FileSearchModule extends Module {
 							list.setSelectedIndex(0);
 							list.setBackground(Color.WHITE);
 							
-							return list;
+							JScrollPane scrollPane;
+							if(results.size() == 0) {
+								scrollPane = new JScrollPane(new JLabel("No files found."));
+							} else {
+								scrollPane = new JScrollPane(list);
+							}
+							
+							scrollPane.setPreferredSize(new Dimension(770, 470));
+							scrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+							
+							return scrollPane;
 						}
 						
 						@Override
 						protected void done() {
 							try {
-								JScrollPane scrollPane = new JScrollPane(get());
-								scrollPane.setPreferredSize(new Dimension(770, 470));
-								scrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
-								
-								moduleWindow.add(scrollPane);
+								moduleWindow.add(get());
 							} catch (InterruptedException e) {
 							} catch (ExecutionException e) {
 							}
