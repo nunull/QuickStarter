@@ -104,26 +104,27 @@ public class PreferenceWindow extends Window {;
 	private void initGUI(){
 		DefaultListModel<String> listModel = new DefaultListModel<>();
 		final JList<String> list = new JList<>();
+		list.setModel(listModel);
+		list.setPreferredSize(new Dimension(200, 500));
+		list.setVisible(true);
 		
-		
+		contentPanel = new JPanel();
+		contentPanel.setPreferredSize(new Dimension(560, 500));
+		contentPanel.setBackground(Color.WHITE);
 		
 		LinkedList<Module> modules = mainController.getModules();
 		for(Module module : modules) {
 			listModel.addElement(module.getClass().getSimpleName().replace("Module", ""));
-						
-			contentPanel = new JPanel();
-			contentPanel.setPreferredSize(new Dimension(560, 300));
-			contentPanel.setVisible(false);
-			contentPanel.setBackground(Color.WHITE);
-
-			list.setModel(listModel);
-			list.setPreferredSize(new Dimension(200, 500));
-			list.setVisible(true);
+			
+			JPanel panel = new JPanel();
+			panel.setPreferredSize(new Dimension(560, 300));
+			panel.setVisible(false);
+			panel.setBackground(Color.WHITE);
 			
 			JRadioButton isActiveButton = new JRadioButton("Active", mainController.isModuleActive(module));
-						
 			isActiveButton.setPreferredSize(new Dimension(540, 20));
 			this.moduleStates.put(module, isActiveButton);
+			panel.add(isActiveButton);
 			
 			Map<String, String> properties = mainController.getModuleProperties(module, true);
 			Map<String, JTextField> guiProperties = new TreeMap<>();
@@ -136,20 +137,16 @@ public class PreferenceWindow extends Window {;
 				valueField.setPreferredSize(new Dimension(340, 20));
 				valueField.setName(value);
 				
-				contentPanel.add(keyLabel);
-				contentPanel.add(valueField);
+				panel.add(keyLabel);
+				panel.add(valueField);
 				
 				guiProperties.put(key, valueField);
 			}
 			
-			
 			this.properties.put(module, guiProperties);
 			
-			add(list);
-			add(contentPanel);
-			contentPanel.add(isActiveButton);
-			
-			preferencePanels.add(contentPanel);
+			preferencePanels.add(panel);
+			contentPanel.add(panel);
 		}
 		
 		list.setSelectedIndex(0);
@@ -162,9 +159,12 @@ public class PreferenceWindow extends Window {;
 				for(JPanel panel : preferencePanels) {
 					panel.setVisible(false);
 				}
+				
 				preferencePanels.get(list.getSelectedIndex()).setVisible(true);
 			}
 		});
 		
+		add(list);
+		add(contentPanel);
 	}
 }
