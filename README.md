@@ -4,7 +4,7 @@ QuickStarter
 Download
 --------
 
-
+[**Download the latest release** (v1.0)](https://github.com/nunull/QuickStarter/releases/tag/v1.0)
 
 Build
 -----
