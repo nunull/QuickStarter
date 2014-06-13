@@ -1,5 +1,5 @@
-QuickStarter
-============
+![](https://raw.githubusercontent.com/nunull/QuickStarter/master/work/photoshop/logo/logo-big.png)
+==================================================================================================
 
 Download
 --------
